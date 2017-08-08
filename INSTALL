@@ -1,0 +1,7 @@
+Building c0ban
+
+See doc/build-*.md for instructions on building c0band,
+the intended-for-services, no-graphical-interface, reference
+implementation of c0ban.
+
+Currently, c0ban is only supported on ubuntu 16.04. (Aug 8, 2017)
