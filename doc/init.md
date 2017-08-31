@@ -1,6 +1,3 @@
-Currently, this file is not supported by c0ban (Aug 8, 2017)
-
-
 Sample init scripts and service configuration for bitcoind
 ==========================================================
 

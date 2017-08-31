@@ -1,6 +1,5 @@
 // Copyright (c) 2010 Satoshi Nakamoto
 // Copyright (c) 2009-2015 The Bitcoin Core developers
-// Copyright (c) 2016-2017 The c0ban developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -33,9 +32,7 @@ class CBaseMainParams : public CBaseChainParams
 public:
     CBaseMainParams()
     {
-        /*nRPCPort = 8332; by Zhang*/
         nRPCPort = 3882;
-        //nRPCPort = 8882;
     }
 };
 static CBaseMainParams mainParams;
@@ -48,9 +45,7 @@ class CBaseTestNetParams : public CBaseChainParams
 public:
     CBaseTestNetParams()
     {
-        /* nRPCPort = 18332; by Zhang */
         nRPCPort = 13882;
-        //nRPCPort = 18882;
         strDataDir = "testnet3";
     }
 };
@@ -64,9 +59,7 @@ class CBaseRegTestParams : public CBaseChainParams
 public:
     CBaseRegTestParams()
     {
-        /* nRPCPort = 18332; by Zhang */
         nRPCPort = 13882;
-        //nRPCPort = 18882;
         strDataDir = "regtest";
     }
 };

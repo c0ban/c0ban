@@ -1,5 +1,4 @@
-// Copyright (c) 2012-2014 The Bitcoin Core developers
-// Copyright (c) 2016-2017 The c0ban developers
+// Copyright (c) 2012-2016 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -80,20 +79,18 @@ static std::string FormatVersion(int nVersion)
 
 std::string FormatFullVersion()
 {
-    //return CLIENT_BUILD; Modified by Qianren Zhang  Oct. 10, 2016
-	std::string ret = "c0ban 0.1.0.0";
-	return ret;
+  std::string ret = "c0ban 0.1.1.0";
+  return ret;
 }
 
 std::string FormatSubVersion2()
 {
-    //return CLIENT_BUILD; Modified by Qianren Zhang  Oct. 10, 2016
-	std::string ret = "CBN 0.1.0.0";
+	std::string ret = "CBN 0.1.1.0";
 	return ret;
 }
 
-/** 
- * Format the subversion field according to BIP 14 spec (https://github.com/bitcoin/bips/blob/master/bip-0014.mediawiki) 
+/**
+ * Format the subversion field according to BIP 14 spec (https://github.com/bitcoin/bips/blob/master/bip-0014.mediawiki)
  */
 std::string FormatSubVersion(const std::string& name, int nClientVersion, const std::vector<std::string>& comments)
 {

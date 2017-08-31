@@ -1,5 +1,5 @@
 // Copyright (c) 2010 Satoshi Nakamoto
-// Copyright (c) 2009-2015 The Bitcoin Core developers
+// Copyright (c) 2009-2016 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -18,6 +18,8 @@
 #include <boost/function.hpp>
 
 #include <univalue.h>
+
+static const unsigned int DEFAULT_RPC_SERIALIZE_VERSION = 1;
 
 class CRPCCommand;
 
@@ -41,14 +43,17 @@ struct UniValueType {
     UniValue::VType type;
 };
 
-class JSONRequest
+class JSONRPCRequest
 {
 public:
     UniValue id;
     std::string strMethod;
     UniValue params;
+    bool fHelp;
+    std::string URI;
+    std::string authUser;
 
-    JSONRequest() { id = NullUniValue; }
+    JSONRPCRequest() { id = NullUniValue; params = NullUniValue; fHelp = false; }
     void parse(const UniValue& valRequest);
 };
 
@@ -72,6 +77,11 @@ bool RPCIsInWarmup(std::string *statusOut);
  */
 void RPCTypeCheck(const UniValue& params,
                   const std::list<UniValue::VType>& typesExpected, bool fAllowNull=false);
+
+/**
+ * Type-check one argument; throws JSONRPCError if wrong type given.
+ */
+void RPCTypeCheckArgument(const UniValue& value, UniValue::VType typeExpected);
 
 /*
   Check for expected keys/value types in an Object.
@@ -122,7 +132,7 @@ void RPCUnsetTimerInterface(RPCTimerInterface *iface);
  */
 void RPCRunLater(const std::string& name, boost::function<void(void)> func, int64_t nSeconds);
 
-typedef UniValue(*rpcfn_type)(const UniValue& params, bool fHelp);
+typedef UniValue(*rpcfn_type)(const JSONRPCRequest& jsonRequest);
 
 class CRPCCommand
 {
@@ -131,6 +141,7 @@ public:
     std::string name;
     rpcfn_type actor;
     bool okSafeMode;
+    std::vector<std::string> argNames;
 };
 
 /**
@@ -147,12 +158,11 @@ public:
 
     /**
      * Execute a method.
-     * @param method   Method to execute
-     * @param params   UniValue Array of arguments (JSON objects)
+     * @param request The JSONRPCRequest to execute
      * @returns Result of the call.
      * @throws an exception (UniValue) when an error happens.
      */
-    UniValue execute(const std::string &method, const UniValue &params) const;
+    UniValue execute(const JSONRPCRequest &request) const;
 
     /**
     * Returns a list of registered commands
@@ -194,5 +204,9 @@ bool StartRPC();
 void InterruptRPC();
 void StopRPC();
 std::string JSONRPCExecBatch(const UniValue& vReq);
+void RPCNotifyBlockChange(bool ibd, const CBlockIndex *);
+
+// Retrieves any serialization flags requested in command line argument
+int RPCSerializationFlags();
 
 #endif // BITCOIN_RPCSERVER_H

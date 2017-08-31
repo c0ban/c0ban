@@ -1,7 +1,7 @@
 Description
 ------------
 
-This directory contains data-driven tests for various aspects of c0ban.
+This directory contains data-driven tests for various aspects of Bitcoin.
 
 License
 --------

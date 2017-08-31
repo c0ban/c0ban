@@ -1,11 +1,10 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2015 The Bitcoin Core developers
-// Copyright (c) 2016-2017 The c0ban developers
+// Copyright (c) 2009-2016 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #ifdef HAVE_CONFIG_H
-#include "config/c0ban-config.h"
+#include "config/bitcoin-config.h"
 #endif
 
 #include "netbase.h"
@@ -17,20 +16,14 @@
 #include "util.h"
 #include "utilstrencodings.h"
 
-#ifdef HAVE_GETADDRINFO_A
-#include <netdb.h>
-#endif
+#include <atomic>
 
 #ifndef WIN32
-#if HAVE_INET_PTON
-#include <arpa/inet.h>
-#endif
 #include <fcntl.h>
 #endif
 
 #include <boost/algorithm/string/case_conv.hpp> // for to_lower()
 #include <boost/algorithm/string/predicate.hpp> // for startswith() and endswith()
-#include <boost/thread.hpp>
 
 #if !defined(HAVE_MSG_NOSIGNAL) && !defined(MSG_NOSIGNAL)
 #define MSG_NOSIGNAL 0
@@ -45,6 +38,7 @@ bool fNameLookup = DEFAULT_NAME_LOOKUP;
 
 // Need ample time for negotiation for very slow proxies such as Tor (milliseconds)
 static const int SOCKS5_RECV_TIMEOUT = 20 * 1000;
+static std::atomic<bool> interruptSocks5Recv(false);
 
 enum Network ParseNetwork(std::string net) {
     boost::to_lower(net);
@@ -95,30 +89,9 @@ bool static LookupIntern(const char *pszName, std::vector<CNetAddr>& vIP, unsign
         }
     }
 
-#ifdef HAVE_GETADDRINFO_A
-    struct in_addr ipv4_addr;
-#ifdef HAVE_INET_PTON
-    if (inet_pton(AF_INET, pszName, &ipv4_addr) > 0) {
-        vIP.push_back(CNetAddr(ipv4_addr));
-        return true;
-    }
-
-    struct in6_addr ipv6_addr;
-    if (inet_pton(AF_INET6, pszName, &ipv6_addr) > 0) {
-        vIP.push_back(CNetAddr(ipv6_addr));
-        return true;
-    }
-#else
-    ipv4_addr.s_addr = inet_addr(pszName);
-    if (ipv4_addr.s_addr != INADDR_NONE) {
-        vIP.push_back(CNetAddr(ipv4_addr));
-        return true;
-    }
-#endif
-#endif
-
     struct addrinfo aiHint;
     memset(&aiHint, 0, sizeof(struct addrinfo));
+
     aiHint.ai_socktype = SOCK_STREAM;
     aiHint.ai_protocol = IPPROTO_TCP;
     aiHint.ai_family = AF_UNSPEC;
@@ -127,33 +100,8 @@ bool static LookupIntern(const char *pszName, std::vector<CNetAddr>& vIP, unsign
 #else
     aiHint.ai_flags = fAllowLookup ? AI_ADDRCONFIG : AI_NUMERICHOST;
 #endif
-
     struct addrinfo *aiRes = NULL;
-#ifdef HAVE_GETADDRINFO_A
-    struct gaicb gcb, *query = &gcb;
-    memset(query, 0, sizeof(struct gaicb));
-    gcb.ar_name = pszName;
-    gcb.ar_request = &aiHint;
-    int nErr = getaddrinfo_a(GAI_NOWAIT, &query, 1, NULL);
-    if (nErr)
-        return false;
-
-    do {
-        // Should set the timeout limit to a reasonable value to avoid
-        // generating unnecessary checking call during the polling loop,
-        // while it can still response to stop request quick enough.
-        // 2 seconds looks fine in our situation.
-        struct timespec ts = { 2, 0 };
-        gai_suspend(&query, 1, &ts);
-        boost::this_thread::interruption_point();
-
-        nErr = gai_error(query);
-        if (0 == nErr)
-            aiRes = query->ar_result;
-    } while (nErr == EAI_INPROGRESS);
-#else
     int nErr = getaddrinfo(pszName, NULL, &aiHint, &aiRes);
-#endif
     if (nErr)
         return false;
 
@@ -253,7 +201,7 @@ struct timeval MillisToTimeval(int64_t nTimeout)
 /**
  * Read bytes from socket. This will either read the full number of bytes requested
  * or return False on error or timeout.
- * This function can be interrupted by boost thread interrupt.
+ * This function can be interrupted by calling InterruptSocks5()
  *
  * @param data Buffer to receive into
  * @param len  Length of data to receive
@@ -293,7 +241,8 @@ bool static InterruptibleRecv(char* data, size_t len, int timeout, SOCKET& hSock
                 return false;
             }
         }
-        boost::this_thread::interruption_point();
+        if (interruptSocks5Recv)
+            return false;
         curTime = GetTimeMillis();
     }
     return len == 0;
@@ -339,7 +288,7 @@ static bool Socks5(const std::string& strDest, int port, const ProxyCredentials 
         vSocks5Init.push_back(0x01); // # METHODS
         vSocks5Init.push_back(0x00); // X'00' NO AUTHENTICATION REQUIRED
     }
-    ssize_t ret = send(hSocket, (const char*)begin_ptr(vSocks5Init), vSocks5Init.size(), MSG_NOSIGNAL);
+    ssize_t ret = send(hSocket, (const char*)vSocks5Init.data(), vSocks5Init.size(), MSG_NOSIGNAL);
     if (ret != (ssize_t)vSocks5Init.size()) {
         CloseSocket(hSocket);
         return error("Error sending to proxy");
@@ -364,7 +313,7 @@ static bool Socks5(const std::string& strDest, int port, const ProxyCredentials 
         vAuth.insert(vAuth.end(), auth->username.begin(), auth->username.end());
         vAuth.push_back(auth->password.size());
         vAuth.insert(vAuth.end(), auth->password.begin(), auth->password.end());
-        ret = send(hSocket, (const char*)begin_ptr(vAuth), vAuth.size(), MSG_NOSIGNAL);
+        ret = send(hSocket, (const char*)vAuth.data(), vAuth.size(), MSG_NOSIGNAL);
         if (ret != (ssize_t)vAuth.size()) {
             CloseSocket(hSocket);
             return error("Error sending authentication to proxy");
@@ -394,7 +343,7 @@ static bool Socks5(const std::string& strDest, int port, const ProxyCredentials 
     vSocks5.insert(vSocks5.end(), strDest.begin(), strDest.end());
     vSocks5.push_back((port >> 8) & 0xFF);
     vSocks5.push_back((port >> 0) & 0xFF);
-    ret = send(hSocket, (const char*)begin_ptr(vSocks5), vSocks5.size(), MSG_NOSIGNAL);
+    ret = send(hSocket, (const char*)vSocks5.data(), vSocks5.size(), MSG_NOSIGNAL);
     if (ret != (ssize_t)vSocks5.size()) {
         CloseSocket(hSocket);
         return error("Error sending to proxy");
@@ -479,7 +428,6 @@ bool static ConnectSocketDirectly(const CService &addrConnect, SOCKET& hSocketRe
     // Set to non-blocking
     if (!SetSocketNonBlocking(hSocket, true))
         return error("ConnectSocketDirectly: Setting socket to non-blocking failed, error %s\n", NetworkErrorString(WSAGetLastError()));
-
 
     if (connect(hSocket, (struct sockaddr*)&sockaddr, len) == SOCKET_ERROR)
     {
@@ -598,8 +546,8 @@ static bool ConnectThroughProxy(const proxyType &proxy, const std::string& strDe
     // do socks negotiation
     if (proxy.randomize_credentials) {
         ProxyCredentials random_auth;
-        random_auth.username = strprintf("%i", insecure_rand());
-        random_auth.password = strprintf("%i", insecure_rand());
+        static std::atomic_int counter;
+        random_auth.username = random_auth.password = strprintf("%i", counter++);
         if (!Socks5(strDest, (unsigned short)port, &random_auth, hSocket))
             return false;
     } else {
@@ -614,15 +562,12 @@ static bool ConnectThroughProxy(const proxyType &proxy, const std::string& strDe
 bool ConnectSocket(const CService &addrDest, SOCKET& hSocketRet, int nTimeout, bool *outProxyConnectionFailed)
 {
     proxyType proxy;
-    //LogPrintf("Enter ConnectSocket\n");
     if (outProxyConnectionFailed)
         *outProxyConnectionFailed = false;
 
-    if (GetProxy(addrDest.GetNetwork(), proxy)){
-
+    if (GetProxy(addrDest.GetNetwork(), proxy))
         return ConnectThroughProxy(proxy, addrDest.ToStringIP(), addrDest.GetPort(), hSocketRet, nTimeout, outProxyConnectionFailed);
-    }else // no proxy needed (none set for target network)
-
+    else // no proxy needed (none set for target network)
         return ConnectSocketDirectly(addrDest, hSocketRet, nTimeout);
 }
 
@@ -639,13 +584,10 @@ bool ConnectSocketByName(CService &addr, SOCKET& hSocketRet, const char *pszDest
     proxyType proxy;
     GetNameProxy(proxy);
 
-    //LogPrintf("addr before lookup=%s \n", addr.ToString());
     std::vector<CService> addrResolved;
     if (Lookup(strDest.c_str(), addrResolved, port, fNameLookup && !HaveNameProxy(), 256)) {
-
         if (addrResolved.size() > 0) {
             addr = addrResolved[GetRand(addrResolved.size())];
-            //LogPrintf("addr after lookup=%s \n", addr.ToString());
             return ConnectSocket(addr, hSocketRet, nTimeout);
         }
     }
@@ -768,4 +710,9 @@ bool SetSocketNonBlocking(SOCKET& hSocket, bool fNonBlocking)
     }
 
     return true;
+}
+
+void InterruptSocks5(bool interrupt)
+{
+    interruptSocks5Recv = interrupt;
 }

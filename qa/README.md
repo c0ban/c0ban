@@ -1,6 +1,3 @@
-
-Currently, programs in this forlder are not available for c0ban  (Aug 8, 2017)
-
 The [pull-tester](/qa/pull-tester/) folder contains a script to call
 multiple tests from the [rpc-tests](/qa/rpc-tests/) folder.
 

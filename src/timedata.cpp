@@ -1,9 +1,9 @@
-// Copyright (c) 2014-2015 The Bitcoin Core developers
+// Copyright (c) 2014-2016 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #if defined(HAVE_CONFIG_H)
-#include "config/c0ban-config.h"
+#include "config/bitcoin-config.h"
 #endif
 
 #include "clientversion.h"
@@ -15,10 +15,9 @@
 #include "ui_interface.h"
 #include "util.h"
 #include "utilstrencodings.h"
+#include "warnings.h"
 
 #include <boost/foreach.hpp>
-
-using namespace std;
 
 static CCriticalSection cs_nTimeOffset;
 static int64_t nTimeOffset = 0;
@@ -52,7 +51,7 @@ void AddTimeData(const CNetAddr& ip, int64_t nOffsetSample)
 {
     LOCK(cs_nTimeOffset);
     // Ignore duplicates
-    static set<CNetAddr> setKnown;
+    static std::set<CNetAddr> setKnown;
     if (setKnown.size() == BITCOIN_TIMEDATA_MAX_SAMPLES)
         return;
     if (!setKnown.insert(ip).second)
@@ -105,19 +104,17 @@ void AddTimeData(const CNetAddr& ip, int64_t nOffsetSample)
                 if (!fMatch)
                 {
                     fDone = true;
-                    //string strMessage = strprintf(_("Please check that your computer's date and time are correct! If your clock is wrong, %s will not work properly."), _(PACKAGE_NAME));
-                    string strMessage = strprintf(_("Please check that your computer's date and time are correct! If your clock is wrong, %s will not work properly."), _(SOFTWARE_NAME));
-
-                    strMiscWarning = strMessage;
+                    std::string strMessage = strprintf(_("Please check that your computer's date and time are correct! If your clock is wrong, %s will not work properly."), _(SOFTWARE_NAME));
+                    SetMiscWarning(strMessage);
                     uiInterface.ThreadSafeMessageBox(strMessage, "", CClientUIInterface::MSG_WARNING);
                 }
             }
         }
-        
+
         BOOST_FOREACH(int64_t n, vSorted)
             LogPrint("net", "%+d  ", n);
         LogPrint("net", "|  ");
-        
+
         LogPrint("net", "nTimeOffset = %+d  (%+d minutes)\n", nTimeOffset, nTimeOffset/60);
     }
 }

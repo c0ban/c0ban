@@ -4,16 +4,21 @@ Developer Notes
 Various coding styles have been used during the history of the codebase,
 and the result is not very consistent. However, we're now trying to converge to
 a single style, so please use it in new code. Old code will be converted
-gradually.
+gradually and you are encouraged to use the provided
+[clang-format-diff script](/contrib/devtools/README.md#clang-format-diffpy)
+to clean up the patch automatically before submitting a pull request.
+
 - Basic rules specified in [src/.clang-format](/src/.clang-format).
-  Use a recent clang-format to format automatically using one of the [dev scripts]
-  (/contrib/devtools/README.md#clang-formatpy).
   - Braces on new lines for namespaces, classes, functions, methods.
   - Braces on the same line for everything else.
   - 4 space indentation (no tabs) for every block except namespaces.
-  - No indentation for public/protected/private or for namespaces.
+  - No indentation for `public`/`protected`/`private` or for `namespace`.
   - No extra spaces inside parenthesis; don't do ( this )
-  - No space after function names; one space after if, for and while.
+  - No space after function names; one space after `if`, `for` and `while`.
+  - If an `if` only has a single-statement then-clause, it can appear
+    on the same line as the if, without braces. In every other case,
+    braces are required, and the then and else clauses must appear
+    correctly indented on a new line.
   - `++i` is preferred over `i++`.
 
 Block style example:
@@ -22,14 +27,18 @@ namespace foo
 {
 class Class
 {
-    bool Function(char* psz, int n)
+    bool Function(const std::string& s, int n)
     {
         // Comment summarising what this section of code does
         for (int i = 0; i < n; ++i) {
             // When something fails, return early
-            if (!Something())
-                return false;
+            if (!Something()) return false;
             ...
+            if (SomethingElse()) {
+                DoMore();
+            } else {
+                DoLess();
+            }
         }
 
         // Success return is usually at the end
@@ -119,7 +128,7 @@ to see it.
 
 **testnet and regtest modes**
 
-Run with the -testnet option to run with "play c0bans" on the test network, if you
+Run with the -testnet option to run with "play bitcoins" on the test network, if you
 are testing multi-machine code that needs to operate across the internet.
 
 If you are testing something that can run on one machine, run with the -regtest option.
@@ -128,7 +137,7 @@ that run in -regtest mode.
 
 **DEBUG_LOCKORDER**
 
-c0ban Core is a multithreaded application, and deadlocks or other multithreading bugs
+Bitcoin Core is a multithreaded application, and deadlocks or other multithreading bugs
 can be very difficult to track down. Compiling with -DDEBUG_LOCKORDER (configure
 CXXFLAGS="-DDEBUG_LOCKORDER -g") inserts run-time checks to keep track of which locks
 are held, and adds warnings to the debug.log file if inconsistencies are detected.
@@ -163,7 +172,7 @@ Threads
 
 - ThreadMapPort : Universal plug-and-play startup/shutdown
 
-- ThreadSocketHandler : Sends/Receives data from peers on port 3881.
+- ThreadSocketHandler : Sends/Receives data from peers on port 8333.
 
 - ThreadOpenAddedConnections : Opens network connections to added nodes.
 
@@ -175,9 +184,9 @@ Threads
 
 - ThreadFlushWalletDB : Close the wallet.dat file if it hasn't been used in 500ms.
 
-- ThreadRPCServer : Remote procedure call handler, listens on port 388 for connections and services them.
+- ThreadRPCServer : Remote procedure call handler, listens on port 8332 for connections and services them.
 
-- BitcoinMiner : Generates c0bans (if wallet is enabled).
+- BitcoinMiner : Generates bitcoins (if wallet is enabled).
 
 - Shutdown : Does an orderly shutdown of everything.
 
@@ -187,7 +196,7 @@ Ignoring IDE/editor files
 In closed-source environments in which everyone uses the same IDE it is common
 to add temporary files it produces to the project-wide `.gitignore` file.
 
-However, in open source software such as c0ban Core, where everyone uses
+However, in open source software such as Bitcoin Core, where everyone uses
 their own editors/IDE/tools, it is less common. Only you know what files your
 editor produces and this may change from version to version. The canonical way
 to do this is thus to create your local gitignore. Add this to `~/.gitconfig`:
@@ -217,9 +226,9 @@ Development guidelines
 ============================
 
 A few non-style-related recommendations for developers, as well as points to
-pay attention to for reviewers of c0ban Core code.
+pay attention to for reviewers of Bitcoin Core code.
 
-General c0ban Core
+General Bitcoin Core
 ----------------------
 
 - New features should be exposed on RPC first, then can be made available in the GUI
@@ -329,7 +338,33 @@ Strings and formatting
 
 - For `strprintf`, `LogPrint`, `LogPrintf` formatting characters don't need size specifiers
 
-  - *Rationale*: c0ban Core uses tinyformat, which is type safe. Leave them out to avoid confusion
+  - *Rationale*: Bitcoin Core uses tinyformat, which is type safe. Leave them out to avoid confusion
+
+Variable names
+--------------
+
+The shadowing warning (`-Wshadow`) is enabled by default. It prevents issues rising
+from using a different variable with the same name.
+
+Please name variables so that their names do not shadow variables defined in the source code.
+
+E.g. in member initializers, prepend `_` to the argument name shadowing the
+member name:
+
+```c++
+class AddressBookPage
+{
+    Mode mode;
+}
+
+AddressBookPage::AddressBookPage(Mode _mode) :
+      mode(_mode)
+...
+```
+
+When using nested cycles, do not name the inner cycle variable the same as in
+upper cycle etc.
+
 
 Threads and synchronization
 ----------------------------
@@ -382,7 +417,38 @@ GUI
     should not interact with the user. That's where View classes come in. The converse also
     holds: try to not directly access core data structures from Views.
 
-Git and github tips
+Subtrees
+----------
+
+Several parts of the repository are subtrees of software maintained elsewhere.
+
+Some of these are maintained by active developers of Bitcoin Core, in which case changes should probably go
+directly upstream without being PRed directly against the project.  They will be merged back in the next
+subtree merge.
+
+Others are external projects without a tight relationship with our project.  Changes to these should also
+be sent upstream but bugfixes may also be prudent to PR against Bitcoin Core so that they can be integrated
+quickly.  Cosmetic changes should be purely taken upstream.
+
+There is a tool in contrib/devtools/git-subtree-check.sh to check a subtree directory for consistency with
+its upstream repository.
+
+Current subtrees include:
+
+- src/leveldb
+  - Upstream at https://github.com/google/leveldb ; Maintained by Google, but open important PRs to Core to avoid delay
+
+- src/libsecp256k1
+  - Upstream at https://github.com/bitcoin-core/secp256k1/ ; actively maintaned by Core contributors.
+
+- src/crypto/ctaes
+  - Upstream at https://github.com/bitcoin-core/ctaes ; actively maintained by Core contributors.
+
+- src/univalue
+  - Upstream at https://github.com/jgarzik/univalue ; report important PRs to Core to avoid delay.
+
+
+Git and GitHub tips
 ---------------------
 
 - For resolving merge/rebase conflicts, it can be useful to enable diff3 style using
@@ -424,7 +490,7 @@ Git and github tips
 
         [remote "upstream-pull"]
                 fetch = +refs/pull/*:refs/remotes/upstream-pull/*
-                url = git@github.com:c0ban/c0ban.git
+                url = git@github.com:bitcoin/bitcoin.git
 
   This will add an `upstream-pull` remote to your git repository, which can be fetched using `git fetch --all`
   or `git fetch upstream-pull`. Afterwards, you can use `upstream-pull/NUMBER/head` in arguments to `git show`,

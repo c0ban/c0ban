@@ -1,5 +1,5 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2015 The Bitcoin Core developers
+// Copyright (c) 2009-2016 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -11,7 +11,6 @@
 #include "compat.h" // for Windows API
 #include <wincrypt.h>
 #endif
-#include "serialize.h"        // for begin_ptr(vec)
 #include "util.h"             // for LogPrint()
 #include "utilstrencodings.h" // for GetTime()
 
@@ -72,15 +71,15 @@ static void RandAddSeedPerfmon()
     const size_t nMaxSize = 10000000; // Bail out at more than 10MB of performance data
     while (true) {
         nSize = vData.size();
-        ret = RegQueryValueExA(HKEY_PERFORMANCE_DATA, "Global", NULL, NULL, begin_ptr(vData), &nSize);
+        ret = RegQueryValueExA(HKEY_PERFORMANCE_DATA, "Global", NULL, NULL, vData.data(), &nSize);
         if (ret != ERROR_MORE_DATA || vData.size() >= nMaxSize)
             break;
         vData.resize(std::max((vData.size() * 3) / 2, nMaxSize)); // Grow size of buffer exponentially
     }
     RegCloseKey(HKEY_PERFORMANCE_DATA);
     if (ret == ERROR_SUCCESS) {
-        RAND_add(begin_ptr(vData), nSize, nSize / 100.0);
-        memory_cleanse(begin_ptr(vData), nSize);
+        RAND_add(vData.data(), nSize, nSize / 100.0);
+        memory_cleanse(vData.data(), nSize);
         LogPrint("rand", "%s: %lu bytes\n", __func__, nSize);
     } else {
         static bool warned = false; // Warn only once
@@ -178,22 +177,21 @@ uint256 GetRandHash()
     return hash;
 }
 
-uint32_t insecure_rand_Rz = 11;
-uint32_t insecure_rand_Rw = 11;
-void seed_insecure_rand(bool fDeterministic)
+FastRandomContext::FastRandomContext(bool fDeterministic)
 {
     // The seed values have some unlikely fixed points which we avoid.
     if (fDeterministic) {
-        insecure_rand_Rz = insecure_rand_Rw = 11;
+        Rz = Rw = 11;
     } else {
         uint32_t tmp;
         do {
             GetRandBytes((unsigned char*)&tmp, 4);
         } while (tmp == 0 || tmp == 0x9068ffffU);
-        insecure_rand_Rz = tmp;
+        Rz = tmp;
         do {
             GetRandBytes((unsigned char*)&tmp, 4);
         } while (tmp == 0 || tmp == 0x464fffffU);
-        insecure_rand_Rw = tmp;
+        Rw = tmp;
     }
 }
+
