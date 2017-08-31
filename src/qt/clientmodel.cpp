@@ -227,7 +227,7 @@ QString ClientModel::formatFullVersion() const
 
 QString ClientModel::formatSubVersion() const
 {
-    return QString::fromStdString(USER_AGENT);
+    return QString::fromStdString(strSubVersion);
 }
 
 bool ClientModel::isReleaseVersion() const

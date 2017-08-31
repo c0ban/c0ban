@@ -30,9 +30,6 @@
 
 #endif //HAVE_CONFIG_H
 
-#define SOFTWARE_NAME "c0ban"
-#define USER_AGENT "Lastroots c0ban"
-
 /**
  * Converts the parameter X to a string after macro replacement on X has been performed.
  * Don't merge these into one macro!

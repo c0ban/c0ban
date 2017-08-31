@@ -33,9 +33,6 @@ static const bool DEFAULT_LOGTIMEMICROS = false;
 static const bool DEFAULT_LOGIPS        = true;
 static const bool DEFAULT_LOGTIMESTAMPS = true;
 
-#define COPYRIGHT_HOLDERS2 "The %s developers"
-#define COPYRIGHT_HOLDERS_SUBSTITUTION2 "c0ban"
-
 /** Signals for translation. */
 class CTranslationInterface
 {

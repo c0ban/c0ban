@@ -124,8 +124,8 @@ Intro::Intro(QWidget *parent) :
     signalled(false)
 {
     ui->setupUi(this);
-    ui->welcomeLabel->setText(ui->welcomeLabel->text().arg(tr(SOFTWARE_NAME)));
-    ui->storageLabel->setText(ui->storageLabel->text().arg(tr(SOFTWARE_NAME)));
+    ui->welcomeLabel->setText(ui->welcomeLabel->text().arg(tr(PACKAGE_NAME)));
+    ui->storageLabel->setText(ui->storageLabel->text().arg(tr(PACKAGE_NAME)));
     uint64_t pruneTarget = std::max<int64_t>(0, GetArg("-prune", 0));
     requiredSpace = BLOCK_CHAIN_SIZE;
     if (pruneTarget) {
@@ -135,7 +135,7 @@ Intro::Intro(QWidget *parent) :
         }
     }
     requiredSpace += CHAIN_STATE_SIZE;
-    ui->sizeWarningLabel->setText(ui->sizeWarningLabel->text().arg(tr(SOFTWARE_NAME)).arg(requiredSpace));
+    ui->sizeWarningLabel->setText(ui->sizeWarningLabel->text().arg(tr(PACKAGE_NAME)).arg(requiredSpace));
     startThread();
 }
 
@@ -204,7 +204,7 @@ bool Intro::pickDataDirectory()
                 TryCreateDirectory(GUIUtil::qstringToBoostPath(dataDir));
                 break;
             } catch (const fs::filesystem_error&) {
-                QMessageBox::critical(0, tr(SOFTWARE_NAME),
+                QMessageBox::critical(0, tr(PACKAGE_NAME),
                     tr("Error: Specified data directory \"%1\" cannot be created.").arg(dataDir));
                 /* fall through, back to choosing screen */
             }
