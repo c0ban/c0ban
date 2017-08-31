@@ -79,14 +79,7 @@ static std::string FormatVersion(int nVersion)
 
 std::string FormatFullVersion()
 {
-  std::string ret = "c0ban 0.1.1.0";
-  return ret;
-}
-
-std::string FormatSubVersion2()
-{
-	std::string ret = "CBN 0.1.1.0";
-	return ret;
+    return CLIENT_BUILD;
 }
 
 /**
