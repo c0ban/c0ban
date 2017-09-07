@@ -97,13 +97,10 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nTimeout = 2107868400;
 
         // The best chain should have at least this much work.
-        // data as "0000000000000697fda530f8ade57a82029fd4939fd8a7c97bd649d2bb76b918" height 704441
-        consensus.nMinimumChainWork = uint256S("00000000000000000000000000000000000000000000004056b226984cefdae6");
+        consensus.nMinimumChainWork = uint256S("0x00000000000000000000000000000000000000000000004056b226984cefdae6"); // height 704441 chainwork
 
         // By default assume that the signatures in ancestors of this block are valid.
-        // consensus.defaultAssumeValid = uint256S("0x00000000000000000013176bf8d7dfeab4e1db31dc93bc311b436e82ab226b90"); //453354
-        // TODO: adjust following parameter
-        consensus.defaultAssumeValid = uint256S("0x00");
+        consensus.defaultAssumeValid = uint256S("0x0000000000000697fda530f8ade57a82029fd4939fd8a7c97bd649d2bb76b918"); // height 704441 block hash
 
         /**
          * The message start string is designed to be unlikely to occur in normal data.
@@ -159,6 +156,7 @@ public:
             (295000, uint256S("0x00000000000000004d9b4ef50f0f9d686fd69db2e03af35a100370c64632a983"))
         };
 
+        // TODO: fix following parameters for c0ban
         chainTxData = ChainTxData{
             // Data as of block 00000000000000000166d612d5595e2b1cd88d71d695fc580af64d8da8658c23 (height 446482).
             1483472411, // * UNIX timestamp of last known number of transactions
@@ -204,10 +202,10 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nTimeout = 1493596800; // May 1st 2017
 
         // The best chain should have at least this much work.
-        consensus.nMinimumChainWork = uint256S("0x00000000000000000000000000000000000000000000001f057509eba81aed91");
+        consensus.nMinimumChainWork = uint256S("0x00");
 
         // By default assume that the signatures in ancestors of this block are valid.
-        consensus.defaultAssumeValid = uint256S("0x00000000000128796ee387cf110ccb9d2f36cffaf7f73079c995377c65ac0dcc"); //1079274
+        consensus.defaultAssumeValid = uint256S("0x00");
 
         pchMessageStart[0] = 0x63;
         pchMessageStart[1] = 0x30;
@@ -249,10 +247,9 @@ public:
         };
 
         chainTxData = ChainTxData{
-            // Data as of block 00000000c2872f8f8a8935c8e3c5862be9038c97d4de2cf37ed496991166928a (height 1063660)
-            1483546230,
-            12834668,
-            0.15
+            0,
+            0,
+            0
         };
 
     }
