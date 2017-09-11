@@ -156,13 +156,12 @@ public:
             (295000, uint256S("0x00000000000000004d9b4ef50f0f9d686fd69db2e03af35a100370c64632a983"))
         };
 
-        // TODO: fix following parameters for c0ban
         chainTxData = ChainTxData{
-            // Data as of block 00000000000000000166d612d5595e2b1cd88d71d695fc580af64d8da8658c23 (height 446482).
-            1483472411, // * UNIX timestamp of last known number of transactions
-            184495391,  // * total number of transactions between genesis and that timestamp
+            // Data as of block 0000000000000697fda530f8ade57a82029fd4939fd8a7c97bd649d2bb76b918 (height 704441).
+            1504586419, // * UNIX timestamp of last known number of transactions
+            709843,  // * total number of transactions between genesis and that timestamp
                         //   (the tx=... number in the SetBestChain debug.log lines)
-            3.2         // * estimated number of transactions per second after that timestamp
+            0.02665774824  // * estimated number of transactions per second after that timestamp
         };
     }
 };
