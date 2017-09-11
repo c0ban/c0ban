@@ -6,8 +6,6 @@
 #include "config/bitcoin-config.h"
 #endif
 
-#include "clientversion.h"
-
 #include "timedata.h"
 
 #include "netaddress.h"

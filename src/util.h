@@ -235,6 +235,5 @@ template <typename Callable> void TraceThread(const char* name,  Callable func)
 }
 
 std::string CopyrightHolders(const std::string& strPrefix);
-std::string CopyrightHolders2(const std::string& strPrefix);
 
 #endif // BITCOIN_UTIL_H
