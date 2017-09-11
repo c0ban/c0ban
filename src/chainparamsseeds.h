@@ -1,3 +1,5 @@
+// Copyright (c) 2016-2017 The c0ban developers
+
 #ifndef BITCOIN_CHAINPARAMSSEEDS_H
 #define BITCOIN_CHAINPARAMSSEEDS_H
 /**
