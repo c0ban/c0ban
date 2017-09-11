@@ -1,3 +1,5 @@
+c0ban is developed based on Bitcoin core 0.14.2
+
 Bitcoin Core version 0.14.2 is now available from:
 
   <https://bitcoin.org/bin/bitcoin-core-0.14.2/>
@@ -99,4 +101,3 @@ Thanks to everyone who directly contributed to this release:
 - Wladimir J. van der Laan
 
 As well as everyone that helped translating on [Transifex](https://www.transifex.com/projects/p/bitcoin/).
-

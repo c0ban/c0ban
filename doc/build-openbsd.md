@@ -1,8 +1,10 @@
+Currently, c0ban is only supported on ubuntu 16.04. (Sep 11, 2017)
+
 OpenBSD build guide
 ======================
 (updated for OpenBSD 6.0)
 
-This guide describes how to build bitcoind and command-line utilities on OpenBSD.
+This guide describes how to build c0band and command-line utilities on OpenBSD.
 
 As OpenBSD is most common as a server OS, we will not bother with the GUI.
 
@@ -35,7 +37,7 @@ This compiler will not overwrite the system compiler, it will be installed as `e
 
 Do not use `pkg_add boost`! The boost version installed thus is compiled using the `g++` compiler not `eg++`, which will result in a conflict between `/usr/local/lib/libestdc++.so.XX.0` and `/usr/lib/libstdc++.so.XX.0`, resulting in a test crash:
 
-    test_bitcoin:/usr/lib/libstdc++.so.57.0: /usr/local/lib/libestdc++.so.17.0 : WARNING: symbol(_ZN11__gnu_debug17_S_debug_me ssagesE) size mismatch, relink your program
+    test_c0ban:/usr/lib/libstdc++.so.57.0: /usr/local/lib/libestdc++.so.17.0 : WARNING: symbol(_ZN11__gnu_debug17_S_debug_me ssagesE) size mismatch, relink your program
     ...
     Segmentation fault (core dumped)
 

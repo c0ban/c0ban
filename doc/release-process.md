@@ -1,3 +1,5 @@
+Currently, this file is not supported by c0ban (Sep 11, 2017)
+
 Release Process
 ====================
 

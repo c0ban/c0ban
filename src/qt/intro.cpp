@@ -1,12 +1,11 @@
 // Copyright (c) 2011-2016 The Bitcoin Core developers
+// Copyright (c) 2016-2017 The c0ban developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #if defined(HAVE_CONFIG_H)
 #include "config/bitcoin-config.h"
 #endif
-
-#include "clientversion.h"
 
 #include "intro.h"
 #include "ui_intro.h"
