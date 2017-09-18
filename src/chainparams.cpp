@@ -121,11 +121,8 @@ public:
         assert(genesis.hashMerkleRoot == uint256S("0xbe7f273cc4ed21b1e5b88274ca31d87675d6dd11085022c30b841c12912af171"));
 
         // Note that of those with the service bits flag, most only support a subset of possible options
-        //vSeeds.push_back(CDNSSeedData("bitcoin.sipa.be", "seed.bitcoin.sipa.be", true)); // Pieter Wuille, only supports x1, x5, x9, and xd
-        //vSeeds.push_back(CDNSSeedData("bluematt.me", "dnsseed.bluematt.me", true)); // Matt Corallo, only supports x9
-        //vSeeds.push_back(CDNSSeedData("dashjr.org", "dnsseed.bitcoin.dashjr.org")); // Luke Dashjr
-        //vSeeds.push_back(CDNSSeedData("bitcoinstats.com", "seed.bitcoinstats.com", true)); // Christian Decker, supports x1 - xf
-        //vSeeds.push_back(CDNSSeedData("bitcoin.jonasschnelli.ch", "seed.bitcoin.jonasschnelli.ch", true)); // Jonas Schnelli, only supports x1, x5, x9, and xd
+        vSeeds.push_back(CDNSSeedData("jp01.c0ban.com", "jp01.dnsseed.c0ban.com", true)); // Tokyo
+        vSeeds.push_back(CDNSSeedData("kr01.c0ban.com", "kr01.dnsseed.c0ban.com", true)); // Souel
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,18);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,28);
