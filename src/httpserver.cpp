@@ -1,6 +1,4 @@
-// Copyright (c) 2015 The Bitcoin Core developers
-// Copyright (c) 2016-2017 The c0ban developers
-
+// Copyright (c) 2015-2016 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -120,7 +118,7 @@ public:
     void Run()
     {
         ThreadCounter count(*this);
-        while (running) {
+        while (true) {
             std::unique_ptr<WorkItem> i;
             {
                 std::unique_lock<std::mutex> lock(cs);
@@ -206,7 +204,7 @@ static bool InitHTTPAllowList()
     rpc_allow_subnets.push_back(CSubNet(localv4, 8));      // always allow IPv4 local subnet
     rpc_allow_subnets.push_back(CSubNet(localv6));         // always allow IPv6 localhost
     if (mapMultiArgs.count("-rpcallowip")) {
-        const std::vector<std::string>& vAllow = mapMultiArgs["-rpcallowip"];
+        const std::vector<std::string>& vAllow = mapMultiArgs.at("-rpcallowip");
         for (std::string strAllow : vAllow) {
             CSubNet subnet;
             LookupSubNet(strAllow.c_str(), subnet);
@@ -273,43 +271,29 @@ static void http_request_cb(struct evhttp_request* req, void* arg)
     std::vector<HTTPPathHandler>::const_iterator i = pathHandlers.begin();
     std::vector<HTTPPathHandler>::const_iterator iend = pathHandlers.end();
     for (; i != iend; ++i) {
-    	//LogPrintf("httpserver(1): URI=%s, i->prefix=%s \n", strURI, i->prefix );
         bool match = false;
-        if (i->exactMatch){
-        	//LogPrintf("httpserver(2): matched i->exactMatch=%d \n", i->exactMatch );
+        if (i->exactMatch)
             match = (strURI == i->prefix);
-        }
-        else{
+        else
             match = (strURI.substr(0, i->prefix.size()) == i->prefix);
-        	//LogPrintf("httpserver(3): not matched URI=%s Match=%d \n", strURI.substr(0, i->prefix.size()),match );
-        }
-    	//LogPrintf("httpserver(4): before if match=%d \n", match );
-        if (match ) {
-        	//LogPrintf("httpserver(5): not matched size=%d Match=%d \n", i->prefix.size(),match );
+        if (match) {
             path = strURI.substr(i->prefix.size());
-        	//LogPrintf("httpserver(6): path=%s \n", path );
             break;
         }
     }
 
     // Dispatch to worker thread
-	//LogPrintf("httpserver: before i!= iend \n" );
     if (i != iend) {
         std::unique_ptr<HTTPWorkItem> item(new HTTPWorkItem(std::move(hreq), path, i->handler));
-    	//LogPrintf("httpserver: i!= iend \n" );
         assert(workQueue);
-    	//LogPrintf("httpserver: i!= iend \n" );
-        if (workQueue->Enqueue(item.get())){
-        	//LogPrintf("httpserver: HTTP_FUND \n" );
+        if (workQueue->Enqueue(item.get()))
             item.release(); /* if true, queue took ownership */
-        }else {
+        else {
             LogPrintf("WARNING: request rejected because http work queue depth exceeded, it can be increased with the -rpcworkqueue= setting\n");
             item->req->WriteReply(HTTP_INTERNAL, "Work queue depth exceeded");
         }
     } else {
-    	//LogPrintf("httpserver: HTTP_NOTFUND \n" );
         hreq->WriteReply(HTTP_NOTFOUND);
-
     }
 }
 
@@ -338,14 +322,14 @@ static bool HTTPBindAddresses(struct evhttp* http)
     std::vector<std::pair<std::string, uint16_t> > endpoints;
 
     // Determine what addresses to bind to
-    if (!mapArgs.count("-rpcallowip")) { // Default to loopback if not allowing external IPs
+    if (!IsArgSet("-rpcallowip")) { // Default to loopback if not allowing external IPs
         endpoints.push_back(std::make_pair("::1", defaultPort));
         endpoints.push_back(std::make_pair("127.0.0.1", defaultPort));
-        if (mapArgs.count("-rpcbind")) {
+        if (IsArgSet("-rpcbind")) {
             LogPrintf("WARNING: option -rpcbind was ignored because -rpcallowip was not specified, refusing to allow everyone to connect\n");
         }
-    } else if (mapArgs.count("-rpcbind")) { // Specific bind address
-        const std::vector<std::string>& vbind = mapMultiArgs["-rpcbind"];
+    } else if (mapMultiArgs.count("-rpcbind")) { // Specific bind address
+        const std::vector<std::string>& vbind = mapMultiArgs.at("-rpcbind");
         for (std::vector<std::string>::const_iterator i = vbind.begin(); i != vbind.end(); ++i) {
             int port = defaultPort;
             std::string host;

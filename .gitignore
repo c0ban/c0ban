@@ -6,6 +6,7 @@ src/c0band
 src/c0ban-cli
 src/c0ban-tx
 src/test/test_c0ban
+src/test/test_c0ban_fuzzy
 src/qt/test/test_c0ban-qt
 
 # autoreconf
@@ -55,7 +56,6 @@ src/qt/test/moc*.cpp
 *.o
 *.o-*
 *.patch
-.bitcoin
 *.a
 *.pb.cc
 *.pb.h
@@ -101,12 +101,8 @@ coverage_percent.txt
 linux-coverage-build
 linux-build
 win32-build
-qa/pull-tester/run-bitcoind-for-test.sh
 qa/pull-tester/tests_config.py
-qa/pull-tester/test.*/*
-qa/tmp
 qa/cache/*
-share/BitcoindComparisonTool.jar
 
 !src/leveldb*/Makefile
 

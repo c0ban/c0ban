@@ -1,8 +1,6 @@
 c0ban Core 0.1.0.0
 =====================
 
-Currently, c0ban is only supported on ubuntu 16.04. (Aug 8, 2017)
-
 Intro
 -----
 c0ban is a free open source peer-to-peer electronic cash system that is

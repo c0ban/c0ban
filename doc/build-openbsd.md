@@ -1,8 +1,8 @@
-Currently, c0ban is only supported on ubuntu 16.04. (Aug 8, 2017)
+Currently, c0ban is only supported on ubuntu 16.04. (Sep 11, 2017)
 
 OpenBSD build guide
 ======================
-(updated for OpenBSD 5.9)
+(updated for OpenBSD 6.0)
 
 This guide describes how to build c0band and command-line utilities on OpenBSD.
 
@@ -20,7 +20,7 @@ pkg_add automake # (select highest version, e.g. 1.15)
 pkg_add python # (select highest version, e.g. 3.5)
 ```
 
-The default C++ compiler that comes with OpenBSD 5.9 is g++ 4.2. This version is old (from 2007), and is not able to compile the current version of c0ban Core, primarily as it has no C++11 support, but even before there were issues. So here we will be installing a newer compiler.
+The default C++ compiler that comes with OpenBSD 5.9 is g++ 4.2. This version is old (from 2007), and is not able to compile the current version of Bitcoin Core, primarily as it has no C++11 support, but even before there were issues. So here we will be installing a newer compiler.
 
 GCC
 -------
@@ -41,10 +41,10 @@ Do not use `pkg_add boost`! The boost version installed thus is compiled using t
     ...
     Segmentation fault (core dumped)
 
-This makes it necessary to build boost, or at least the parts used by c0ban Core, manually:
+This makes it necessary to build boost, or at least the parts used by Bitcoin Core, manually:
 
 ```
-# Pick some path to install boost to, here we create a directory within the c0ban directory
+# Pick some path to install boost to, here we create a directory within the bitcoin directory
 BITCOIN_ROOT=$(pwd)
 BOOST_PREFIX="${BITCOIN_ROOT}/boost"
 mkdir -p $BOOST_PREFIX
@@ -60,7 +60,7 @@ cd boost_1_61_0
 # Also here: https://gist.githubusercontent.com/laanwj/bf359281dc319b8ff2e1/raw/92250de8404b97bb99d72ab898f4a8cb35ae1ea3/patch-boost_test_impl_execution_monitor_ipp.patch
 patch -p0 < /usr/ports/devel/boost/patches/patch-boost_test_impl_execution_monitor_ipp
 
-# Build w/ minimum configuration necessary for c0ban
+# Build w/ minimum configuration necessary for bitcoin
 echo 'using gcc : : eg++ : <cxxflags>"-fvisibility=hidden -fPIC" <linkflags>"" <archiver>"ar" <striper>"strip"  <ranlib>"ranlib" <rc>"" : ;' > user-config.jam
 config_opts="runtime-link=shared threadapi=pthread threading=multi link=static variant=release --layout=tagged --build-type=complete --user-config=user-config.jam -sNO_BZIP2=1"
 ./bootstrap.sh --without-icu --with-libraries=chrono,filesystem,program_options,system,thread,test
@@ -76,7 +76,7 @@ See "Berkeley DB" in [build_unix.md](build_unix.md) for instructions on how to b
 You cannot use the BerkeleyDB library from ports, for the same reason as boost above (g++/libstd++ incompatibility).
 
 ```bash
-# Pick some path to install BDB to, here we create a directory within the c0ban directory
+# Pick some path to install BDB to, here we create a directory within the bitcoin directory
 BITCOIN_ROOT=$(pwd)
 BDB_PREFIX="${BITCOIN_ROOT}/db4"
 mkdir -p $BDB_PREFIX
@@ -110,7 +110,7 @@ The change will only affect the current shell and processes spawned by it. To
 make the change system-wide, change `datasize-cur` and `datasize-max` in
 `/etc/login.conf`, and reboot.
 
-### Building c0ban Core
+### Building Bitcoin Core
 
 **Important**: use `gmake`, not `make`. The non-GNU `make` will exit with a horrible error.
 
@@ -126,7 +126,7 @@ To configure with wallet:
 ```bash
 ./configure --with-gui=no --with-boost=$BOOST_PREFIX \
     CC=egcc CXX=eg++ CPP=ecpp \
-    LDFLAGS="-L${BDB_PREFIX}/lib/" CPPFLAGS="-I${BDB_PREFIX}/include/"
+    BDB_LIBS="-L${BDB_PREFIX}/lib -ldb_cxx-4.8" BDB_CFLAGS="-I${BDB_PREFIX}/include"
 ```
 
 To configure without wallet:
@@ -143,6 +143,8 @@ gmake check
 
 Clang (not currently working)
 ------------------------------
+
+WARNING: This is outdated, needs to be updated for OpenBSD 6.0 and re-tried.
 
 Using a newer g++ results in linking the new code to a new libstdc++.
 Libraries built with the old g++, will still import the old library.

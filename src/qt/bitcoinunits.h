@@ -1,6 +1,5 @@
-// Copyright (c) 2011-2015 The Bitcoin Core developers
+// Copyright (c) 2011-2016 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
-// Copyright (c) 2016-2017 The c0ban developers
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #ifndef BITCOIN_QT_BITCOINUNITS_H
@@ -57,9 +56,9 @@ public:
      */
     enum Unit
     {
-        RYO,
-        mRYO,
-        uRYO
+        BTC,
+        mBTC,
+        uBTC
     };
 
     enum SeparatorStyle

@@ -1,10 +1,10 @@
-// Copyright (c) 2011-2015 The Bitcoin Core developers
+// Copyright (c) 2011-2016 The Bitcoin Core developers
 // Copyright (c) 2016-2017 The c0ban developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #if defined(HAVE_CONFIG_H)
-#include "config/c0ban-config.h"
+#include "config/bitcoin-config.h"
 #endif
 
 #include "utilitydialog.h"
@@ -38,9 +38,9 @@ HelpMessageDialog::HelpMessageDialog(QWidget *parent, bool about) :
 {
     ui->setupUi(this);
 
-    QString version = tr(SOFTWARE_NAME) + " " + tr("version: ") + " " + QString::fromStdString(FormatFullVersion());
+    QString version = tr(PACKAGE_NAME) + " " + tr("version") + " " + QString::fromStdString(FormatFullVersion());
     /* On x86 add a bit specifier to the version so that users can distinguish between
-     * 32 and 64 bit builds. On other architectures, 32/64 bit may be more ambigious.
+     * 32 and 64 bit builds. On other architectures, 32/64 bit may be more ambiguous.
      */
 #if defined(__x86_64__)
     version += " " + tr("(%1-bit)").arg(64);
@@ -50,7 +50,7 @@ HelpMessageDialog::HelpMessageDialog(QWidget *parent, bool about) :
 
     if (about)
     {
-        setWindowTitle(tr("About %1").arg(tr(SOFTWARE_NAME)));
+        setWindowTitle(tr("About %1").arg(tr(PACKAGE_NAME)));
 
         /// HTML-format the license message from the core
         QString licenseInfo = QString::fromStdString(LicenseInfo());
@@ -66,7 +66,6 @@ HelpMessageDialog::HelpMessageDialog(QWidget *parent, bool about) :
         ui->scrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
         text = version + "\n" + licenseInfo;
         ui->aboutMessage->setText(version + "<br><br>" + licenseInfoHTML);
-        //ui->aboutMessage->setText(version + "<br><br>");
         ui->aboutMessage->setWordWrap(true);
         ui->helpMessage->setVisible(false);
     } else {
@@ -168,28 +167,25 @@ ShutdownWindow::ShutdownWindow(QWidget *parent, Qt::WindowFlags f):
 {
     QVBoxLayout *layout = new QVBoxLayout();
     layout->addWidget(new QLabel(
-        //tr("%1 is shutting down...").arg(tr(PACKAGE_NAME)) + "<br /><br />" +
-        tr("%1 is shutting down...").arg(tr(SOFTWARE_NAME)) + "<br /><br />" +
+        tr("%1 is shutting down...").arg(tr(PACKAGE_NAME)) + "<br /><br />" +
         tr("Do not shut down the computer until this window disappears.")));
     setLayout(layout);
 }
 
-void ShutdownWindow::showShutdownWindow(BitcoinGUI *window)
+QWidget *ShutdownWindow::showShutdownWindow(BitcoinGUI *window)
 {
     if (!window)
-        return;
+        return nullptr;
 
     // Show a simple window indicating shutdown status
     QWidget *shutdownWindow = new ShutdownWindow();
-    // We don't hold a direct pointer to the shutdown window after creation, so use
-    // Qt::WA_DeleteOnClose to make sure that the window will be deleted eventually.
-    shutdownWindow->setAttribute(Qt::WA_DeleteOnClose);
     shutdownWindow->setWindowTitle(window->windowTitle());
 
     // Center shutdown window at where main window was
     const QPoint global = window->mapToGlobal(window->rect().center());
     shutdownWindow->move(global.x() - shutdownWindow->width() / 2, global.y() - shutdownWindow->height() / 2);
     shutdownWindow->show();
+    return shutdownWindow;
 }
 
 void ShutdownWindow::closeEvent(QCloseEvent *event)

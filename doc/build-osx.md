@@ -1,6 +1,3 @@
-
-Currently, c0ban is only supported on ubuntu 16.04. (Aug 8, 2017)
-
 Mac OS X Build Instructions and Notes
 ====================================
 The commands in this guide should be executed in a Terminal application.
@@ -20,6 +17,10 @@ Dependencies
 ----------------------
 
     brew install automake berkeley-db4 libtool boost --c++11 miniupnpc openssl pkg-config protobuf --c++11 qt5 libevent
+
+In case you want to build the disk image with `make deploy` (.dmg / optional), you need RSVG
+
+    brew install librsvg
 
 NOTE: Building with Qt4 is still supported, however, could result in a broken UI. Building with Qt5 is recommended.
 
@@ -56,7 +57,7 @@ c0ban Core is now available at `./src/c0band`
 
 Before running, it's recommended you create an RPC configuration file.
 
-    echo -e "rpcuser=bitcoinrpc\nrpcpassword=$(xxd -l 16 -p /dev/urandom)" > "/Users/${USER}/Library/Application Support/c0ban/c0ban.conf"
+    echo -e "rpcuser=c0banrpc\nrpcpassword=$(xxd -l 16 -p /dev/urandom)" > "/Users/${USER}/Library/Application Support/c0ban/c0ban.conf"
 
     chmod 600 "/Users/${USER}/Library/Application Support/c0ban/c0ban.conf"
 
@@ -93,6 +94,6 @@ Uncheck everything except Qt Creator during the installation process.
 Notes
 -----
 
-* Tested on OS X 10.7 through 10.11 on 64-bit Intel processors only.
+* Tested on OS X 10.8 through 10.12 on 64-bit Intel processors only.
 
 * Building with downloaded Qt binaries is not officially supported. See the notes in [#7714](https://github.com/bitcoin/bitcoin/issues/7714)

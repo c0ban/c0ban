@@ -1,11 +1,10 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2015 The Bitcoin Core developers
-// Copyright (c) 2016-2017 The c0ban developers
+// Copyright (c) 2009-2016 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #if defined(HAVE_CONFIG_H)
-#include "config/c0ban-config.h"
+#include "config/bitcoin-config.h"
 #endif
 
 #include "utiltime.h"
@@ -13,15 +12,9 @@
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <boost/thread.hpp>
 
-/* Added by Qianren Zhang */
-#include <boost/date_time/c_local_time_adjustor.hpp>
-
-
 using namespace std;
 
 static int64_t nMockTime = 0; //!< For unit testing
-
-
 
 int64_t GetTime()
 {
@@ -53,6 +46,11 @@ int64_t GetTimeMicros()
     return now;
 }
 
+int64_t GetSystemTimeInSeconds()
+{
+    return GetTimeMicros()/1000000;
+}
+
 /** Return a time useful for the debug log */
 int64_t GetLogTimeMicros()
 {
@@ -65,7 +63,7 @@ void MilliSleep(int64_t n)
 {
 
 /**
- * Boost's sleep_for was uninterruptable when backed by nanosleep from 1.50
+ * Boost's sleep_for was uninterruptible when backed by nanosleep from 1.50
  * until fixed in 1.52. Use the deprecated sleep method for the broken case.
  * See: https://svn.boost.org/trac/boost/ticket/7238
  */
@@ -81,8 +79,9 @@ void MilliSleep(int64_t n)
 
 std::string DateTimeStrFormat(const char* pszFormat, int64_t nTime)
 {
+    static std::locale classic(std::locale::classic());
     // std::locale takes ownership of the pointer
-    std::locale loc(std::locale::classic(), new boost::posix_time::time_facet(pszFormat));
+    std::locale loc(classic, new boost::posix_time::time_facet(pszFormat));
     std::stringstream ss;
     ss.imbue(loc);
     ss << boost::posix_time::from_time_t(nTime);
