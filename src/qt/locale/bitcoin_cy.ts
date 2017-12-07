@@ -29,6 +29,41 @@
         <source>&amp;Delete</source>
         <translation>&amp;Dileu</translation>
     </message>
+    <message>
+        <source>Sending addresses</source>
+        <translation>Anfon cyfeiriadau</translation>
+    </message>
+    <message>
+        <source>Receiving addresses</source>
+        <translation>Derbyn cyfeiriadau</translation>
+    </message>
+    <message>
+        <source>&amp;Copy Address</source>
+        <translation>&amp;Copïo Cyfeiriad</translation>
+    </message>
+    <message>
+        <source>Copy &amp;Label</source>
+        <translation>Copïo &amp;Label</translation>
+    </message>
+    <message>
+        <source>Exporting Failed</source>
+        <translation>Methu Allforio</translation>
+    </message>
+    </context>
+<context>
+    <name>AddressTableModel</name>
+    <message>
+        <source>Label</source>
+        <translation>Label</translation>
+    </message>
+    <message>
+        <source>Address</source>
+        <translation>Cyfeiriad</translation>
+    </message>
+    <message>
+        <source>(no label)</source>
+        <translation>(dim label)</translation>
+    </message>
 </context>
 <context>
     <name>AskPassphraseDialog</name>
@@ -44,7 +79,7 @@
         <source>Repeat new passphrase</source>
         <translation>Ailadroddwch gyfrinymadrodd newydd</translation>
     </message>
-</context>
+    </context>
 <context>
     <name>BanTableModel</name>
     </context>
@@ -77,6 +112,14 @@
     <message>
         <source>Quit application</source>
         <translation>Gadael rhaglen</translation>
+    </message>
+    <message>
+        <source>&amp;About %1</source>
+        <translation>&amp;Ynghylch %1</translation>
+    </message>
+    <message>
+        <source>Show information about %1</source>
+        <translation>Dangos gwybodaeth am %1</translation>
     </message>
     <message>
         <source>About &amp;Qt</source>
@@ -146,26 +189,6 @@
         <source>Tabs toolbar</source>
         <translation>Bar offer tabiau</translation>
     </message>
-    <message numerus="yes">
-        <source>%n hour(s)</source>
-        <translation><numerusform>%n awr</numerusform><numerusform>%n awr</numerusform><numerusform>%n awr</numerusform><numerusform>%n awr</numerusform></translation>
-    </message>
-    <message numerus="yes">
-        <source>%n day(s)</source>
-        <translation><numerusform>%n dydd</numerusform><numerusform>%n dydd</numerusform><numerusform>%n dydd</numerusform><numerusform>%n dydd</numerusform></translation>
-    </message>
-    <message numerus="yes">
-        <source>%n week(s)</source>
-        <translation><numerusform>%n wythnos</numerusform><numerusform>%n wythnos</numerusform><numerusform>%n wythnos</numerusform><numerusform>%n wythnos</numerusform></translation>
-    </message>
-    <message>
-        <source>%1 and %2</source>
-        <translation>%1 a %2</translation>
-    </message>
-    <message numerus="yes">
-        <source>%n year(s)</source>
-        <translation><numerusform>%n blwydd</numerusform><numerusform>%n blwydd</numerusform><numerusform>%n blwydd</numerusform><numerusform>%n blwydd</numerusform></translation>
-    </message>
     <message>
         <source>Error</source>
         <translation>Gwall</translation>
@@ -226,7 +249,7 @@
         <source>Wallet is &lt;b&gt;encrypted&lt;/b&gt; and currently &lt;b&gt;locked&lt;/b&gt;</source>
         <translation>Mae'r waled &lt;b&gt;wedi'i amgryptio&lt;/b&gt; ac &lt;b&gt;ar glo&lt;/b&gt; ar hyn o bryd</translation>
     </message>
-</context>
+    </context>
 <context>
     <name>CoinControlDialog</name>
     <message>
@@ -236,6 +259,18 @@
     <message>
         <source>Date</source>
         <translation>Dyddiad</translation>
+    </message>
+    <message>
+        <source>Copy address</source>
+        <translation>Copïo cyfeiriad</translation>
+    </message>
+    <message>
+        <source>Copy label</source>
+        <translation>Copïo label</translation>
+    </message>
+    <message>
+        <source>(no label)</source>
+        <translation>(dim label)</translation>
     </message>
     </context>
 <context>
@@ -252,7 +287,7 @@
         <source>&amp;Address</source>
         <translation>&amp;Cyfeiriad</translation>
     </message>
-</context>
+    </context>
 <context>
     <name>FreespaceChecker</name>
     <message>
@@ -276,6 +311,13 @@
     <message>
         <source>Error</source>
         <translation>Gwall</translation>
+    </message>
+    </context>
+<context>
+    <name>ModalOverlay</name>
+    <message>
+        <source>Form</source>
+        <translation>Ffurflen</translation>
     </message>
     </context>
 <context>
@@ -332,10 +374,23 @@
     </message>
     </context>
 <context>
+    <name>PaymentServer</name>
+    </context>
+<context>
     <name>PeerTableModel</name>
     </context>
 <context>
     <name>QObject</name>
+    <message>
+        <source>%1 and %2</source>
+        <translation>%1 a %2</translation>
+    </message>
+    </context>
+<context>
+    <name>QObject::QObject</name>
+    </context>
+<context>
+    <name>QRImageWidget</name>
     </context>
 <context>
     <name>RPCConsole</name>
@@ -358,12 +413,39 @@
         <source>&amp;Label:</source>
         <translation>&amp;Label:</translation>
     </message>
+    <message>
+        <source>Copy label</source>
+        <translation>Copïo label</translation>
+    </message>
     </context>
 <context>
     <name>ReceiveRequestDialog</name>
     <message>
         <source>Copy &amp;Address</source>
         <translation>&amp;Cyfeiriad Copi</translation>
+    </message>
+    <message>
+        <source>Address</source>
+        <translation>Cyfeiriad</translation>
+    </message>
+    <message>
+        <source>Label</source>
+        <translation>Label</translation>
+    </message>
+    </context>
+<context>
+    <name>RecentRequestsTableModel</name>
+    <message>
+        <source>Date</source>
+        <translation>Dyddiad</translation>
+    </message>
+    <message>
+        <source>Label</source>
+        <translation>Label</translation>
+    </message>
+    <message>
+        <source>(no label)</source>
+        <translation>(dim label)</translation>
     </message>
     </context>
 <context>
@@ -388,7 +470,11 @@
         <source>Confirm the send action</source>
         <translation>Cadarnhau'r gweithrediad anfon</translation>
     </message>
-    </context>
+    <message>
+        <source>(no label)</source>
+        <translation>(dim label)</translation>
+    </message>
+</context>
 <context>
     <name>SendCoinsEntry</name>
     <message>
@@ -415,6 +501,9 @@
         <source>Message:</source>
         <translation>Neges:</translation>
     </message>
+    </context>
+<context>
+    <name>SendConfirmationDialog</name>
     </context>
 <context>
     <name>ShutdownWindow</name>
@@ -445,10 +534,104 @@
     <name>TrafficGraphWidget</name>
     </context>
 <context>
+    <name>TransactionDesc</name>
+    <message>
+        <source>Date</source>
+        <translation>Dyddiad</translation>
+    </message>
+    </context>
+<context>
     <name>TransactionDescDialog</name>
     </context>
 <context>
+    <name>TransactionTableModel</name>
+    <message>
+        <source>Date</source>
+        <translation>Dyddiad</translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation>Math</translation>
+    </message>
+    <message>
+        <source>Label</source>
+        <translation>Label</translation>
+    </message>
+    <message>
+        <source>(no label)</source>
+        <translation>(dim label)</translation>
+    </message>
+    </context>
+<context>
+    <name>TransactionView</name>
+    <message>
+        <source>Today</source>
+        <translation>Heddiw</translation>
+    </message>
+    <message>
+        <source>This week</source>
+        <translation>Yr wythnos hon</translation>
+    </message>
+    <message>
+        <source>This month</source>
+        <translation>Y mis hwn</translation>
+    </message>
+    <message>
+        <source>Last month</source>
+        <translation>Mis diwethaf</translation>
+    </message>
+    <message>
+        <source>This year</source>
+        <translation>Eleni</translation>
+    </message>
+    <message>
+        <source>Copy address</source>
+        <translation>Copïo cyfeiriad</translation>
+    </message>
+    <message>
+        <source>Copy label</source>
+        <translation>Copïo label</translation>
+    </message>
+    <message>
+        <source>Edit label</source>
+        <translation>Golygu label</translation>
+    </message>
+    <message>
+        <source>Date</source>
+        <translation>Dyddiad</translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation>Math</translation>
+    </message>
+    <message>
+        <source>Label</source>
+        <translation>Label</translation>
+    </message>
+    <message>
+        <source>Address</source>
+        <translation>Cyfeiriad</translation>
+    </message>
+    <message>
+        <source>Exporting Failed</source>
+        <translation>Methu Allforio</translation>
+    </message>
+    </context>
+<context>
     <name>UnitDisplayStatusBarControl</name>
+    </context>
+<context>
+    <name>WalletFrame</name>
+    </context>
+<context>
+    <name>WalletModel</name>
+    </context>
+<context>
+    <name>WalletView</name>
+    <message>
+        <source>&amp;Export</source>
+        <translation>&amp;Allforio</translation>
+    </message>
     </context>
 <context>
     <name>bitcoin-core</name>

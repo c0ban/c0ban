@@ -1,11 +1,15 @@
 *.tar.gz
 
+bin
+
 *.exe
 src/c0ban
 src/c0band
 src/c0ban-cli
 src/c0ban-tx
+src/bench/bench_c0ban
 src/test/test_c0ban
+src/test/test_c0ban_fuzzy
 src/qt/test/test_c0ban-qt
 
 # autoreconf
@@ -55,7 +59,6 @@ src/qt/test/moc*.cpp
 *.o
 *.o-*
 *.patch
-.bitcoin
 *.a
 *.pb.cc
 *.pb.h
@@ -75,12 +78,11 @@ src/qt/test/moc*.cpp
 *.qm
 Makefile
 c0ban-qt
-C0ban-Qt.app
+Bitcoin-Qt.app
 
 # Unit-tests
 Makefile.test
 c0ban-qt_test
-src/test/buildenv.py
 
 # Resources cpp
 qrc_*.cpp
@@ -93,7 +95,7 @@ build
 *.gcno
 *.gcda
 /*.info
-test_bitcoin.coverage/
+test_c0ban.coverage/
 total.coverage/
 coverage_percent.txt
 
@@ -101,12 +103,8 @@ coverage_percent.txt
 linux-coverage-build
 linux-build
 win32-build
-qa/pull-tester/run-bitcoind-for-test.sh
-qa/pull-tester/tests_config.py
-qa/pull-tester/test.*/*
-qa/tmp
-qa/cache/*
-share/BitcoindComparisonTool.jar
+test/config.ini
+test/cache/*
 
 !src/leveldb*/Makefile
 

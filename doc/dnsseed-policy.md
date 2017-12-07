@@ -1,9 +1,6 @@
 Expectations for DNS Seed operators
 ====================================
 
-c0ban does note supporte DNS Seeds. (Aug 8, 2017)
----------------------------------------------------------------------------
-
 Bitcoin Core attempts to minimize the level of trust in DNS seeds,
 but DNS seeds still pose a small amount of risk for the network.
 As such, DNS seeds must be run by entities which have some minimum

@@ -1,5 +1,4 @@
-// Copyright (c) 2011-2015 The Bitcoin Core developers
-// Copyright (c) 2016-2017 The c0ban developers
+// Copyright (c) 2011-2016 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -18,9 +17,9 @@ BitcoinUnits::BitcoinUnits(QObject *parent):
 QList<BitcoinUnits::Unit> BitcoinUnits::availableUnits()
 {
     QList<BitcoinUnits::Unit> unitlist;
-    unitlist.append(RYO);
-    unitlist.append(mRYO);
-    unitlist.append(uRYO);
+    unitlist.append(BTC);
+    unitlist.append(mBTC);
+    unitlist.append(uBTC);
     return unitlist;
 }
 
@@ -28,9 +27,9 @@ bool BitcoinUnits::valid(int unit)
 {
     switch(unit)
     {
-    case RYO:
-    case mRYO:
-    case uRYO:
+    case BTC:
+    case mBTC:
+    case uBTC:
         return true;
     default:
         return false;
@@ -41,9 +40,9 @@ QString BitcoinUnits::name(int unit)
 {
     switch(unit)
     {
-    case RYO: return QString("RYO");
-    case mRYO: return QString("mRYO");
-    case uRYO: return QString::fromUtf8("μRYO");
+    case BTC: return QString("RYO");
+    case mBTC: return QString("mRYO");
+    case uBTC: return QString::fromUtf8("μRYO");
     default: return QString("???");
     }
 }
@@ -52,21 +51,20 @@ QString BitcoinUnits::description(int unit)
 {
     switch(unit)
     {
-    case RYO: return QString("cobans");
-    case mRYO: return QString("Milli-cobans (1 / 1" THIN_SP_UTF8 "000)");
-    case uRYO: return QString("Micro-cobans (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
+    case BTC: return QString("c0bans");
+    case mBTC: return QString("Milli-c0bans (1 / 1" THIN_SP_UTF8 "000)");
+    case uBTC: return QString("Micro-c0bans (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
     default: return QString("???");
     }
 }
-
 
 qint64 BitcoinUnits::factor(int unit)
 {
     switch(unit)
     {
-    case RYO:  return 100000000;
-    case mRYO: return 100000;
-    case uRYO: return 100;
+    case BTC:  return 100000000;
+    case mBTC: return 100000;
+    case uBTC: return 100;
     default:   return 100000000;
     }
 }
@@ -75,9 +73,9 @@ int BitcoinUnits::decimals(int unit)
 {
     switch(unit)
     {
-    case RYO: return 8;
-    case mRYO: return 5;
-    case uRYO: return 2;
+    case BTC: return 8;
+    case mBTC: return 5;
+    case uBTC: return 2;
     default: return 0;
     }
 }

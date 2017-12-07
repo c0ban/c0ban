@@ -1,5 +1,4 @@
-// Copyright (c) 2009-2015 The Bitcoin Core developers
-// Copyright (c) 2016-2017 The c0ban developers
+// Copyright (c) 2009-2016 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -7,40 +6,13 @@
 #define BITCOIN_CLIENTVERSION_H
 
 #if defined(HAVE_CONFIG_H)
-#include "config/c0ban-config.h"
-#else
-
-/**
- * client versioning and copyright year
- */
-
-//! These need to be macros, as clientversion.cpp's and bitcoin*-res.rc's voodoo requires it
-/*#define CLIENT_VERSION_MAJOR 0
-#define CLIENT_VERSION_MINOR 13
-#define CLIENT_VERSION_REVISION 99
-#define CLIENT_VERSION_BUILD 0
-Modified by Qianren Zhang Oct. 7, 2016  */
-
-#define CLIENT_VERSION_MAJOR 0
-#define CLIENT_VERSION_MINOR 13
-#define CLIENT_VERSION_REVISION 99
-#define CLIENT_VERSION_BUILD 0
-
-
-//! Set to true for release, false for prerelease or test build
-#define CLIENT_VERSION_IS_RELEASE false
-
-/**
- * Copyright year (2009-this)
- * Todo: update this when changing our copyright comments in the source
- */
-#define COPYRIGHT_YEAR 2016
-
+#include "config/bitcoin-config.h"
 #endif //HAVE_CONFIG_H
 
-
-#define SOFTWARE_NAME "c0ban"
-#define USER_AGENT "Lastroots c0ban"
+// Check that required client information is defined
+#if !defined(CLIENT_VERSION_MAJOR) || !defined(CLIENT_VERSION_MINOR) || !defined(CLIENT_VERSION_REVISION) || !defined(CLIENT_VERSION_BUILD) || !defined(CLIENT_VERSION_IS_RELEASE) || !defined(COPYRIGHT_YEAR)
+#error Client version information missing: version is not defined by bitcoin-config.h or in any other way
+#endif
 
 /**
  * Converts the parameter X to a string after macro replacement on X has been performed.
@@ -74,7 +46,6 @@ extern const std::string CLIENT_BUILD;
 
 
 std::string FormatFullVersion();
-std::string FormatSubVersion2();
 std::string FormatSubVersion(const std::string& name, int nClientVersion, const std::vector<std::string>& comments);
 
 #endif // WINDRES_PREPROC

@@ -41,7 +41,14 @@
         <source>&amp;Delete</source>
         <translation>&amp;Trinti</translation>
     </message>
-</context>
+    </context>
+<context>
+    <name>AddressTableModel</name>
+    <message>
+        <source>Address</source>
+        <translation>Adresas</translation>
+    </message>
+    </context>
 <context>
     <name>AskPassphraseDialog</name>
     <message>
@@ -60,7 +67,7 @@
         <source>Repeat new passphrase</source>
         <translation>Pakartokite naują slaptafrazę</translation>
     </message>
-</context>
+    </context>
 <context>
     <name>BanTableModel</name>
     <message>
@@ -109,6 +116,10 @@
     <message>
         <source>&amp;About %1</source>
         <translation>&amp;Apie %1</translation>
+    </message>
+    <message>
+        <source>Show information about %1</source>
+        <translation>Rodyti informaciją apie %1</translation>
     </message>
     <message>
         <source>About &amp;Qt</source>
@@ -243,6 +254,12 @@
         <translation>Vejamasi...</translation>
     </message>
     <message>
+        <source>Date: %1
+</source>
+        <translation>Data: %1
+</translation>
+    </message>
+    <message>
         <source>Sent transaction</source>
         <translation>Sandoris nusiųstas</translation>
     </message>
@@ -258,7 +275,7 @@
         <source>Wallet is &lt;b&gt;encrypted&lt;/b&gt; and currently &lt;b&gt;locked&lt;/b&gt;</source>
         <translation>Piniginė &lt;b&gt;užšifruota&lt;/b&gt; ir šiuo metu &lt;b&gt;užrakinta&lt;/b&gt;</translation>
     </message>
-</context>
+    </context>
 <context>
     <name>CoinControlDialog</name>
     <message>
@@ -276,10 +293,6 @@
     <message>
         <source>Amount:</source>
         <translation>Suma:</translation>
-    </message>
-    <message>
-        <source>Priority:</source>
-        <translation>Pirmumas:</translation>
     </message>
     <message>
         <source>Fee:</source>
@@ -321,11 +334,7 @@
         <source>Confirmed</source>
         <translation>Patvirtintas</translation>
     </message>
-    <message>
-        <source>Priority</source>
-        <translation>Pirmumas</translation>
-    </message>
-</context>
+    </context>
 <context>
     <name>EditAddressDialog</name>
     <message>
@@ -340,7 +349,7 @@
         <source>&amp;Address</source>
         <translation>&amp;Adresas</translation>
     </message>
-</context>
+    </context>
 <context>
     <name>FreespaceChecker</name>
     <message>
@@ -376,6 +385,17 @@
     <message>
         <source>Error</source>
         <translation>Klaida</translation>
+    </message>
+    </context>
+<context>
+    <name>ModalOverlay</name>
+    <message>
+        <source>Form</source>
+        <translation>Forma</translation>
+    </message>
+    <message>
+        <source>Last block time</source>
+        <translation>Paskutinio bloko laikas</translation>
     </message>
     </context>
 <context>
@@ -540,6 +560,9 @@
     </message>
     </context>
 <context>
+    <name>PaymentServer</name>
+    </context>
+<context>
     <name>PeerTableModel</name>
     </context>
 <context>
@@ -560,6 +583,12 @@
         <source>N/A</source>
         <translation>nėra</translation>
     </message>
+    </context>
+<context>
+    <name>QObject::QObject</name>
+    </context>
+<context>
+    <name>QRImageWidget</name>
     </context>
 <context>
     <name>RPCConsole</name>
@@ -701,6 +730,13 @@
         <source>Copy &amp;Address</source>
         <translation>&amp;Kopijuoti adresą</translation>
     </message>
+    <message>
+        <source>Address</source>
+        <translation>Adresas</translation>
+    </message>
+    </context>
+<context>
+    <name>RecentRequestsTableModel</name>
     </context>
 <context>
     <name>SendCoinsDialog</name>
@@ -723,10 +759,6 @@
     <message>
         <source>Amount:</source>
         <translation>Suma:</translation>
-    </message>
-    <message>
-        <source>Priority:</source>
-        <translation>Pirmumas:</translation>
     </message>
     <message>
         <source>Fee:</source>
@@ -768,7 +800,7 @@
         <source>S&amp;end</source>
         <translation>&amp;Siųsti</translation>
     </message>
-</context>
+    </context>
 <context>
     <name>SendCoinsEntry</name>
     <message>
@@ -803,6 +835,9 @@
         <source>Pay To:</source>
         <translation>Mokėti gavėjui:</translation>
     </message>
+    </context>
+<context>
+    <name>SendConfirmationDialog</name>
     </context>
 <context>
     <name>ShutdownWindow</name>
@@ -869,14 +904,36 @@
     </message>
 </context>
 <context>
+    <name>TransactionDesc</name>
+    </context>
+<context>
     <name>TransactionDescDialog</name>
     <message>
         <source>This pane shows a detailed description of the transaction</source>
         <translation>Šis langas sandorio detalų aprašymą</translation>
     </message>
-</context>
+    </context>
+<context>
+    <name>TransactionTableModel</name>
+    </context>
+<context>
+    <name>TransactionView</name>
+    <message>
+        <source>Address</source>
+        <translation>Adresas</translation>
+    </message>
+    </context>
 <context>
     <name>UnitDisplayStatusBarControl</name>
+    </context>
+<context>
+    <name>WalletFrame</name>
+    </context>
+<context>
+    <name>WalletModel</name>
+    </context>
+<context>
+    <name>WalletView</name>
     </context>
 <context>
     <name>bitcoin-core</name>
@@ -903,10 +960,6 @@
     <message>
         <source>Bitcoin Core</source>
         <translation>Bitcoin branduolys</translation>
-    </message>
-    <message>
-        <source>Connect only to the specified node(s)</source>
-        <translation>Prisijungti tik prie nurodyto mazgo</translation>
     </message>
     <message>
         <source>Error opening block database</source>

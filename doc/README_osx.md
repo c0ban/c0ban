@@ -1,5 +1,3 @@
-Currently, c0ban is only supported on ubuntu 16.04. (Aug 8, 2017)
-
 Deterministic OS X Dmg Notes.
 
 Working OS X DMGs are created in Linux by combining a recent clang,
@@ -94,6 +92,6 @@ build process to remain somewhat deterministic. Here's how it works:
   that have been previously (deterministically) built in order to create a
   final dmg.
 - The Apple keyholder uses this unsigned app to create a detached signature,
-  using the script that is also included there. Detached signatures are available from this [repository](https://github.com/c0ban-core/c0ban-detached-sigs).
+  using the script that is also included there. Detached signatures are available from this [repository](https://github.com/bitcoin-core/bitcoin-detached-sigs).
 - Builders feed the unsigned app + detached signature back into Gitian. It
   uses the pre-built tools to recombine the pieces into a deterministic dmg.
