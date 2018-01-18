@@ -1,6 +1,8 @@
 Sample init scripts and service configuration for bitcoind
 ==========================================================
 
+Currently, c0ban is not supported this document (Jan 20, 2018)
+
 Sample scripts and configuration files for systemd, Upstart and OpenRC
 can be found in the contrib/init folder.
 

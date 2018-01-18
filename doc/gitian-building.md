@@ -1,6 +1,8 @@
 Gitian building
 ================
 
+Currently, c0ban is not supported Gitian (Jan 20, 2018)
+
 *Setup instructions for a Gitian build of Bitcoin Core using a Debian VM or physical system.*
 
 Gitian is the deterministic build process that is used to build the Bitcoin
