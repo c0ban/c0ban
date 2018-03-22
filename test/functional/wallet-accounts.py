@@ -31,7 +31,7 @@ class WalletAccountsTest(BitcoinTestFramework):
         # the same address, so we call twice to get two addresses w/50 each
         node.generate(1)
         node.generate(101)
-        assert_equal(node.getbalance(), 100)
+        assert_equal(node.getbalance(), 44000)
 
         # there should be 2 address groups
         # each with 1 address with a balance of 50 Bitcoins
@@ -43,7 +43,7 @@ class WalletAccountsTest(BitcoinTestFramework):
         for address_group in address_groups:
             assert_equal(len(address_group), 1)
             assert_equal(len(address_group[0]), 2)
-            assert_equal(address_group[0][1], 50)
+            assert_equal(address_group[0][1], 22000)
             linked_addresses.add(address_group[0][0])
 
         # send 50 from each address to a third address not in this wallet
@@ -52,7 +52,7 @@ class WalletAccountsTest(BitcoinTestFramework):
         common_address = "msf4WtN1YQKXvNtvdFYt9JBnUD2FB41kjr"
         txid = node.sendmany(
             fromaccount="",
-            amounts={common_address: 100},
+            amounts={common_address: 44000},
             subtractfeefrom=[common_address],
             minconf=1,
         )
@@ -78,23 +78,23 @@ class WalletAccountsTest(BitcoinTestFramework):
         for account in accounts:
             address = node.getaccountaddress(account)
             account_addresses[account] = address
-            
+
             node.getnewaddress(account)
             assert_equal(node.getaccount(address), account)
             assert(address in node.getaddressesbyaccount(account))
-            
+
             node.sendfrom("", address, amount_to_send)
-        
+
         node.generate(1)
-        
+
         for i in range(len(accounts)):
             from_account = accounts[i]
             to_account = accounts[(i+1) % len(accounts)]
             to_address = account_addresses[to_account]
             node.sendfrom(from_account, to_address, amount_to_send)
-        
+
         node.generate(1)
-        
+
         for account in accounts:
             address = node.getaccountaddress(account)
             assert(address != account_addresses[account])
@@ -102,32 +102,32 @@ class WalletAccountsTest(BitcoinTestFramework):
             node.move(account, "", node.getbalance(account))
 
         node.generate(101)
-        
-        expected_account_balances = {"": 5200}
+
+        expected_account_balances = {"": 2288000}
         for account in accounts:
             expected_account_balances[account] = 0
-        
+
         assert_equal(node.listaccounts(), expected_account_balances)
-        
-        assert_equal(node.getbalance(""), 5200)
-        
+
+        assert_equal(node.getbalance(""), 2288000)
+
         for account in accounts:
             address = node.getaccountaddress("")
             node.setaccount(address, account)
             assert(address in node.getaddressesbyaccount(account))
             assert(address not in node.getaddressesbyaccount(""))
-        
+
         for account in accounts:
             addresses = []
             for x in range(10):
                 addresses.append(node.getnewaddress())
             multisig_address = node.addmultisigaddress(5, addresses, account)
-            node.sendfrom("", multisig_address, 50)
-        
+            node.sendfrom("", multisig_address, 22000)
+
         node.generate(101)
-        
+
         for account in accounts:
-            assert_equal(node.getbalance(account), 50)
+            assert_equal(node.getbalance(account), 22000)
 
 if __name__ == '__main__':
     WalletAccountsTest().main()
