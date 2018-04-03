@@ -96,6 +96,8 @@ CScript COINBASE_FLAGS;
 
 const std::string strMessageMagic = "Bitcoin Signed Message:\n";
 
+extern int nIssuePrices[10];
+
 // Internal stuff
 namespace {
 
@@ -1046,7 +1048,7 @@ CAmount GetBlockSubsidy(int nHeight, const Consensus::Params& consensusParams)
 
     for( int i = 0; i < STAGES; ++i ){
     	if ( ( low <  (nHeight) ) && ( (nHeight) <=  ISSUE_BLOCK[i] ) ){
-    		nSubsidy = ISSUE_PRICE[i] * COIN;
+    		nSubsidy = nIssuePrices[i] * COIN;
     		break;
     	}else{
     		low = ISSUE_BLOCK[i] ;

@@ -27,10 +27,4 @@ static const CAmount CENT = 1000000;
 static const CAmount MAX_MONEY = 88000000 * COIN;
 inline bool MoneyRange(const CAmount& nValue) { return (nValue >= 0 && nValue <= MAX_MONEY); }
 
-static const  int MAX_STAGES = 10;
-static const  int STAGES = 7;
-
-static const  int ISSUE_BLOCK[ MAX_STAGES ]  =  { 1000,  739125 , 985500 , 1231875, 1478250, 9358687, 9358688};
-static const  int ISSUE_PRICE[ MAX_STAGES ]  =  { 22000, 0, 2, 4, 6, 8, 4 };
-
 #endif //  BITCOIN_AMOUNT_H

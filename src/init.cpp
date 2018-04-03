@@ -91,6 +91,8 @@ static CZMQNotificationInterface* pzmqNotificationInterface = nullptr;
 
 static const char* FEE_ESTIMATES_FILENAME="fee_estimates.dat";
 
+int nIssuePrices[10] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+
 //////////////////////////////////////////////////////////////////////////////
 //
 // Shutdown
@@ -1117,6 +1119,27 @@ bool AppInitParameterInteraction()
 
     if (gArgs.GetArg("-rpcserialversion", DEFAULT_RPC_SERIALIZE_VERSION) > 1)
         return InitError("unknown rpcserialversion requested.");
+
+    if (gArgs.IsArgSet("-issueprices"))
+    {
+        LogPrintf("In issueprices !!!!!\n");
+        std::string strIssuePricesList = gArgs.GetArg("-issueprices", "");
+        std::vector<std::string> vStrInputParts;
+        boost::split(vStrInputParts, strIssuePricesList, boost::is_any_of(","));
+
+        if(vStrInputParts.size() != STAGES)
+          return InitError("invalid issueprices values.");
+
+        for(int i = 0; i < STAGES; ++i) {
+            nIssuePrices[i] = std::stoi(vStrInputParts[i]);
+        }
+
+    }
+    else {
+        for(int i = 0; i < STAGES; ++i) {
+            nIssuePrices[i] = ISSUE_PRICE[i];
+        }
+    }
 
     nMaxTipAge = gArgs.GetArg("-maxtipage", DEFAULT_MAX_TIP_AGE);
 
