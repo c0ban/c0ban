@@ -2,7 +2,7 @@ UNIX BUILD NOTES
 ====================
 Some notes on how to build c0ban Core in Unix.
 
-Currently, c0ban is only supported on ubuntu 16.04. (Aug 8, 2017)
+(for OpenBSD specific instructions, see [build-openbsd.md](build-openbsd.md))
 
 Note
 ---------------------
@@ -79,9 +79,12 @@ install necessary parts of boost:
 
         sudo apt-get install libboost-all-dev
 
-BerkeleyDB is required for the wallet. db4.8 packages are available [here](https://launchpad.net/~bitcoin/+archive/bitcoin).
+BerkeleyDB is required for the wallet.
+
+**For Ubuntu only:** db4.8 packages are available [here](https://launchpad.net/~bitcoin/+archive/bitcoin).
 You can add the repository and install using the following commands:
 
+    sudo apt-get install software-properties-common
     sudo add-apt-repository ppa:bitcoin/bitcoin
     sudo apt-get update
     sudo apt-get install libdb4.8-dev libdb4.8++-dev
@@ -93,13 +96,13 @@ pass `--with-incompatible-bdb` to configure.
 
 See the section "Disable-wallet mode" to build c0ban Core without wallet.
 
-Optional:
+Optional (see --with-miniupnpc and --enable-upnp-default):
 
-    sudo apt-get install libminiupnpc-dev (see --with-miniupnpc and --enable-upnp-default)
+    sudo apt-get install libminiupnpc-dev
 
-ZMQ dependencies:
+ZMQ dependencies (provides ZMQ API 4.x):
 
-    sudo apt-get install libzmq3-dev (provides ZMQ API 4.x)
+    sudo apt-get install libzmq3-dev
 
 Dependencies for the GUI: Ubuntu & Debian
 -----------------------------------------
@@ -165,7 +168,7 @@ Berkeley DB
 It is recommended to use Berkeley DB 4.8. If you have to build it yourself:
 
 ```bash
-bitcoin_ROOT=$(pwd)
+BITCOIN_ROOT=$(pwd)
 
 # Pick some path to install BDB to, here we create a directory within the c0ban directory
 BDB_PREFIX="${BITCOIN_ROOT}/db4"
@@ -282,7 +285,7 @@ This example lists the steps necessary to setup and build a command line only, n
 Note:
 Enabling wallet support requires either compiling against a Berkeley DB newer than 4.8 (package `db`) using `--with-incompatible-bdb`,
 or building and depending on a local version of Berkeley DB 4.8. The readily available Arch Linux packages are currently built using
-`--with-incompatible-bdb` according to the [PKGBUILD](https://projects.archlinux.org/svntogit/community.git/tree/c0ban/trunk/PKGBUILD).
+`--with-incompatible-bdb` according to the [PKGBUILD](https://projects.archlinux.org/svntogit/community.git/tree/bitcoin/trunk/PKGBUILD).
 As mentioned above, when maintaining portability of the wallet between the standard c0ban Core distributions and independently built
 node software is desired, Berkeley DB 4.8 must be used.
 
@@ -308,3 +311,37 @@ To build executables for ARM:
 
 
 For further documentation on the depends system see [README.md](../depends/README.md) in the depends directory.
+
+Building on FreeBSD
+--------------------
+
+(Updated as of FreeBSD 11.0)
+
+Clang is installed by default as `cc` compiler, this makes it easier to get
+started than on [OpenBSD](build-openbsd.md). Installing dependencies:
+
+    pkg install autoconf automake libtool pkgconf
+    pkg install boost-libs openssl libevent
+    pkg install gmake
+
+You need to use GNU make (`gmake`) instead of `make`.
+(`libressl` instead of `openssl` will also work)
+
+For the wallet (optional):
+
+    pkg install db5
+
+This will give a warning "configure: WARNING: Found Berkeley DB other
+than 4.8; wallets opened by this build will not be portable!", but as FreeBSD never
+had a binary release, this may not matter. If backwards compatibility
+with 4.8-built c0ban Core is needed follow the steps under "Berkeley DB" above.
+
+Then build using:
+
+    ./autogen.sh
+    ./configure --with-incompatible-bdb BDB_CFLAGS="-I/usr/local/include/db5" BDB_LIBS="-L/usr/local/lib -ldb_cxx-5"
+    gmake
+
+*Note on debugging*: The version of `gdb` installed by default is [ancient and considered harmful](https://wiki.freebsd.org/GdbRetirement).
+It is not suitable for debugging a multi-threaded C++ program, not even for getting backtraces. Please install the package `gdb` and
+use the versioned gdb command e.g. `gdb7111`.

@@ -2,6 +2,10 @@
 <context>
     <name>AddressBookPage</name>
     <message>
+        <source>Right-click to edit address or label</source>
+        <translation>დააჭირეთ მარჯვენა ღილაკს მისამართის ან იარლიყის ჩასასწორებლად</translation>
+    </message>
+    <message>
         <source>Create a new address</source>
         <translation>ახალი მისამართის შექმნა</translation>
     </message>
@@ -37,7 +41,30 @@
         <source>&amp;Delete</source>
         <translation>&amp;წაშლა</translation>
     </message>
-</context>
+    <message>
+        <source>C&amp;hoose</source>
+        <translation>&amp;არჩევა</translation>
+    </message>
+    <message>
+        <source>Sending addresses</source>
+        <translation>გამმგზავნი მისამართ</translation>
+    </message>
+    <message>
+        <source>Receiving addresses</source>
+        <translation>მიმღები მისამართი</translation>
+    </message>
+    <message>
+        <source>&amp;Edit</source>
+        <translation>&amp;რედაქტირება</translation>
+    </message>
+    </context>
+<context>
+    <name>AddressTableModel</name>
+    <message>
+        <source>Address</source>
+        <translation>მისამართი</translation>
+    </message>
+    </context>
 <context>
     <name>AskPassphraseDialog</name>
     <message>
@@ -56,7 +83,23 @@
         <source>Repeat new passphrase</source>
         <translation>გაიმეორეთ ახალი ფრაზა-პაროლი</translation>
     </message>
-</context>
+    <message>
+        <source>Encrypt wallet</source>
+        <translation>საფულის დაშიფრვა</translation>
+    </message>
+    <message>
+        <source>Unlock wallet</source>
+        <translation>საფულის განბლოკვა</translation>
+    </message>
+    <message>
+        <source>Decrypt wallet</source>
+        <translation>საფულის განბლოკვა</translation>
+    </message>
+    <message>
+        <source>Change passphrase</source>
+        <translation>პაროლის შეცვლა</translation>
+    </message>
+    </context>
 <context>
     <name>BanTableModel</name>
     </context>
@@ -97,6 +140,14 @@
     <message>
         <source>Quit application</source>
         <translation>გასვლა</translation>
+    </message>
+    <message>
+        <source>&amp;About %1</source>
+        <translation>%1-ის &amp;შესახებ</translation>
+    </message>
+    <message>
+        <source>Show information about %1</source>
+        <translation>%1-ის შესახებ ინფორმაციის ჩვენება</translation>
     </message>
     <message>
         <source>About &amp;Qt</source>
@@ -235,14 +286,6 @@
         <translation>საკომანდო სტრიქონის ოპ&amp;ციები</translation>
     </message>
     <message>
-        <source>No block source available...</source>
-        <translation>ბლოკების წყარო მიუწვდომელია...</translation>
-    </message>
-    <message>
-        <source>%1 and %2</source>
-        <translation>%1 და %2</translation>
-    </message>
-    <message>
         <source>%1 behind</source>
         <translation>%1 გავლილია</translation>
     </message>
@@ -271,8 +314,36 @@
         <translation>განახლებულია</translation>
     </message>
     <message>
+        <source>%1 client</source>
+        <translation>%1 კლიენტი</translation>
+    </message>
+    <message>
         <source>Catching up...</source>
-        <translation>ჩართვა...</translation>
+        <translation>მიმდინარეობს განახლება...</translation>
+    </message>
+    <message>
+        <source>Date: %1
+</source>
+        <translation>თარიღი: %1
+</translation>
+    </message>
+    <message>
+        <source>Amount: %1
+</source>
+        <translation>რაოდენობა: %1
+</translation>
+    </message>
+    <message>
+        <source>Type: %1
+</source>
+        <translation>ტიპი: %1
+</translation>
+    </message>
+    <message>
+        <source>Address: %1
+</source>
+        <translation>მისამართი: %1
+</translation>
     </message>
     <message>
         <source>Sent transaction</source>
@@ -290,7 +361,7 @@
         <source>Wallet is &lt;b&gt;encrypted&lt;/b&gt; and currently &lt;b&gt;locked&lt;/b&gt;</source>
         <translation>საფულე &lt;b&gt;დაშიფრულია&lt;/b&gt; და ამჟამად &lt;b&gt;დაბლოკილია&lt;/b&gt;</translation>
     </message>
-</context>
+    </context>
 <context>
     <name>CoinControlDialog</name>
     <message>
@@ -306,12 +377,12 @@
         <translation>თანხა:</translation>
     </message>
     <message>
-        <source>Priority:</source>
-        <translation>პრიორიტეტი:</translation>
-    </message>
-    <message>
         <source>Fee:</source>
         <translation>საკომისიო:</translation>
+    </message>
+    <message>
+        <source>Dust:</source>
+        <translation>მტვერი:</translation>
     </message>
     <message>
         <source>After Fee:</source>
@@ -350,8 +421,16 @@
         <translation>დადასტურებულია</translation>
     </message>
     <message>
-        <source>Priority</source>
-        <translation>პრიორიტეტი</translation>
+        <source>yes</source>
+        <translation>დიახ</translation>
+    </message>
+    <message>
+        <source>no</source>
+        <translation>არა</translation>
+    </message>
+    <message>
+        <source>(change)</source>
+        <translation>(ხურდა)</translation>
     </message>
 </context>
 <context>
@@ -376,7 +455,7 @@
         <source>&amp;Address</source>
         <translation>მის&amp;ამართი</translation>
     </message>
-</context>
+    </context>
 <context>
     <name>FreespaceChecker</name>
     <message>
@@ -407,6 +486,14 @@
         <translation>ვერსია</translation>
     </message>
     <message>
+        <source>(%1-bit)</source>
+        <translation>(%1-ბიტი)</translation>
+    </message>
+    <message>
+        <source>About %1</source>
+        <translation>%1-ის შესახებ</translation>
+    </message>
+    <message>
         <source>Command-line options</source>
         <translation>კომანდების ზოლის ოპციები</translation>
     </message>
@@ -418,12 +505,20 @@
         <source>command-line options</source>
         <translation>კომანდების ზოლის ოპციები</translation>
     </message>
+    <message>
+        <source>UI Options:</source>
+        <translation>მომხმარებლის ინტერფეისის ოპციები:</translation>
+    </message>
     </context>
 <context>
     <name>Intro</name>
     <message>
         <source>Welcome</source>
         <translation>მოგესალმებით</translation>
+    </message>
+    <message>
+        <source>Welcome to %1.</source>
+        <translation>კეთილი იყოს თქვენი მობრძანება %1-ში.</translation>
     </message>
     <message>
         <source>Use the default data directory</source>
@@ -436,6 +531,41 @@
     <message>
         <source>Error</source>
         <translation>შეცდომა</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n GB of free space available</source>
+        <translation><numerusform>ხელმისაწვდომია თავისუფალი სივრცის %n გბ</numerusform></translation>
+    </message>
+    <message numerus="yes">
+        <source>(of %n GB needed)</source>
+        <translation><numerusform>(საჭირო %n გბ-დან)</numerusform></translation>
+    </message>
+</context>
+<context>
+    <name>ModalOverlay</name>
+    <message>
+        <source>Form</source>
+        <translation>ფორმა</translation>
+    </message>
+    <message>
+        <source>Unknown...</source>
+        <translation>უცნობი...</translation>
+    </message>
+    <message>
+        <source>Last block time</source>
+        <translation>ბოლო ბლოკის დრო</translation>
+    </message>
+    <message>
+        <source>Progress</source>
+        <translation>პროგრესი</translation>
+    </message>
+    <message>
+        <source>calculating...</source>
+        <translation>მიმდინარეობს გამოთვლა...</translation>
+    </message>
+    <message>
+        <source>Hide</source>
+        <translation>დამალვა</translation>
     </message>
     </context>
 <context>
@@ -456,7 +586,7 @@
         <source>Select payment request file</source>
         <translation>გადახდის მოთხოვნის ფაილის არჩევა</translation>
     </message>
-</context>
+    </context>
 <context>
     <name>OptionsDialog</name>
     <message>
@@ -504,6 +634,10 @@
         <translation>ს&amp;აფულე</translation>
     </message>
     <message>
+        <source>Expert</source>
+        <translation>ექსპერტი</translation>
+    </message>
+    <message>
         <source>If you disable the spending of unconfirmed change, the change from a transaction cannot be used until that transaction has at least one confirmation. This also affects how your balance is computed.</source>
         <translation>დაუდასტურებელი ხურდის გამოყენების აკრძალვის შემდეგ მათი გამოყენება შეუძლებელი იქნება, სანამ ტრანსაქციას არ ექნება ერთი დასტური მაინც. ეს აისახება თქვენი ნაშთის დათვლაზეც.</translation>
     </message>
@@ -526,6 +660,18 @@
     <message>
         <source>Port of the proxy (e.g. 9050)</source>
         <translation>პროქსის პორტი (მაგ.: 9050)</translation>
+    </message>
+    <message>
+        <source>IPv4</source>
+        <translation>IPv4</translation>
+    </message>
+    <message>
+        <source>IPv6</source>
+        <translation>IPv6</translation>
+    </message>
+    <message>
+        <source>Tor</source>
+        <translation>Tor</translation>
     </message>
     <message>
         <source>&amp;Window</source>
@@ -640,6 +786,9 @@
     </message>
     </context>
 <context>
+    <name>PaymentServer</name>
+    </context>
+<context>
     <name>PeerTableModel</name>
     </context>
 <context>
@@ -660,6 +809,16 @@
         <source>N/A</source>
         <translation>მიუწვდ.</translation>
     </message>
+    <message>
+        <source>%1 and %2</source>
+        <translation>%1 და %2</translation>
+    </message>
+    </context>
+<context>
+    <name>QObject::QObject</name>
+    </context>
+<context>
+    <name>QRImageWidget</name>
     </context>
 <context>
     <name>RPCConsole</name>
@@ -842,7 +1001,7 @@
         <source>Remove</source>
         <translation>წაშლა</translation>
     </message>
-</context>
+    </context>
 <context>
     <name>ReceiveRequestDialog</name>
     <message>
@@ -861,7 +1020,14 @@
         <source>&amp;Save Image...</source>
         <translation>გამო&amp;სახულების შენახვა...</translation>
     </message>
-</context>
+    <message>
+        <source>Address</source>
+        <translation>მისამართი</translation>
+    </message>
+    </context>
+<context>
+    <name>RecentRequestsTableModel</name>
+    </context>
 <context>
     <name>SendCoinsDialog</name>
     <message>
@@ -897,10 +1063,6 @@
         <translation>თანხა:</translation>
     </message>
     <message>
-        <source>Priority:</source>
-        <translation>პრიორიტეტი:</translation>
-    </message>
-    <message>
         <source>Fee:</source>
         <translation>საკომისიო:</translation>
     </message>
@@ -925,6 +1087,10 @@
         <translation>ტრანსაქციის საფასური - საკომისიო:</translation>
     </message>
     <message>
+        <source>Hide</source>
+        <translation>დამალვა</translation>
+    </message>
+    <message>
         <source>Send to multiple recipients at once</source>
         <translation>გაგზავნა რამდენიმე რეციპიენტთან ერთდროულად</translation>
     </message>
@@ -935,6 +1101,10 @@
     <message>
         <source>Clear all fields of the form.</source>
         <translation>ფორმის ყველა ველის წაშლა</translation>
+    </message>
+    <message>
+        <source>Dust:</source>
+        <translation>მტვერი:</translation>
     </message>
     <message>
         <source>Clear &amp;All</source>
@@ -952,7 +1122,7 @@
         <source>S&amp;end</source>
         <translation>გაგ&amp;ზავნა</translation>
     </message>
-</context>
+    </context>
 <context>
     <name>SendCoinsEntry</name>
     <message>
@@ -1011,7 +1181,10 @@
         <source>Memo:</source>
         <translation>შენიშვნა:</translation>
     </message>
-</context>
+    </context>
+<context>
+    <name>SendConfirmationDialog</name>
+    </context>
 <context>
     <name>ShutdownWindow</name>
     <message>
@@ -1089,7 +1262,7 @@
         <source>Reset all verify message fields</source>
         <translation>ვერიფიკაციის ყველა ველის წაშლა</translation>
     </message>
-</context>
+    </context>
 <context>
     <name>SplashScreen</name>
     <message>
@@ -1105,14 +1278,36 @@
     </message>
 </context>
 <context>
+    <name>TransactionDesc</name>
+    </context>
+<context>
     <name>TransactionDescDialog</name>
     <message>
         <source>This pane shows a detailed description of the transaction</source>
         <translation>ტრანსაქციის დაწვრილებითი აღწერილობა</translation>
     </message>
-</context>
+    </context>
+<context>
+    <name>TransactionTableModel</name>
+    </context>
+<context>
+    <name>TransactionView</name>
+    <message>
+        <source>Address</source>
+        <translation>მისამართი</translation>
+    </message>
+    </context>
 <context>
     <name>UnitDisplayStatusBarControl</name>
+    </context>
+<context>
+    <name>WalletFrame</name>
+    </context>
+<context>
+    <name>WalletModel</name>
+    </context>
+<context>
+    <name>WalletView</name>
     </context>
 <context>
     <name>bitcoin-core</name>
@@ -1141,10 +1336,6 @@
         <translation>რეზიდენტულად გაშვება და კომანდების მიღება</translation>
     </message>
     <message>
-        <source>Accept connections from outside (default: 1 if no -proxy or -connect)</source>
-        <translation>გარედან შეერთებების დაშვება (ნაგულისხმევი: 1 თუ არ გამოიყენება -proxy ან -connect)</translation>
-    </message>
-    <message>
         <source>Bitcoin Core</source>
         <translation>Bitcoin Core</translation>
     </message>
@@ -1157,28 +1348,12 @@
         <translation>კომანდის შესრულება საფულის ტრანსაქციის ცვლილებისას (%s კომანდაში ჩანაცვლდება TxID-ით)</translation>
     </message>
     <message>
-        <source>This is a pre-release test build - use at your own risk - do not use for mining or merchant applications</source>
-        <translation>ეს არის წინასწარი სატესტო ვერსია - გამოიყენეთ საკუთარი რისკით - არ გამოიყენოთ მოპოვებისა ან კომერციული მიზნებისათვის</translation>
-    </message>
-    <message>
-        <source>Warning: The network does not appear to fully agree! Some miners appear to be experiencing issues.</source>
-        <translation>ყურადღება: ქსელში შეუთანხმებლობაა. შესაძლოა ცალკეულ მომპოვებლებს პრობლემები ექმნებათ!</translation>
-    </message>
-    <message>
-        <source>Warning: We do not appear to fully agree with our peers! You may need to upgrade, or other nodes may need to upgrade.</source>
-        <translation>ყურადღება: ჩვენ არ ვეთანხმებით ყველა პირს. შესაძლოა თქვენ ან სხვა კვანძებს განახლება გჭირდებათ.</translation>
-    </message>
-    <message>
         <source>&lt;category&gt; can be:</source>
         <translation>&lt;category&gt; შეიძლება იყოს:</translation>
     </message>
     <message>
         <source>Block creation options:</source>
         <translation>ბლოკის შექმნის ოპციები:</translation>
-    </message>
-    <message>
-        <source>Connect only to the specified node(s)</source>
-        <translation>შეერთება მხოლოდ მითითებულ კვანძ(ებ)თან</translation>
     </message>
     <message>
         <source>Corrupted block database detected</source>
@@ -1279,10 +1454,6 @@
     <message>
         <source>Transaction amount too small</source>
         <translation>ტრანსაქციების რაოდენობა ძალიან ცოტაა</translation>
-    </message>
-    <message>
-        <source>Transaction amounts must be positive</source>
-        <translation>ტრანსაქციების რაოდენობა დადებითი რიცხვი უნდა იყოს</translation>
     </message>
     <message>
         <source>Transaction too large</source>

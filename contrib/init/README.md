@@ -1,12 +1,12 @@
 Sample configuration files for:
-
-SystemD: bitcoind.service
-Upstart: bitcoind.conf
-OpenRC:  bitcoind.openrc
-         bitcoind.openrcconf
-CentOS:  bitcoind.init
-OS X:    org.bitcoin.bitcoind.plist
-
+```
+SystemD: c0band.service
+Upstart: c0band.conf
+OpenRC:  c0band.openrc
+         c0band.openrcconf
+CentOS:  c0band.init
+OS X:    org.c0ban.c0band.plist
+```
 have been made available to assist packagers in creating node packages here.
 
 See doc/init.md for more information.

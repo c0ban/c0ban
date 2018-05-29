@@ -1,22 +1,19 @@
-// Copyright (c) 2011-2015 The Bitcoin Core developers
-// Copyright (c) 2016-2017 The c0ban developers
+// Copyright (c) 2011-2016 The Bitcoin Core developers
+// Copyright (c) 2017-2018 The c0ban Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #if defined(HAVE_CONFIG_H)
-#include "config/c0ban-config.h"
+#include "config/bitcoin-config.h"
 #endif
 
-#include "clientversion.h"
-
+#include "fs.h"
 #include "intro.h"
 #include "ui_intro.h"
 
 #include "guiutil.h"
 
 #include "util.h"
-
-#include <boost/filesystem.hpp>
 
 #include <QFileDialog>
 #include <QSettings>
@@ -26,9 +23,9 @@
 
 static const uint64_t GB_BYTES = 1000000000LL;
 /* Minimum free space (in GB) needed for data directory */
-static const uint64_t BLOCK_CHAIN_SIZE = 80;
+static const uint64_t BLOCK_CHAIN_SIZE = 2;
 /* Minimum free space (in GB) needed for data directory when pruned; Does not include prune target */
-static const uint64_t CHAIN_STATE_SIZE = 2;
+static const uint64_t CHAIN_STATE_SIZE = 1;
 /* Total required space (in GB) depending on user choice (prune, not prune) */
 static uint64_t requiredSpace;
 
@@ -66,14 +63,13 @@ private:
 
 #include "intro.moc"
 
-FreespaceChecker::FreespaceChecker(Intro *intro)
+FreespaceChecker::FreespaceChecker(Intro *_intro)
 {
-    this->intro = intro;
+    this->intro = _intro;
 }
 
 void FreespaceChecker::check()
 {
-    namespace fs = boost::filesystem;
     QString dataDirStr = intro->getPathToCheck();
     fs::path dataDir = GUIUtil::qstringToBoostPath(dataDirStr);
     uint64_t freeBytesAvailable = 0;
@@ -125,20 +121,36 @@ Intro::Intro(QWidget *parent) :
     signalled(false)
 {
     ui->setupUi(this);
+    ui->welcomeLabel->setText(ui->welcomeLabel->text().arg(tr(PACKAGE_NAME)));
+    ui->storageLabel->setText(ui->storageLabel->text().arg(tr(PACKAGE_NAME)));
 
-    /* Modified by Qianren Zhang 	Dec. 10, 2016  */
-    //ui->welcomeLabel->setText(ui->welcomeLabel->text().arg(tr(PACKAGE_NAME)));
-    ui->welcomeLabel->setText(ui->welcomeLabel->text().arg(tr(SOFTWARE_NAME)));
+    ui->lblExplanation1->setText(ui->lblExplanation1->text()
+        .arg(tr(PACKAGE_NAME))
+        .arg(BLOCK_CHAIN_SIZE)
+        .arg(2009)
+        .arg(tr("Bitcoin"))
+    );
+    ui->lblExplanation2->setText(ui->lblExplanation2->text().arg(tr(PACKAGE_NAME)));
 
-
-    //ui->storageLabel->setText(ui->storageLabel->text().arg(tr(PACKAGE_NAME)));
-    ui->storageLabel->setText(ui->storageLabel->text().arg(tr(SOFTWARE_NAME)));
-    uint64_t pruneTarget = std::max<int64_t>(0, GetArg("-prune", 0));
+    uint64_t pruneTarget = std::max<int64_t>(0, gArgs.GetArg("-prune", 0));
     requiredSpace = BLOCK_CHAIN_SIZE;
-    if (pruneTarget)
-        requiredSpace = CHAIN_STATE_SIZE + std::ceil(pruneTarget * 1024 * 1024.0 / GB_BYTES);
-    //ui->sizeWarningLabel->setText(ui->sizeWarningLabel->text().arg(tr(PACKAGE_NAME)).arg(requiredSpace));
-    ui->sizeWarningLabel->setText(ui->sizeWarningLabel->text().arg(tr(SOFTWARE_NAME)).arg(requiredSpace));
+    QString storageRequiresMsg = tr("At least %1 GB of data will be stored in this directory, and it will grow over time.");
+    if (pruneTarget) {
+        uint64_t prunedGBs = std::ceil(pruneTarget * 1024 * 1024.0 / GB_BYTES);
+        if (prunedGBs <= requiredSpace) {
+            requiredSpace = prunedGBs;
+            storageRequiresMsg = tr("Approximately %1 GB of data will be stored in this directory.");
+        }
+        ui->lblExplanation3->setVisible(true);
+    } else {
+        ui->lblExplanation3->setVisible(false);
+    }
+    requiredSpace += CHAIN_STATE_SIZE;
+    ui->sizeWarningLabel->setText(
+        tr("%1 will download and store a copy of the Bitcoin block chain.").arg(tr(PACKAGE_NAME)) + " " +
+        storageRequiresMsg.arg(requiredSpace) + " " +
+        tr("The wallet will also be stored in this directory.")
+    );
     startThread();
 }
 
@@ -177,18 +189,17 @@ QString Intro::getDefaultDataDirectory()
 
 bool Intro::pickDataDirectory()
 {
-    namespace fs = boost::filesystem;
     QSettings settings;
     /* If data directory provided on command line, no need to look at settings
        or show a picking dialog */
-    if(!GetArg("-datadir", "").empty())
+    if(!gArgs.GetArg("-datadir", "").empty())
         return true;
     /* 1) Default data directory for operating system */
     QString dataDir = getDefaultDataDirectory();
     /* 2) Allow QSettings to override default dir */
     dataDir = settings.value("strDataDir", dataDir).toString();
 
-    if(!fs::exists(GUIUtil::qstringToBoostPath(dataDir)) || GetBoolArg("-choosedatadir", DEFAULT_CHOOSE_DATADIR) || settings.value("fReset", false).toBool() || GetBoolArg("-resetguisettings", false))
+    if(!fs::exists(GUIUtil::qstringToBoostPath(dataDir)) || gArgs.GetBoolArg("-choosedatadir", DEFAULT_CHOOSE_DATADIR) || settings.value("fReset", false).toBool() || gArgs.GetBoolArg("-resetguisettings", false))
     {
         /* If current default data directory does not exist, let the user choose one */
         Intro intro;
@@ -204,11 +215,10 @@ bool Intro::pickDataDirectory()
             }
             dataDir = intro.getDataDirectory();
             try {
-                TryCreateDirectory(GUIUtil::qstringToBoostPath(dataDir));
+                TryCreateDirectories(GUIUtil::qstringToBoostPath(dataDir));
                 break;
             } catch (const fs::filesystem_error&) {
-                //QMessageBox::critical(0, tr(PACKAGE_NAME),
-                QMessageBox::critical(0, tr(SOFTWARE_NAME),
+                QMessageBox::critical(0, tr(PACKAGE_NAME),
                     tr("Error: Specified data directory \"%1\" cannot be created.").arg(dataDir));
                 /* fall through, back to choosing screen */
             }
@@ -222,7 +232,7 @@ bool Intro::pickDataDirectory()
      * (to be consistent with bitcoind behavior)
      */
     if(dataDir != getDefaultDataDirectory())
-        SoftSetArg("-datadir", GUIUtil::qstringToBoostPath(dataDir).string()); // use OS locale for path setting
+        gArgs.SoftSetArg("-datadir", GUIUtil::qstringToBoostPath(dataDir).string()); // use OS locale for path setting
     return true;
 }
 

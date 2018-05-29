@@ -31,7 +31,7 @@ through `Source23` are used.
 Sources 30-39 should be reserved for SELinux related files. Currently only
 `Source30` through `Source32` are used. Until those files are in a tagged
 release, the full URL specified in the RPM spec file will not work. You can get
-them from the git ropository where you retrieved this file.
+them from the git repository where you retrieved this file.
 
 Sources 100+ are for files that are not source tarballs and are not maintained
 in the bitcoin git repository. At present only an SVG version of the Bitcoin
@@ -181,5 +181,5 @@ knows what they are getting when installing the GUI package.
 
 As far as minor differences, I generally prefer to assign the file permissions
 in the `%files` portion of an RPM spec file rather than specifying the
-permissions of a file during `%install` and other minor things like that that
+permissions of a file during `%install` and other minor things like that
 are largely just cosmetic.

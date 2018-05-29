@@ -1,6 +1,7 @@
-#!/usr/bin/env python2 
-# Copyright (c) 2015 The Bitcoin Core developers 
-# Distributed under the MIT software license, see the accompanying 
+#!/usr/bin/env python2
+# Copyright (c) 2015-2016 The Bitcoin Core developers
+# Copyright (c) 2017-2018 The c0ban Core developers
+# Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 import hashlib
@@ -32,7 +33,7 @@ digestmod = hashlib.sha256
 if sys.version_info.major >= 3:
     password = password.decode('utf-8')
     digestmod = 'SHA256'
- 
+
 m = hmac.new(bytearray(salt, 'utf-8'), bytearray(password, 'utf-8'), digestmod)
 result = m.hexdigest()
 

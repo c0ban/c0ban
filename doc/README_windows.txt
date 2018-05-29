@@ -1,7 +1,5 @@
-c0ban Core 0.1.0.0
-=====================
-
-Currently, c0ban is only supported on ubuntu 16.04. (Aug 8, 2017)
+c0ban Core
+=============
 
 Intro
 -----
@@ -19,7 +17,3 @@ c0ban Core is the original c0ban client and it builds the backbone of the networ
 However, it downloads and stores the entire history of c0ban transactions;
 depending on the speed of your computer and network connection, the synchronization
 process can take anywhere from a few hours to a day or more.
-
-See the c0ban wiki at:
-  https://www.c0ban.co
-for more help and information.
