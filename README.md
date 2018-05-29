@@ -4,11 +4,17 @@ c0ban Core integration/staging tree
 What is c0ban?
 ----------------
 
-c0ban is an experimental digital currency that enables instant payments to
-anyone, anywhere in the world. c0ban uses peer-to-peer technology to operate
-with no central authority: managing transactions and issuing money are carried
-out collectively by the network. c0ban Core is the name of open source
-software which enables the use of this currency.
+"blockchain tech for everyone" by Noritaka Kobayashi, Ph.D.
+
+.
+.
+
+
+c0ban is the world’s first crypto currency tied up with entertainment and advertisement services from the beginning. 
+Its application will be released on App store, Google play and Web application in 2017. 
+It aims at destruction and creation of advertisement market by taking advantage of micro payment feature of blockchain. 
+Its main purpose is not becoming major currency on some exchange markets but major crypto currency can be used 
+in anywhere with advertisement solutions.
 
 For more information, as well as an immediately useable, read the
 [original whitepaper](http://www.c0ban.co/).
