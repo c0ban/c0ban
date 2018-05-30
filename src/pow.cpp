@@ -7,10 +7,83 @@
 
 #include "arith_uint256.h"
 #include "chain.h"
+#include "chainparams.h"
 #include "primitives/block.h"
 #include "uint256.h"
 
-unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHeader *pblock, const Consensus::Params& params)
+
+unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHeader *pblock,
+                                 const Consensus::Params& params)
+{
+    assert(pindexLast != nullptr);
+
+    if(pindexLast->nHeight+1 < Params().SwitchLyra2REv2_DGWblock())
+    {
+        // Original Bitcion PoW.
+        return BitcoinGetNextWorkRequired(pindexLast, pblock, params);
+    } else {
+        // Zawy's LWMA.
+        return LwmaGetNextWorkRequired(pindexLast, pblock, params);
+    }
+}
+
+unsigned int LwmaGetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHeader *pblock, const Consensus::Params& params)
+{
+    // Special difficulty rule for testnet:
+    // If the new block's timestamp is more than 2 * 10 minutes
+    // then allow mining of a min-difficulty block.
+    if (params.fPowAllowMinDifficultyBlocks &&
+        pblock->GetBlockTime() > pindexLast->GetBlockTime() + params.nPowTargetSpacing * 2) {
+        return UintToArith256(params.powLimit).GetCompact();
+    }
+    return LinearWeightedMovingAverage(pindexLast, params);
+}
+
+// see. https://github.com/zawy12/difficulty-algorithms/issues/3#issuecomment-388386175
+unsigned int static LinearWeightedMovingAverage(const CBlockIndex* pindexLast, const Consensus::Params& params) {
+    if (params.fPowNoRetargeting) {  return pindexLast->nBits;   }
+    // The FTL must be changed from 7200 to about NxT/10 or NxT/20 but I don't know where it
+    // should be changed.  Maybe it is here:
+    // static const int64_t MAX_FUTURE_BLOCK_TIME = 2 * 60 * 60;
+    // but this affects a lot of things and BTG decided to create 2 variables where just 1 was lowered to 1/2
+    // https://github.com/BTCGPU/BTCGPU/pull/296/commits/e803c163a680eeb49774f0bd9a24f6f3d7e5718b
+
+    const int T = params.nPowTargetSpacing;
+    const int N = Params().AveragingWindow();
+    const int k = (N+1)/2*T*0.998;
+    const int height = pindexLast->nHeight + 1;
+    assert(height > N);
+
+    arith_uint256 sum_target;
+    int t = 0, j = 0;
+
+    // Loop through N most recent blocks.
+    for (int i = height - N; i < height; i++) {
+         const CBlockIndex* block = pindexLast->GetAncestor(i);
+         const CBlockIndex* block_Prev = block->GetAncestor(i - 1);
+         int64_t solvetime = block->GetBlockTime() - block_Prev->GetBlockTime();
+         // [zawy edit: bitcoin gold has implemented stricter limits on forward times and reverse times so
+         // they do not need the limitation on solvetime as shown in the pseudocode ]
+         j++;
+         t += solvetime * j;  // Weighted solvetime sum.
+
+         // Target sum divided by a factor, (k N^2).
+         // The factor is a part of the final equation. However we divide sum_target
+         // here to avoid potential overflow.
+         arith_uint256 target;
+         target.SetCompact(block->nBits);
+         sum_target += target / (k * N * N);
+    }
+    // Keep t reasonable in case strange solvetimes occurred.
+    // [zawy edit: change N * k/3 to "1" in both places. This caused new coins to get stuck ]
+    if (t < N * k / 3) { t = N * k / 3; }
+    arith_uint256 next_target = t * sum_target;
+
+    return next_target.GetCompact();
+}
+
+
+unsigned int BitcoinGetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHeader *pblock, const Consensus::Params& params)
 {
     assert(pindexLast != nullptr);
     unsigned int nProofOfWorkLimit = UintToArith256(params.powLimit).GetCompact();
@@ -43,6 +116,10 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
     const CBlockIndex* pindexFirst = pindexLast->GetAncestor(nHeightFirst);
     assert(pindexFirst);
 
+    if(pindexLast->nHeight+1 >= Params().SwitchLyra2REv2_DGWblock())
+    {
+        return LinearWeightedMovingAverage(pindexLast, params);
+    }
     return CalculateNextWorkRequired(pindexLast, pindexFirst->GetBlockTime(), params);
 }
 

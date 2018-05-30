@@ -107,6 +107,10 @@ public:
         // By default assume that the signatures in ancestors of this block are valid.
         consensus.defaultAssumeValid = uint256S("0x0000000000000355017a157c1b0e6256754137f6428ba5dedb0bd3992b920b07"); // height 957752 block hash
 
+        // Hardfork params
+        nZawyLwmaAveragingWindow = 60; // TODO: change to an official value
+        nSwitchLyra2REv2_DIFF = 1400000; // TODO: change to an official value
+
         /**
          * The message start string is designed to be unlikely to occur in normal data.
          * The characters are rarely used upper ASCII, not valid as UTF-8, and produce
@@ -207,6 +211,10 @@ public:
         // By default assume that the signatures in ancestors of this block are valid.
         consensus.defaultAssumeValid = uint256S("0x00");
 
+        // Hardfork params
+        nZawyLwmaAveragingWindow = 60;
+        nSwitchLyra2REv2_DIFF = 1400000;
+
         pchMessageStart[0] = 0x63;
         pchMessageStart[1] = 0x30;
         pchMessageStart[2] = 0x62;
@@ -288,6 +296,10 @@ public:
 
         // By default assume that the signatures in ancestors of this block are valid.
         consensus.defaultAssumeValid = uint256S("0x00");
+
+        // Hardfork params
+        nZawyLwmaAveragingWindow = 1;
+        nSwitchLyra2REv2_DIFF = 1;
 
         pchMessageStart[0] = 0xfa;
         pchMessageStart[1] = 0xbf;
