@@ -287,7 +287,15 @@ bool CBlockTreeDB::LoadBlockIndexGuts(const Consensus::Params& consensusParams, 
                 pindexNew->nStatus        = diskindex.nStatus;
                 pindexNew->nTx            = diskindex.nTx;
 
-                if (!CheckProofOfWork(pindexNew->GetBlockHash(), pindexNew->nBits, consensusParams))
+                CBlockHeader header;
+                header.hashPrevBlock  = diskindex.hashPrev;
+                header.nVersion       = pindexNew->nVersion;
+                header.hashMerkleRoot = pindexNew->hashMerkleRoot;
+                header.nTime          = pindexNew->nTime;
+                header.nBits          = pindexNew->nBits;
+                header.nNonce         = pindexNew->nNonce;
+
+                if (!CheckProofOfWork(header.GetPoWHash(pindexNew->nHeight >= Params().SwitchLyra2REv2_DGWblock()), pindexNew->nBits, consensusParams))
                     return error("%s: CheckProofOfWork failed: %s", __func__, pindexNew->ToString());
 
                 pcursor->Next();
