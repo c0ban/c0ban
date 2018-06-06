@@ -4,7 +4,7 @@
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test behavior of headers messages to announce blocks.
 
-Setup: 
+Setup:
 
 - Two nodes, two p2p connections to node0. One p2p connection should only ever
   receive inv's (omitted from testing description below, this is our control).
@@ -255,7 +255,7 @@ class SendHeadersTest(BitcoinTestFramework):
                 height = self.nodes[0].getblockcount()
                 last_time = self.nodes[0].getblock(self.nodes[0].getbestblockhash())['time']
                 block_time = last_time + 1
-                new_block = create_block(tip, create_coinbase(height+1), block_time)
+                new_block = create_block(tip, create_coinbase(height+1), block_time, height+1)
                 new_block.solve()
                 test_node.send_header_for_blocks([new_block])
                 test_node.wait_for_getdata([new_block.sha256])
@@ -289,7 +289,7 @@ class SendHeadersTest(BitcoinTestFramework):
             for j in range(2):
                 blocks = []
                 for b in range(i+1):
-                    blocks.append(create_block(tip, create_coinbase(height), block_time))
+                    blocks.append(create_block(tip, create_coinbase(height), block_time, height))
                     blocks[-1].solve()
                     tip = blocks[-1].sha256
                     block_time += 1
@@ -339,7 +339,7 @@ class SendHeadersTest(BitcoinTestFramework):
             assert_equal(inv_node.check_last_announcement(inv=[tip]), True)
             assert_equal(test_node.check_last_announcement(headers=new_block_hashes), True)
 
-            block_time += 8 
+            block_time += 8
 
             # Mine a too-large reorg, which should be announced with a single inv
             new_block_hashes = self.mine_reorg(length=8)
@@ -377,7 +377,7 @@ class SendHeadersTest(BitcoinTestFramework):
                     test_node.get_data([tip])
                     test_node.wait_for_block(tip)
                     # This time, try sending either a getheaders to trigger resumption
-                    # of headers announcements, or mine a new block and inv it, also 
+                    # of headers announcements, or mine a new block and inv it, also
                     # triggering resumption of headers announcements.
                     if j == 0:
                         test_node.get_headers(locator=[tip], hashstop=0)
@@ -401,7 +401,7 @@ class SendHeadersTest(BitcoinTestFramework):
         # Create 2 blocks.  Send the blocks, then send the headers.
         blocks = []
         for b in range(2):
-            blocks.append(create_block(tip, create_coinbase(height), block_time))
+            blocks.append(create_block(tip, create_coinbase(height), block_time, height))
             blocks[-1].solve()
             tip = blocks[-1].sha256
             block_time += 1
@@ -419,7 +419,7 @@ class SendHeadersTest(BitcoinTestFramework):
         # This time, direct fetch should work
         blocks = []
         for b in range(3):
-            blocks.append(create_block(tip, create_coinbase(height), block_time))
+            blocks.append(create_block(tip, create_coinbase(height), block_time, height))
             blocks[-1].solve()
             tip = blocks[-1].sha256
             block_time += 1
@@ -440,7 +440,7 @@ class SendHeadersTest(BitcoinTestFramework):
 
         # Create extra blocks for later
         for b in range(20):
-            blocks.append(create_block(tip, create_coinbase(height), block_time))
+            blocks.append(create_block(tip, create_coinbase(height), block_time, height))
             blocks[-1].solve()
             tip = blocks[-1].sha256
             block_time += 1
@@ -486,7 +486,7 @@ class SendHeadersTest(BitcoinTestFramework):
             blocks = []
             # Create two more blocks.
             for j in range(2):
-                blocks.append(create_block(tip, create_coinbase(height), block_time))
+                blocks.append(create_block(tip, create_coinbase(height), block_time, height))
                 blocks[-1].solve()
                 tip = blocks[-1].sha256
                 block_time += 1
@@ -507,7 +507,7 @@ class SendHeadersTest(BitcoinTestFramework):
         # don't go into an infinite loop trying to get them to connect.
         MAX_UNCONNECTING_HEADERS = 10
         for j in range(MAX_UNCONNECTING_HEADERS+1):
-            blocks.append(create_block(tip, create_coinbase(height), block_time))
+            blocks.append(create_block(tip, create_coinbase(height), block_time, height))
             blocks[-1].solve()
             tip = blocks[-1].sha256
             block_time += 1

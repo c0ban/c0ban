@@ -59,7 +59,7 @@ class BIP9SoftForksTest(ComparisonTestFramework):
 
     def generate_blocks(self, number, version, test_blocks = []):
         for i in range(number):
-            block = create_block(self.tip, create_coinbase(self.height), self.last_block_time + 1)
+            block = create_block(self.tip, create_coinbase(self.height), self.last_block_time + 1, self.height)
             block.nVersion = version
             block.rehash()
             block.solve()
@@ -198,7 +198,7 @@ class BIP9SoftForksTest(ComparisonTestFramework):
         spendtx.rehash()
         invalidatePostSignature(spendtx)
         spendtx.rehash()
-        block = create_block(self.tip, create_coinbase(self.height), self.last_block_time + 1)
+        block = create_block(self.tip, create_coinbase(self.height), self.last_block_time + 1, self.height)
         block.nVersion = activated_version
         block.vtx.append(spendtx)
         block.hashMerkleRoot = block.calc_merkle_root()
@@ -228,7 +228,7 @@ class BIP9SoftForksTest(ComparisonTestFramework):
         invalidatePostSignature(spendtx)
         spendtx.rehash()
 
-        block = create_block(self.tip, create_coinbase(self.height), self.last_block_time + 1)
+        block = create_block(self.tip, create_coinbase(self.height), self.last_block_time + 1, self.height)
         block.nVersion = 5
         block.vtx.append(spendtx)
         block.hashMerkleRoot = block.calc_merkle_root()

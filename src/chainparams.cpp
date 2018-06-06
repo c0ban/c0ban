@@ -298,8 +298,8 @@ public:
         consensus.defaultAssumeValid = uint256S("0x00");
 
         // Hardfork params
-        nZawyLwmaAveragingWindow = 1;
-        nSwitchLyra2REv2_DIFF = 1;
+        nZawyLwmaAveragingWindow = 60;
+        nSwitchLyra2REv2_DIFF = 200;
 
         pchMessageStart[0] = 0xfa;
         pchMessageStart[1] = 0xbf;
