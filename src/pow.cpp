@@ -17,7 +17,7 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
 {
     assert(pindexLast != nullptr);
 
-    if(pindexLast->nHeight+1 < Params().SwitchLyra2REv2_DGWblock())
+    if(pindexLast->nHeight+1 < Params().SwitchLyra2REv2_LWMA())
     {
         // Original Bitcion PoW.
         return BitcoinGetNextWorkRequired(pindexLast, pblock, params);
@@ -116,7 +116,7 @@ unsigned int BitcoinGetNextWorkRequired(const CBlockIndex* pindexLast, const CBl
     const CBlockIndex* pindexFirst = pindexLast->GetAncestor(nHeightFirst);
     assert(pindexFirst);
 
-    if(pindexLast->nHeight+1 >= Params().SwitchLyra2REv2_DGWblock())
+    if(pindexLast->nHeight+1 >= Params().SwitchLyra2REv2_LWMA())
     {
         return LinearWeightedMovingAverage(pindexLast, params);
     }

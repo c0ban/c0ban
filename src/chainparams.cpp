@@ -109,7 +109,7 @@ public:
 
         // Hardfork params
         nZawyLwmaAveragingWindow = 60; // TODO: change to an official value
-        nSwitchLyra2REv2_DIFF = 1400000; // TODO: change to an official value
+        nSwitchLyra2REv2_LWMA = 1400000; // TODO: change to an official value
 
         /**
          * The message start string is designed to be unlikely to occur in normal data.
@@ -213,7 +213,7 @@ public:
 
         // Hardfork params
         nZawyLwmaAveragingWindow = 60;
-        nSwitchLyra2REv2_DIFF = 1400000;
+        nSwitchLyra2REv2_LWMA = 1400000;
 
         pchMessageStart[0] = 0x63;
         pchMessageStart[1] = 0x30;
@@ -299,7 +299,7 @@ public:
 
         // Hardfork params
         nZawyLwmaAveragingWindow = 60;
-        nSwitchLyra2REv2_DIFF = 200;
+        nSwitchLyra2REv2_LWMA = 200;
 
         pchMessageStart[0] = 0xfa;
         pchMessageStart[1] = 0xbf;
