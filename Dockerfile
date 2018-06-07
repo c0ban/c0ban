@@ -24,7 +24,8 @@ RUN apt-get update && apt-get install -y \
   pkg-config \
   libssl-dev \
   libevent-dev \
-  bsdmainutils
+  bsdmainutils \
+  python3-pip
 
 COPY . /c0ban
 WORKDIR /c0ban
@@ -33,6 +34,8 @@ RUN ./autogen.sh
 RUN ./configure
 RUN make -j4
 RUN make install
+
+RUN pip3 install lyra2re2_hash
 
 CMD ["/sbin/init"]
 
