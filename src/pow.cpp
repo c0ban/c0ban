@@ -44,44 +44,48 @@ unsigned int LwmaGetNextWorkRequired(const CBlockIndex* pindexLast, const CBlock
     return LinearWeightedMovingAverage(pindexLast, params);
 }
 
-// see. https://github.com/zawy12/difficulty-algorithms/issues/3#issuecomment-388386175
+// refer to https://github.com/zawy12/difficulty-algorithms/issues/3#issuecomment-388386175
+// LWMA for BTC clones
+// Algorithm by zawy, LWMA idea by Tom Harding
+// Code by h4x3rotab of BTC Gold, modified/updated by zawy
+// https://github.com/zawy12/difficulty-algorithms/issues/3#issuecomment-388386175
+//  FTL must be changed to about N*T/20 = 360 for T=120 and N=60 coins.
+//  FTL is MAX_FUTURE_BLOCK_TIME in chain.h.
+//  FTL in Ignition, Numus, and others can be found in main.h as DRIFT.
+//  Some coins took out a variable, and need to change the 2*60*60 here:
+//  if (block.GetBlockTime() > nAdjustedTime + 2 * 60 * 60)
 unsigned int static LinearWeightedMovingAverage(const CBlockIndex* pindexLast, const Consensus::Params& params) {
-    if (params.fPowNoRetargeting) {  return pindexLast->nBits;   }
-    // The FTL must be changed from 7200 to about NxT/10 or NxT/20 but I don't know where it
-    // should be changed.  Maybe it is here:
-    // static const int64_t MAX_FUTURE_BLOCK_TIME = 2 * 60 * 60;
-    // but this affects a lot of things and BTG decided to create 2 variables where just 1 was lowered to 1/2
-    // https://github.com/BTCGPU/BTCGPU/pull/296/commits/e803c163a680eeb49774f0bd9a24f6f3d7e5718b
+    if (params.fPowNoRetargeting) {
+        return pindexLast->nBits;
+    }
 
+    const int FTL = MAX_FUTURE_BLOCK_TIME;
     const int T = params.nPowTargetSpacing;
     const int N = Params().AveragingWindow();
-    const int k = (N+1)/2*T*0.998;
-    const int height = pindexLast->nHeight + 1;
+    const int k = N*(N+1)*T/2;
+    const int height = pindexLast->nHeight;
     assert(height > N);
 
     arith_uint256 sum_target;
-    int t = 0, j = 0;
+    int t = 0, j = 0, solvetime;
 
     // Loop through N most recent blocks.
-    for (int i = height - N; i < height; i++) {
-         const CBlockIndex* block = pindexLast->GetAncestor(i);
-         const CBlockIndex* block_Prev = block->GetAncestor(i - 1);
-         int64_t solvetime = block->GetBlockTime() - block_Prev->GetBlockTime();
-         // [zawy edit: bitcoin gold has implemented stricter limits on forward times and reverse times so
-         // they do not need the limitation on solvetime as shown in the pseudocode ]
-         j++;
-         t += solvetime * j;  // Weighted solvetime sum.
-
-         // Target sum divided by a factor, (k N^2).
-         // The factor is a part of the final equation. However we divide sum_target
-         // here to avoid potential overflow.
-         arith_uint256 target;
-         target.SetCompact(block->nBits);
-         sum_target += target / (k * N * N);
+    for (int i = height - N+1; i <= height; i++) {
+        const CBlockIndex* block = pindexLast->GetAncestor(i);
+        const CBlockIndex* block_Prev = block->GetAncestor(i - 1);
+        solvetime = block->GetBlockTime() - block_Prev->GetBlockTime();
+        solvetime = std::max(-FTL, std::min(solvetime, 6*T));
+        j++;
+        t += solvetime * j;  // Weighted solvetime sum.
+        arith_uint256 target;
+        target.SetCompact(block->nBits);
+        sum_target += target / (k * N);
     }
-    // Keep t reasonable in case strange solvetimes occurred.
-    // [zawy edit: change N * k/3 to "1" in both places. This caused new coins to get stuck ]
-    if (t < N * k / 3) { t = N * k / 3; }
+
+    // Keep t reasonable to >= 1/10 of expected t.
+    if (t < k/10 ) {
+        t = k/10;
+    }
     arith_uint256 next_target = t * sum_target;
 
     return next_target.GetCompact();
