@@ -21,6 +21,11 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
     {
         // Original Bitcion PoW.
         return BitcoinGetNextWorkRequired(pindexLast, pblock, params);
+    }
+    else if (pindexLast->nHeight+1 < Params().SwitchLyra2REv2_LWMA()+Params().AveragingWindow())
+    {
+        // Reset difficulty for transition period NDA -> LWMA
+        return UintToArith256(params.powLimit).GetCompact();
     } else {
         // Zawy's LWMA.
         return LwmaGetNextWorkRequired(pindexLast, pblock, params);
@@ -86,7 +91,7 @@ unsigned int static LinearWeightedMovingAverage(const CBlockIndex* pindexLast, c
 unsigned int BitcoinGetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHeader *pblock, const Consensus::Params& params)
 {
     assert(pindexLast != nullptr);
-    unsigned int nProofOfWorkLimit = UintToArith256(params.powLimit).GetCompact();
+    unsigned int nProofOfWorkLimit = UintToArith256(params.powLimitLegacy).GetCompact();
 
     // Only change once per difficulty adjustment interval
     if ((pindexLast->nHeight+1) % params.DifficultyAdjustmentInterval() != 0)
@@ -136,7 +141,7 @@ unsigned int CalculateNextWorkRequired(const CBlockIndex* pindexLast, int64_t nF
         nActualTimespan = params.nPowTargetTimespan*4;
 
     // Retarget
-    const arith_uint256 bnPowLimit = UintToArith256(params.powLimit);
+    const arith_uint256 bnPowLimit = UintToArith256(params.powLimitLegacy);
     arith_uint256 bnNew;
     bnNew.SetCompact(pindexLast->nBits);
     bnNew *= nActualTimespan;
@@ -148,7 +153,7 @@ unsigned int CalculateNextWorkRequired(const CBlockIndex* pindexLast, int64_t nF
     return bnNew.GetCompact();
 }
 
-bool CheckProofOfWork(uint256 hash, unsigned int nBits, const Consensus::Params& params)
+bool CheckProofOfWork(uint256 hash, unsigned int nBits, bool postfork, const Consensus::Params& params)
 {
     bool fNegative;
     bool fOverflow;
@@ -157,8 +162,9 @@ bool CheckProofOfWork(uint256 hash, unsigned int nBits, const Consensus::Params&
     bnTarget.SetCompact(nBits, &fNegative, &fOverflow);
 
     // Check range
-    if (fNegative || bnTarget == 0 || fOverflow || bnTarget > UintToArith256(params.powLimit))
+    if (fNegative || bnTarget == 0 || fOverflow || bnTarget > UintToArith256(params.PowLimit(postfork))) {
         return false;
+    }
 
     // Check proof of work matches claimed amount
     if (UintToArith256(hash) > bnTarget)

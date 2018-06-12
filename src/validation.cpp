@@ -1025,7 +1025,8 @@ bool ReadBlockFromDisk(CBlock& block, const CDiskBlockPos& pos, int nHeight, con
     }
 
     // Check the header
-    if (!CheckProofOfWork(block.GetPoWHash(nHeight >= Params().SwitchLyra2REv2_LWMA()), block.nBits, consensusParams))
+    bool isPostFork = nHeight >= Params().SwitchLyra2REv2_LWMA();
+    if (!CheckProofOfWork(block.GetPoWHash(isPostFork), block.nBits, isPostFork, consensusParams))
         return error("ReadBlockFromDisk: Errors in block header at %s", pos.ToString());
 
     return true;
@@ -2820,7 +2821,8 @@ static bool CheckBlockHeader(const CBlockHeader& block, CValidationState& state,
     }
 
     // Check proof of work matches claimed amount
-    if (fCheckPOW && !CheckProofOfWork(block.GetPoWHash(nHeight >= Params().SwitchLyra2REv2_LWMA()), block.nBits, consensusParams)) {
+    bool isPostFork = nHeight >= Params().SwitchLyra2REv2_LWMA();
+    if (fCheckPOW && !CheckProofOfWork(block.GetPoWHash(isPostFork), block.nBits, isPostFork, consensusParams)) {
         return state.DoS(50, false, REJECT_INVALID, "high-hash", false, "proof of work failed");
     }
 
