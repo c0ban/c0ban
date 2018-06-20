@@ -27,6 +27,16 @@ RUN apt-get update && apt-get install -y \
   bsdmainutils \
   python3-pip
 
+# for qt
+RUN apt-get install -y \
+  libqt5gui5 \
+  libqt5core5a \
+  libqt5dbus5 \
+  qttools5-dev \
+  qttools5-dev-tools \
+  libprotobuf-dev \
+  protobuf-compiler
+
 COPY . /c0ban
 WORKDIR /c0ban
 
