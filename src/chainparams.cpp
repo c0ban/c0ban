@@ -208,14 +208,14 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nTimeout = 1493596800; // May 1st 2017
 
         // The best chain should have at least this much work.
-        consensus.nMinimumChainWork = uint256S("0x00000000000000000000000000000000000000000000002830dab7f76dbb7d63");
+        consensus.nMinimumChainWork = uint256S("0x00");
 
         // By default assume that the signatures in ancestors of this block are valid.
         consensus.defaultAssumeValid = uint256S("0x00");
 
         // Hardfork params
         nZawyLwmaAveragingWindow = 60;
-        nSwitchLyra2REv2_LWMA = 1400000;
+        nSwitchLyra2REv2_LWMA = 5400;
 
         pchMessageStart[0] = 0x63;
         pchMessageStart[1] = 0x30;
