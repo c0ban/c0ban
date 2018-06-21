@@ -41,7 +41,8 @@ COPY . /c0ban
 WORKDIR /c0ban
 
 RUN ./autogen.sh
-RUN ./configure
+# do not create qt for default
+RUN ./configure --without-gui
 RUN make -j4
 RUN make install
 
