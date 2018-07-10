@@ -293,6 +293,7 @@ libbitcoin_consensus_a_SOURCES = \
   pubkey.cpp \
   pubkey.h \
   script/bitcoinconsensus.cpp \
+  script/sighashtype.h \
   script/interpreter.cpp \
   script/interpreter.h \
   script/script.cpp \

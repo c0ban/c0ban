@@ -23,6 +23,7 @@
 #include "primitives/block.h"
 #include "primitives/transaction.h"
 #include "script/script.h"
+#include "script/sighashtype.h"
 #include "script/sign.h"
 #include "scheduler.h"
 #include "timedata.h"
@@ -2538,6 +2539,7 @@ bool CWallet::SignTransaction(CMutableTransaction &tx)
     // sign the new tx
     CTransaction txNewConst(tx);
     int nIn = 0;
+    SigHashType sigHashType = (Params().SwitchLyra2REv2_LWMA() > chainActive.Height()) ? SigHashType().withForkId() : SigHashType();
     for (const auto& input : tx.vin) {
         std::map<uint256, CWalletTx>::const_iterator mi = mapWallet.find(input.prevout.hash);
         if(mi == mapWallet.end() || input.prevout.n >= mi->second.tx->vout.size()) {
@@ -2546,7 +2548,8 @@ bool CWallet::SignTransaction(CMutableTransaction &tx)
         const CScript& scriptPubKey = mi->second.tx->vout[input.prevout.n].scriptPubKey;
         const CAmount& amount = mi->second.tx->vout[input.prevout.n].nValue;
         SignatureData sigdata;
-        if (!ProduceSignature(TransactionSignatureCreator(this, &txNewConst, nIn, amount, SIGHASH_ALL), scriptPubKey, sigdata)) {
+        if (!ProduceSignature(
+                TransactionSignatureCreator(this, &txNewConst, nIn, amount, sigHashType), scriptPubKey, sigdata)) {
             return false;
         }
         UpdateTransaction(tx, nIn, sigdata);
@@ -2919,6 +2922,7 @@ bool CWallet::CreateTransaction(const std::vector<CRecipient>& vecSend, CWalletT
 
         if (sign)
         {
+            SigHashType sigHashType = (Params().SwitchLyra2REv2_LWMA() > chainActive.Height()) ? SigHashType().withForkId() : SigHashType();
             CTransaction txNewConst(txNew);
             int nIn = 0;
             for (const auto& coin : setCoins)
@@ -2926,7 +2930,7 @@ bool CWallet::CreateTransaction(const std::vector<CRecipient>& vecSend, CWalletT
                 const CScript& scriptPubKey = coin.txout.scriptPubKey;
                 SignatureData sigdata;
 
-                if (!ProduceSignature(TransactionSignatureCreator(this, &txNewConst, nIn, coin.txout.nValue, SIGHASH_ALL), scriptPubKey, sigdata))
+                if (!ProduceSignature(TransactionSignatureCreator(this, &txNewConst, nIn, coin.txout.nValue, sigHashType), scriptPubKey, sigdata))
                 {
                     strFailReason = _("Signing transaction failed");
                     return false;
