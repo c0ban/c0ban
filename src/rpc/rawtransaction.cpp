@@ -831,7 +831,7 @@ UniValue signrawtransaction(const JSONRPCRequest& request)
     const CKeyStore& keystore = tempKeystore;
 #endif
 
-    SigHashType sigHashType = (Params().SwitchLyra2REv2_LWMA() > chainActive.Height()) ? SigHashType().withForkId() : SigHashType();
+    SigHashType sigHashType = SigHashType().withForkId();
     if (request.params.size() > 3 && !request.params[3].isNull()) {
         static std::map<std::string, int> mapSigHashValues = {
             {std::string("ALL"), int(SIGHASH_ALL)},

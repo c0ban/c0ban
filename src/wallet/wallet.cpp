@@ -2539,7 +2539,7 @@ bool CWallet::SignTransaction(CMutableTransaction &tx)
     // sign the new tx
     CTransaction txNewConst(tx);
     int nIn = 0;
-    SigHashType sigHashType = (Params().SwitchLyra2REv2_LWMA() > chainActive.Height()) ? SigHashType().withForkId() : SigHashType();
+    SigHashType sigHashType = SigHashType().withForkId();
     for (const auto& input : tx.vin) {
         std::map<uint256, CWalletTx>::const_iterator mi = mapWallet.find(input.prevout.hash);
         if(mi == mapWallet.end() || input.prevout.n >= mi->second.tx->vout.size()) {
@@ -2922,7 +2922,7 @@ bool CWallet::CreateTransaction(const std::vector<CRecipient>& vecSend, CWalletT
 
         if (sign)
         {
-            SigHashType sigHashType = (Params().SwitchLyra2REv2_LWMA() > chainActive.Height()) ? SigHashType().withForkId() : SigHashType();
+            SigHashType sigHashType = SigHashType().withForkId();
             CTransaction txNewConst(txNew);
             int nIn = 0;
             for (const auto& coin : setCoins)
