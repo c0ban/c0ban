@@ -848,10 +848,6 @@ UniValue signrawtransaction(const JSONRPCRequest& request)
             {std::string("SINGLE|FORKID|ANYONECANPAY"), int(SIGHASH_SINGLE|SIGHASH_FORKID|SIGHASH_ANYONECANPAY)},
         };
         std::string strHashType = request.params[3].get_str();
-        // if (mapSigHashValues.count(strHashType))
-        //     nHashType = mapSigHashValues[strHashType];
-        // else
-        //     throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid sighash param");
         if (!mapSigHashValues.count(strHashType)) {
             throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid sighash param");
         }
