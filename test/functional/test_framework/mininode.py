@@ -653,7 +653,7 @@ class CBlock(CBlockHeader):
     def is_valid(self):
         self.calc_sha256()
         target = uint256_from_compact(self.nBits)
-        target_hash = self.sha256 if self.height < CHANGE_BLOCK_HEIGHT else self.lyra2re2Hash
+        target_hash = self.sha256 if not hasattr(self, 'height') or self.height < CHANGE_BLOCK_HEIGHT else self.lyra2re2Hash
         if target_hash > target:
             return False
         for tx in self.vtx:
@@ -666,11 +666,12 @@ class CBlock(CBlockHeader):
     def solve(self):
         self.rehash()
         target = uint256_from_compact(self.nBits)
-        target_hash = self.sha256 if self.height < CHANGE_BLOCK_HEIGHT else self.lyra2re2Hash
+        target_hash = self.sha256 if not hasattr(self, 'height') or self.height < CHANGE_BLOCK_HEIGHT else self.lyra2re2Hash
         while target_hash > target:
             self.nNonce += 1
             self.rehash()
-            target_hash = self.sha256 if self.height < CHANGE_BLOCK_HEIGHT else self.lyra2re2Hash
+            target_hash = self.sha256 if not hasattr(self, 'height') or self.height < CHANGE_BLOCK_HEIGHT else self.lyra2re2Hash
+
 
     def __repr__(self):
         return "CBlock(nVersion=%i hashPrevBlock=%064x hashMerkleRoot=%064x nTime=%s nBits=%08x nNonce=%08x vtx=%s)" \
