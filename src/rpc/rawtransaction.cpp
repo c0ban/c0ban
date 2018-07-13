@@ -885,6 +885,8 @@ UniValue signrawtransaction(const JSONRPCRequest& request)
                              prevPubKey, sigdata);
         }
 
+        sigdata = CombineSignatures(prevPubKey, TransactionSignatureChecker(&txConst, i, amount), sigdata, DataFromTransaction(mtx, i));
+
         UpdateTransaction(mtx, i, sigdata);
 
         ScriptError serror = SCRIPT_ERR_OK;
