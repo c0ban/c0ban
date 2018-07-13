@@ -1655,7 +1655,6 @@ static unsigned int GetBlockScriptFlags(const CBlockIndex* pindex, const Consens
 
     // If the UAHF is enabled, we start accepting replay protected txns
     if (IsUAHFenabled(pindex)) {
-        flags |= SCRIPT_VERIFY_STRICTENC;
         flags |= SCRIPT_ENABLE_SIGHASH_FORKID;
     }
 
