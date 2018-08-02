@@ -109,7 +109,7 @@ public:
         consensus.defaultAssumeValid = uint256S("0x0000000000000355017a157c1b0e6256754137f6428ba5dedb0bd3992b920b07"); // height 957752 block hash
 
         // Hardfork params
-        nZawyLwmaAveragingWindow = 60; // TODO: change to an official value
+        nZawyLwmaAveragingWindow = 8;
         nSwitchLyra2REv2_LWMA = 1400000; // TODO: change to an official value
 
         /**
