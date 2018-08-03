@@ -531,7 +531,7 @@ std::string HelpMessage(HelpMessageMode mode)
 std::string LicenseInfo()
 {
     const std::string URL_SOURCE_CODE = "<https://github.com/c0ban/c0ban/>";
-    const std::string URL_WEBSITE = "<http://www.c0ban.com/>";
+    const std::string URL_WEBSITE = "<http://www.c0ban.co/>";
 
     return CopyrightHolders(strprintf(_("Copyright (C) %i-%i"), 2009, COPYRIGHT_YEAR) + " ") + "\n" +
            "\n" +
