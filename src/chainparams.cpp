@@ -214,13 +214,13 @@ public:
         consensus.defaultAssumeValid = uint256S("0x00");
 
         // Hardfork params
-        nZawyLwmaAveragingWindow = 60;
-        nSwitchLyra2REv2_LWMA = 5400;
+        nZawyLwmaAveragingWindow = 8;
+        nSwitchLyra2REv2_LWMA = 100;
 
-        pchMessageStart[0] = 0x63;
-        pchMessageStart[1] = 0x30;
-        pchMessageStart[2] = 0x62;
-        pchMessageStart[3] = 0x6e;
+        pchMessageStart[0] = 0x83;
+        pchMessageStart[1] = 0x80;
+        pchMessageStart[2] = 0x82;
+        pchMessageStart[3] = 0x8e;
         nDefaultPort = 13881;
         nPruneAfterHeight = 1000;
 
@@ -236,11 +236,11 @@ public:
         // vSeeds.emplace_back("seed.tbtc.petertodd.org", true);
         // vSeeds.emplace_back("testnet-seed.bluematt.me", false);
 
-        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,111);
-        base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,196);
-        base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,239);
-        base58Prefixes[EXT_PUBLIC_KEY] = {0x04, 0x35, 0x87, 0xCF};
-        base58Prefixes[EXT_SECRET_KEY] = {0x04, 0x35, 0x83, 0x94};
+        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,118);
+        base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,198);
+        base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,238);
+        base58Prefixes[EXT_PUBLIC_KEY] = {0x08, 0x38, 0x88, 0xC8};
+        base58Prefixes[EXT_SECRET_KEY] = {0x84, 0x85, 0x83, 0x84};
 
         vFixedSeeds = std::vector<SeedSpec6>(pnSeed6_test, pnSeed6_test + ARRAYLEN(pnSeed6_test));
 
@@ -301,7 +301,7 @@ public:
         consensus.defaultAssumeValid = uint256S("0x00");
 
         // Hardfork params
-        nZawyLwmaAveragingWindow = 60;
+        nZawyLwmaAveragingWindow = 8;
         nSwitchLyra2REv2_LWMA = 200;
 
         pchMessageStart[0] = 0xfa;
