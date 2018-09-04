@@ -29,16 +29,16 @@
   <string>????</string>
 
   <key>CFBundleExecutable</key>
-  <string>Bitcoin-Qt</string>
-  
+  <string>c0ban-Qt</string>
+
   <key>CFBundleName</key>
-  <string>Bitcoin-Qt</string>
+  <string>c0ban-Qt</string>
 
   <key>LSHasLocalizedDisplayName</key>
   <true/>
 
   <key>CFBundleIdentifier</key>
-  <string>org.bitcoinfoundation.Bitcoin-Qt</string>
+  <string>org.c0banfoundation.c0ban-Qt</string>
 
   <key>CFBundleURLTypes</key>
   <array>

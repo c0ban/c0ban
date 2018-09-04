@@ -8,7 +8,7 @@ from .mininode import *
 from .script import CScript, OP_TRUE, OP_CHECKSIG, OP_RETURN
 
 # Create a block (with regtest difficulty)
-def create_block(hashprev, coinbase, nTime=None):
+def create_block(hashprev, coinbase, nTime=None, height=0):
     block = CBlock()
     if nTime is None:
         import time
@@ -20,6 +20,7 @@ def create_block(hashprev, coinbase, nTime=None):
     block.vtx.append(coinbase)
     block.hashMerkleRoot = block.calc_merkle_root()
     block.calc_sha256()
+    block.height = height
     return block
 
 # From BIP141

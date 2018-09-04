@@ -24,15 +24,29 @@ RUN apt-get update && apt-get install -y \
   pkg-config \
   libssl-dev \
   libevent-dev \
-  bsdmainutils
+  bsdmainutils \
+  python3-pip
+
+# for qt
+RUN apt-get install -y \
+  libqt5gui5 \
+  libqt5core5a \
+  libqt5dbus5 \
+  qttools5-dev \
+  qttools5-dev-tools \
+  libprotobuf-dev \
+  protobuf-compiler
 
 COPY . /c0ban
 WORKDIR /c0ban
 
 RUN ./autogen.sh
-RUN ./configure
+# do not create qt for default
+RUN ./configure --without-gui
 RUN make -j4
 RUN make install
+
+RUN pip3 install lyra2re2_hash
 
 CMD ["/sbin/init"]
 

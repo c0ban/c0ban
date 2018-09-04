@@ -77,6 +77,9 @@ public:
     const CCheckpointData& Checkpoints() const { return checkpointData; }
     const ChainTxData& TxData() const { return chainTxData; }
     void UpdateVersionBitsParameters(Consensus::DeploymentPos d, int64_t nStartTime, int64_t nTimeout);
+    int SwitchLyra2REv2_LWMA() const { return nSwitchLyra2REv2_LWMA; }
+    int AveragingWindow() const { return nZawyLwmaAveragingWindow; }
+
 protected:
     CChainParams() {}
 
@@ -94,6 +97,8 @@ protected:
     bool fMineBlocksOnDemand;
     CCheckpointData checkpointData;
     ChainTxData chainTxData;
+    int nSwitchLyra2REv2_LWMA;
+    int nZawyLwmaAveragingWindow;
 };
 
 /**

@@ -80,7 +80,8 @@ public:
         consensus.BIP34Hash = uint256S("0x000000000000024b89b42a942fe0d9fea3bb44ab7bd1b19115dd6a759c0808b8");
         consensus.BIP65Height = 388381; // 000000000000000004c2b624ed5d7756c508d90fd0da2c7c679febfa6c4735f0
         consensus.BIP66Height = 363725; // 00000000000000000379eaa19dce8c9b722d46ae6a57c2f1a988119488b50931
-        consensus.powLimit = uint256S("00000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
+        consensus.powLimit = uint256S("00000fffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
+        consensus.powLimitLegacy = uint256S("00000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
         consensus.nPowTargetTimespan = 24 * 60 * 60; // one day
         consensus.nPowTargetSpacing = 32;
         consensus.fPowAllowMinDifficultyBlocks = false;
@@ -106,6 +107,10 @@ public:
 
         // By default assume that the signatures in ancestors of this block are valid.
         consensus.defaultAssumeValid = uint256S("0x0000000000000355017a157c1b0e6256754137f6428ba5dedb0bd3992b920b07"); // height 957752 block hash
+
+        // Hardfork params
+        nZawyLwmaAveragingWindow = 8;
+        nSwitchLyra2REv2_LWMA = 1450888;
 
         /**
          * The message start string is designed to be unlikely to occur in normal data.
@@ -180,7 +185,8 @@ public:
         consensus.BIP34Hash = uint256S("0x0000000023b3a96d3484e5abb3755c413e7d41500f8e2a5c3f0dd01299cd8ef8");
         consensus.BIP65Height = 581885; // 00000000007f6655f22f98e72ed80d8b06dc761d5da09df0fa1dc4be4f861eb6
         consensus.BIP66Height = 330776; // 000000002104c8c45e99a8853285a3b592602a3ccde2b832481da85e9e4ba182
-        consensus.powLimit = uint256S("00000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
+        consensus.powLimit = uint256S("00000fffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
+        consensus.powLimitLegacy = uint256S("00000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
         consensus.nPowTargetTimespan = 24 * 60 * 60; // two weeks
         consensus.nPowTargetSpacing = 32;
         consensus.fPowAllowMinDifficultyBlocks = true;
@@ -202,15 +208,19 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nTimeout = 1493596800; // May 1st 2017
 
         // The best chain should have at least this much work.
-        consensus.nMinimumChainWork = uint256S("0x00000000000000000000000000000000000000000000002830dab7f76dbb7d63");
+        consensus.nMinimumChainWork = uint256S("0x00");
 
         // By default assume that the signatures in ancestors of this block are valid.
         consensus.defaultAssumeValid = uint256S("0x00");
 
-        pchMessageStart[0] = 0x63;
-        pchMessageStart[1] = 0x30;
-        pchMessageStart[2] = 0x62;
-        pchMessageStart[3] = 0x6e;
+        // Hardfork params
+        nZawyLwmaAveragingWindow = 8;
+        nSwitchLyra2REv2_LWMA = 100;
+
+        pchMessageStart[0] = 0x83;
+        pchMessageStart[1] = 0x80;
+        pchMessageStart[2] = 0x82;
+        pchMessageStart[3] = 0x8e;
         nDefaultPort = 13881;
         nPruneAfterHeight = 1000;
 
@@ -226,11 +236,11 @@ public:
         // vSeeds.emplace_back("seed.tbtc.petertodd.org", true);
         // vSeeds.emplace_back("testnet-seed.bluematt.me", false);
 
-        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,111);
-        base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,196);
-        base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,239);
-        base58Prefixes[EXT_PUBLIC_KEY] = {0x04, 0x35, 0x87, 0xCF};
-        base58Prefixes[EXT_SECRET_KEY] = {0x04, 0x35, 0x83, 0x94};
+        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,118);
+        base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,198);
+        base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,238);
+        base58Prefixes[EXT_PUBLIC_KEY] = {0x04, 0x58, 0x87, 0x88};
+        base58Prefixes[EXT_SECRET_KEY] = {0x04, 0x38, 0x83, 0x88};
 
         vFixedSeeds = std::vector<SeedSpec6>(pnSeed6_test, pnSeed6_test + ARRAYLEN(pnSeed6_test));
 
@@ -267,6 +277,7 @@ public:
         consensus.BIP65Height = 1351; // BIP65 activated on regtest (Used in rpc activation tests)
         consensus.BIP66Height = 1251; // BIP66 activated on regtest (Used in rpc activation tests)
         consensus.powLimit = uint256S("7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
+        consensus.powLimitLegacy = uint256S("7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
         consensus.nPowTargetTimespan = 24 * 60 * 60; // two weeks
         consensus.nPowTargetSpacing = 32;
         consensus.fPowAllowMinDifficultyBlocks = true;
@@ -288,6 +299,10 @@ public:
 
         // By default assume that the signatures in ancestors of this block are valid.
         consensus.defaultAssumeValid = uint256S("0x00");
+
+        // Hardfork params
+        nZawyLwmaAveragingWindow = 8;
+        nSwitchLyra2REv2_LWMA = 200;
 
         pchMessageStart[0] = 0xfa;
         pchMessageStart[1] = 0xbf;

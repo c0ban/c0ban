@@ -603,7 +603,7 @@ else:
 
 # ------------------------------------------------
 
-target = os.path.join("dist", "Bitcoin-Qt.app")
+target = os.path.join("dist", "c0ban-Qt.app")
 
 if verbose >= 2:
     print("+ Copying source bundle +")

@@ -475,15 +475,17 @@ QVariant TransactionTableModel::txStatusDecoration(const TransactionRecord *wtx)
         return QIcon(":/icons/transaction_0");
     case TransactionStatus::Abandoned:
         return QIcon(":/icons/transaction_abandoned");
-    case TransactionStatus::Confirming:
-        switch(wtx->status.depth)
+    case TransactionStatus::Confirming: {
+        int confirms = (int)std::ceil((double)wtx->status.depth * 5 / (double)TransactionRecord::RecommendedNumConfirmations);
+        switch(confirms)
         {
-        case 1: return QIcon(":/icons/transaction_1");
-        case 2: return QIcon(":/icons/transaction_2");
-        case 3: return QIcon(":/icons/transaction_3");
-        case 4: return QIcon(":/icons/transaction_4");
-        default: return QIcon(":/icons/transaction_5");
+            case 1: return QIcon(":/icons/transaction_1");
+            case 2: return QIcon(":/icons/transaction_2");
+            case 3: return QIcon(":/icons/transaction_3");
+            case 4: return QIcon(":/icons/transaction_4");
+            default: return QIcon(":/icons/transaction_5");
         };
+        }
     case TransactionStatus::Confirmed:
         return QIcon(":/icons/transaction_confirmed");
     case TransactionStatus::Conflicted:
