@@ -4,20 +4,9 @@ c0ban Core integration/staging tree
 What is c0ban?
 ----------------
 
-"blockchain tech for everyone" by Noritaka Kobayashi, Ph.D.
+Revolution of decentralized consensus began from Bitcoin. We see the future of the world. Although we Japan lost in internet revolution, we do try to gain no.1 in the world in blockchain revolution from Japan. C0ban is named after Middle Ages Samurai coin called Koban. We think we have still lots of issues on blockchain, crypto currency, and decentralized algorithm. C0ban is the first challenge for us to spread the technology to the world. Though the project, we will be pleased if we could provide a trigger to people to feel the revolutionary world of decentralized consensus.
 
-.
-.
-
-
-c0ban is the world’s first crypto currency tied up with entertainment and advertisement services from the beginning. 
-Its application will be released on App store, Google play and Web application in 2017. 
-It aims at destruction and creation of advertisement market by taking advantage of micro payment feature of blockchain. 
-Its main purpose is not becoming major currency on some exchange markets but major crypto currency can be used 
-in anywhere with advertisement solutions.
-
-For more information, as well as an immediately useable, read the
-[original whitepaper](http://www.c0ban.co/).
+For more information, please visit [c0ban Project](https://www.c0ban.co/).
 
 License
 -------
