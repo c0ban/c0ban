@@ -17,8 +17,6 @@ class UniValue;
  * difficulty (4295032833 hashes).
  */
 double GetDifficulty(const CBlockIndex* blockindex = nullptr);
-double GetDifficultyINTERNAL(const CBlockIndex* blockindex);
-double GetDifficultyBitcoin(const CBlockIndex* blockindex);
 
 /** Callback for when block tip changed. */
 void RPCNotifyBlockChange(bool ibd, const CBlockIndex *);
