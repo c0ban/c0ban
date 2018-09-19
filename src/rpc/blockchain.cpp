@@ -57,48 +57,6 @@ double GetDifficulty(const CBlockIndex* blockindex)
             blockindex = chainActive.Tip();
     }
 
-    if (blockindex->nHeight >= Params().SwitchLyra2REv2_LWMA())
-    {
-        return GetDifficultyINTERNAL(blockindex);
-    }
-    else
-    {
-        return GetDifficultyBitcoin(blockindex);
-    }
-}
-
-double GetDifficultyINTERNAL(const CBlockIndex* blockindex)
-{
-    // Floating point number that is a multiple of the minimum difficulty,
-    // minimum difficulty = 1.0.
-
-    uint32_t bits = blockindex->nBits;
-
-    uint32_t powLimit =
-        UintToArith256(Params().GetConsensus().powLimit).GetCompact();
-    int nShift = (bits >> 24) & 0xff;
-    int nShiftAmount = (powLimit >> 24) & 0xff;
-
-    double dDiff =
-        (double)(powLimit & 0x00ffffff) /
-        (double)(bits & 0x00ffffff);
-
-    while (nShift < nShiftAmount)
-    {
-        dDiff *= 256.0;
-        nShift++;
-    }
-    while (nShift > nShiftAmount)
-    {
-        dDiff /= 256.0;
-        nShift--;
-    }
-
-    return dDiff;
-}
-
-double GetDifficultyBitcoin(const CBlockIndex* blockindex)
-{
     int nShift = (blockindex->nBits >> 24) & 0xff;
 
     double dDiff =
