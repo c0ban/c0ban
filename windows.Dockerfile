@@ -27,7 +27,13 @@ RUN apt-get update && apt-get install -y \
   bsdmainutils \
   curl \
   g++-mingw-w64-x86-64 \
-  mingw-w64-x86-64-dev
+  mingw-w64-x86-64-dev \
+  nsis \
+  npm
+
+RUN npm config set strict-ssl false && \
+  npm install -g makensis && \
+  npm config set strict-ssl true
 
 COPY . /c0ban
 WORKDIR /c0ban
@@ -40,6 +46,8 @@ RUN PATH=$(echo "$PATH" | sed -e 's/:\/mnt.*//g') && \
   CONFIG_SITE=$PWD/depends/x86_64-w64-mingw32/share/config.site ./configure --prefix=/ && \
   make -j4 && \
   make install
+
+RUN makensis share/setup.nsi
 
 CMD ["/sbin/init"]
 # CMD ["/bin/c0band", "-conf=/c0ban/c0ban.conf", "-datadir=/c0ban-block/"]
