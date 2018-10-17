@@ -111,6 +111,7 @@ public:
         // Hardfork params
         nZawyLwmaAveragingWindow = 8;
         nSwitchLyra2REv2_LWMA = 1450888;
+        nSwitchLyra2REvc0ban_LWMA = 1590888;  // TODO change block height for release
 
         /**
          * The message start string is designed to be unlikely to occur in normal data.
@@ -216,6 +217,7 @@ public:
         // Hardfork params
         nZawyLwmaAveragingWindow = 8;
         nSwitchLyra2REv2_LWMA = 100;
+        nSwitchLyra2REvc0ban_LWMA = 150;
 
         pchMessageStart[0] = 0x83;
         pchMessageStart[1] = 0x80;
@@ -301,6 +303,7 @@ public:
         // Hardfork params
         nZawyLwmaAveragingWindow = 8;
         nSwitchLyra2REv2_LWMA = 200;
+        nSwitchLyra2REvc0ban_LWMA = 300;
 
         pchMessageStart[0] = 0xfa;
         pchMessageStart[1] = 0xbf;

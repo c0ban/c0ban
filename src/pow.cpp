@@ -166,6 +166,7 @@ bool CheckProofOfWork(uint256 hash, unsigned int nBits, bool postfork, const Con
     bnTarget.SetCompact(nBits, &fNegative, &fOverflow);
 
     // Check range
+    // not change PowLimit args for lyra2rec0ban_hash. Because powlimit of lyra2re2_hash and lyra2rec0ban_hash are the same.
     if (fNegative || bnTarget == 0 || fOverflow || bnTarget > UintToArith256(params.PowLimit(postfork))) {
         return false;
     }
