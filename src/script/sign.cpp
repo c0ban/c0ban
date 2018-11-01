@@ -11,14 +11,15 @@
 #include "primitives/transaction.h"
 #include "script/standard.h"
 #include "uint256.h"
+#include "validation.h"
 
 
 typedef std::vector<unsigned char> valtype;
 
 TransactionSignatureCreator::TransactionSignatureCreator(
     const CKeyStore *keystoreIn, const CTransaction *txToIn, unsigned int nInIn,
-    const CAmount& amountIn, SigHashType sigHashTypeIn)
-    : BaseSignatureCreator(keystoreIn), txTo(txToIn), nIn(nInIn),
+    const CAmount& amountIn, SigHashType sigHashTypeIn, uint32_t flagsIn)
+    : BaseSignatureCreator(keystoreIn, flagsIn), txTo(txToIn), nIn(nInIn),
       amount(amountIn), sigHashType(sigHashTypeIn),
       checker(txTo, nIn, amountIn) {}
 
@@ -35,7 +36,7 @@ bool TransactionSignatureCreator::CreateSig(std::vector<uint8_t> &vchSig,
     if (sigversion == SIGVERSION_WITNESS_V0 && !key.IsCompressed())
         return false;
 
-    uint256 hash = SignatureHash(scriptCode, *txTo, nIn, sigHashType, amount, sigversion);
+    uint256 hash = SignatureHash(scriptCode, *txTo, nIn, sigHashType, amount, sigversion, 0, flags);
     if (!key.Sign(hash, vchSig))
         return false;
     vchSig.push_back(uint8_t(sigHashType.getRawSigHashType()));
@@ -190,7 +191,8 @@ bool ProduceSignature(const BaseSignatureCreator& creator, const CScript& fromPu
     sigdata.scriptSig = PushAll(result);
 
     // Test solution
-    return solved && VerifyScript(sigdata.scriptSig, fromPubKey, &sigdata.scriptWitness, STANDARD_SCRIPT_VERIFY_FLAGS, creator.Checker());
+    uint32_t flags = STANDARD_SCRIPT_VERIFY_FLAGS | creator.flags;
+    return solved && VerifyScript(sigdata.scriptSig, fromPubKey, &sigdata.scriptWitness, flags, creator.Checker());
 }
 
 SignatureData DataFromTransaction(const CMutableTransaction& tx, unsigned int nIn)

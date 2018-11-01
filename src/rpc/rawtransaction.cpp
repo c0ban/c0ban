@@ -880,8 +880,9 @@ UniValue signrawtransaction(const JSONRPCRequest& request)
         // Only sign SIGHASH_SINGLE if there's a corresponding output:
         if ((sigHashType.getBaseType() != BaseSigHashType::SINGLE) ||
             (i < mtx.vout.size())) {
+            uint32_t flags = IsLyra2vc0banHFenabled(chainActive.Height()) ? SCRIPT_ENABLE_REPLAY_PROTECTION : SCRIPT_VERIFY_NONE;
             ProduceSignature(MutableTransactionSignatureCreator(
-                                 &keystore, &mtx, i, amount, sigHashType),
+                                 &keystore, &mtx, i, amount, sigHashType, flags),
                              prevPubKey, sigdata);
         }
 
@@ -890,8 +891,9 @@ UniValue signrawtransaction(const JSONRPCRequest& request)
         UpdateTransaction(mtx, i, sigdata);
 
         ScriptError serror = SCRIPT_ERR_OK;
+        uint32_t flags = IsLyra2vc0banHFenabled(chainActive.Height()) ? SCRIPT_ENABLE_REPLAY_PROTECTION : STANDARD_SCRIPT_VERIFY_FLAGS;
         if (!VerifyScript(
-                txin.scriptSig, prevPubKey, &txin.scriptWitness, STANDARD_SCRIPT_VERIFY_FLAGS,
+                txin.scriptSig, prevPubKey, &txin.scriptWitness, flags,
                 TransactionSignatureChecker(&txConst, i, amount), &serror)) {
             TxInErrorToJSON(txin, vErrors, ScriptErrorString(serror));
         }

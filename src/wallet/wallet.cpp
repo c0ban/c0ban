@@ -2930,7 +2930,8 @@ bool CWallet::CreateTransaction(const std::vector<CRecipient>& vecSend, CWalletT
                 const CScript& scriptPubKey = coin.txout.scriptPubKey;
                 SignatureData sigdata;
 
-                if (!ProduceSignature(TransactionSignatureCreator(this, &txNewConst, nIn, coin.txout.nValue, sigHashType), scriptPubKey, sigdata))
+                uint32_t flags = IsLyra2vc0banHFenabled(chainActive.Height()) ? SCRIPT_ENABLE_REPLAY_PROTECTION : SCRIPT_VERIFY_NONE;
+                if (!ProduceSignature(TransactionSignatureCreator(this, &txNewConst, nIn, coin.txout.nValue, sigHashType, flags), scriptPubKey, sigdata))
                 {
                     strFailReason = _("Signing transaction failed");
                     return false;

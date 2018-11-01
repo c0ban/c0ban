@@ -826,6 +826,8 @@ SIGHASH_SINGLE = 3
 SIGHASH_FORKID = 0x40
 SIGHASH_ANYONECANPAY = 0x80
 
+FORKID_CBN_LYRA2RC0BAN = 88
+
 def FindAndDelete(script, sig):
     """Consensus critical, see FindAndDelete() in Satoshi codebase"""
     r = b''
@@ -888,6 +890,8 @@ def SignatureHash(script, txTo, inIdx, hashtype):
         txtmp.vin.append(tmp)
 
     s = txtmp.serialize()
+    if hashtype & SIGHASH_FORKID:
+        hashtype |= FORKID_CBN_LYRA2RC0BAN << 8
     s += struct.pack(b"<I", hashtype)
 
     hash = hash256(s)
@@ -924,6 +928,9 @@ def SegwitVersion1SignatureHash(script, txTo, inIdx, hashtype, amount):
     elif ((hashtype & 0x1f) == SIGHASH_SINGLE and inIdx < len(txTo.vout)):
         serialize_outputs = txTo.vout[inIdx].serialize()
         hashOutputs = uint256_from_str(hash256(serialize_outputs))
+
+    if hashtype & SIGHASH_FORKID:
+        hashtype |= FORKID_CBN_LYRA2RC0BAN << 8
 
     ss = bytes()
     ss += struct.pack("<i", txTo.nVersion)

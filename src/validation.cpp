@@ -377,7 +377,6 @@ static bool IsCurrentForFeeEstimation()
 
 static bool IsUAHFenabled(int nHeight) {
     return nHeight >= Params().SwitchLyra2REv2_LWMA();
-    // return nHeight >= config.GetChainParams().GetConsensus().uahfHeight;
 }
 
 bool IsUAHFenabled(const CBlockIndex *pindexPrev) {
@@ -386,6 +385,18 @@ bool IsUAHFenabled(const CBlockIndex *pindexPrev) {
     }
 
     return IsUAHFenabled(pindexPrev->nHeight);
+}
+
+bool IsLyra2vc0banHFenabled(int nHeight) {
+    return nHeight >= Params().SwitchLyra2REvc0ban_LWMA();
+}
+
+bool IsLyra2vc0banHFenabled(const CBlockIndex *pindexPrev) {
+    if (pindexPrev == nullptr) {
+        return false;
+    }
+
+    return IsLyra2vc0banHFenabled(pindexPrev->nHeight);
 }
 
 /* Make mempool consistent after a reorg, by re-adding or recursively erasing
@@ -824,6 +835,15 @@ static bool AcceptToMemoryPoolWorker(const CChainParams& chainparams, CTxMemPool
                 SCRIPT_ENABLE_SIGHASH_FORKID |
                 gArgs.GetArg("-promiscuousmempoolflags", scriptVerifyFlags);
         }
+
+        // Set extraFlags as a set of flags that needs to be activated.
+        uint32_t extraFlags = SCRIPT_VERIFY_NONE;
+        if (IsLyra2vc0banHFenabled(chainActive.Height())) {
+            extraFlags |= SCRIPT_ENABLE_REPLAY_PROTECTION;
+        }
+
+        // Make sure whatever we need to activate is actually activated.
+        scriptVerifyFlags |= extraFlags;
 
         // Check against previous transactions
         // This is done last to help prevent CPU exhaustion denial-of-service attacks.
@@ -1657,6 +1677,12 @@ static unsigned int GetBlockScriptFlags(const CBlockIndex* pindex, const Consens
     // If the UAHF is enabled, we start accepting replay protected txns
     if (IsUAHFenabled(pindex)) {
         flags |= SCRIPT_ENABLE_SIGHASH_FORKID;
+    }
+
+    // We make sure this node will have replay protection during the next hard
+    // fork.
+    if (IsLyra2vc0banHFenabled(pindex)) {
+        flags |= SCRIPT_ENABLE_REPLAY_PROTECTION;
     }
 
     return flags;

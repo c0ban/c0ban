@@ -649,7 +649,7 @@ static void MutateTxSign(CMutableTransaction& tx, const std::string& flagStr)
         if ((sigHashType.getBaseType() != BaseSigHashType::SINGLE) ||
             (i < mergedTx.vout.size())) {
             ProduceSignature(MutableTransactionSignatureCreator(
-                                 &keystore, &mergedTx, i, amount, sigHashType),
+                                 &keystore, &mergedTx, i, amount, sigHashType, FORKID_CBN_LYRA2RC0BAN),
                              prevPubKey, sigdata);
         }
 
@@ -658,8 +658,9 @@ static void MutateTxSign(CMutableTransaction& tx, const std::string& flagStr)
             sigdata = CombineSignatures(prevPubKey, MutableTransactionSignatureChecker(&mergedTx, i, amount), sigdata, DataFromTransaction(txv, i));
         UpdateTransaction(mergedTx, i, sigdata);
 
+        // TODO: Add use SCRIPT_ENABLE_REPLAY_PROTECTION logic by block height
         if (!VerifyScript(
-                txin.scriptSig, prevPubKey, &txin.scriptWitness, STANDARD_SCRIPT_VERIFY_FLAGS,
+                txin.scriptSig, prevPubKey, &txin.scriptWitness, STANDARD_SCRIPT_VERIFY_FLAGS | SCRIPT_ENABLE_REPLAY_PROTECTION,
                 MutableTransactionSignatureChecker(&mergedTx, i, amount)))
             fComplete = false;
     }

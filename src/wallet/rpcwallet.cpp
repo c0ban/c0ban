@@ -1136,8 +1136,9 @@ public:
             // This check is to make sure that the script we created can actually be solved for and signed by us
             // if we were to have the private keys. This is just to make sure that the script is valid and that,
             // if found in a transaction, we would still accept and relay that transcation.
+            uint32_t flags = IsLyra2vc0banHFenabled(chainActive.Height()) ? SCRIPT_ENABLE_REPLAY_PROTECTION : SCRIPT_VERIFY_NONE;
             if (!ProduceSignature(DummySignatureCreator(pwallet), witscript, sigs) ||
-                !VerifyScript(sigs.scriptSig, witscript, &sigs.scriptWitness, MANDATORY_SCRIPT_VERIFY_FLAGS | SCRIPT_VERIFY_WITNESS_PUBKEYTYPE, DummySignatureCreator(pwallet).Checker())) {
+                !VerifyScript(sigs.scriptSig, witscript, &sigs.scriptWitness, MANDATORY_SCRIPT_VERIFY_FLAGS | SCRIPT_VERIFY_WITNESS_PUBKEYTYPE | flags, DummySignatureCreator(pwallet).Checker())) {
                 return false;
             }
             pwallet->AddCScript(witscript);
