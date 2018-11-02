@@ -649,7 +649,7 @@ static void MutateTxSign(CMutableTransaction& tx, const std::string& flagStr)
         if ((sigHashType.getBaseType() != BaseSigHashType::SINGLE) ||
             (i < mergedTx.vout.size())) {
             ProduceSignature(MutableTransactionSignatureCreator(
-                                 &keystore, &mergedTx, i, amount, sigHashType, FORKID_CBN_LYRA2RC0BAN),
+                                 &keystore, &mergedTx, i, amount, sigHashType, SCRIPT_ENABLE_REPLAY_PROTECTION),
                              prevPubKey, sigdata);
         }
 
