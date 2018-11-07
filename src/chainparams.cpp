@@ -111,7 +111,7 @@ public:
         // Hardfork params
         nZawyLwmaAveragingWindow = 8;
         nSwitchLyra2REv2_LWMA = 1450888;
-        nSwitchLyra2REvc0ban_LWMA = 1590888;  // TODO change block height for release
+        nSwitchLyra2REvc0ban_LWMA = 1640000;
 
         /**
          * The message start string is designed to be unlikely to occur in normal data.
