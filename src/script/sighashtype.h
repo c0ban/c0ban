@@ -19,6 +19,14 @@ enum {
     SIGHASH_ANYONECANPAY = 0x80,
 };
 
+/** Fork IDs **/
+enum
+{
+    FORKID_BCC = 0,
+    FORKID_BTG = 79, // Atomic number AU
+    FORKID_CBN_LYRA2RC0BAN = 88,
+};
+
 /**
  * Base signature hash types
  * Base sig hash types not defined in this enum may be used, but they will be

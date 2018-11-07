@@ -34,7 +34,7 @@ import sys
 import time
 from threading import RLock, Thread
 
-import lyra2re2_hash
+import lyra2re2_hash, lyra2rec0ban_hash
 
 from test_framework.siphash import siphash256
 from test_framework.util import hex_str_to_bytes, bytes_to_hex_str, wait_until
@@ -50,6 +50,7 @@ MAX_BLOCK_BASE_SIZE = 4000000
 COIN = 100000000 # 1 btc in satoshis
 
 CHANGE_BLOCK_HEIGHT = 200  # regtest
+CHANGE_BLOCK_SECOND_FORK_HEIGHT = 300  # regtest
 
 NODE_NETWORK = (1 << 0)
 NODE_GETUTXO = (1 << 1)
@@ -544,6 +545,7 @@ class CBlockHeader(object):
             self.sha256 = header.sha256
             self.hash = header.hash
             self.lyra2re2Hash = header.lyra2re2Hash
+            self.lyra2rec0banHash = header.lyra2rec0banHash
             self.calc_sha256()
 
     def set_null(self):
@@ -556,6 +558,7 @@ class CBlockHeader(object):
         self.sha256 = None
         self.hash = None
         self.lyra2re2Hash = None
+        self.lyra2rec0banHash = None
 
     def deserialize(self, f):
         self.nVersion = struct.unpack("<i", f.read(4))[0]
@@ -567,6 +570,7 @@ class CBlockHeader(object):
         self.sha256 = None
         self.hash = None
         self.lyra2re2Hash = None
+        self.lyra2rec0banHash = None
 
     def serialize(self):
         r = b""
@@ -590,10 +594,12 @@ class CBlockHeader(object):
             self.sha256 = uint256_from_str(hash256(r))
             self.hash = encode(hash256(r)[::-1], 'hex_codec').decode('ascii')
             self.lyra2re2Hash = uint256_from_str(lyra2re2_hash.getPoWHash(r))
+            self.lyra2rec0banHash = uint256_from_str(lyra2rec0ban_hash.getPoWHash(r))
 
     def rehash(self):
         self.sha256 = None
         self.lyra2re2Hash = None
+        self.lyra2rec0banHash = None
         self.calc_sha256()
         return self.sha256
 
@@ -650,10 +656,19 @@ class CBlock(CBlockHeader):
 
         return self.get_merkle_root(hashes)
 
+    def _get_target_hash(self):
+        if not hasattr(self, 'height') or self.height < CHANGE_BLOCK_HEIGHT:
+            return self.sha256
+        elif self.height < CHANGE_BLOCK_SECOND_FORK_HEIGHT:
+            return self.lyra2re2Hash
+        else:
+            return self.lyra2rec0banHash
+
     def is_valid(self):
         self.calc_sha256()
         target = uint256_from_compact(self.nBits)
-        target_hash = self.sha256 if not hasattr(self, 'height') or self.height < CHANGE_BLOCK_HEIGHT else self.lyra2re2Hash
+        # target_hash = self.sha256 if not hasattr(self, 'height') or self.height < CHANGE_BLOCK_HEIGHT else self.lyra2rec0banHash
+        target_hash = self._get_target_hash()
         if target_hash > target:
             return False
         for tx in self.vtx:
@@ -666,12 +681,13 @@ class CBlock(CBlockHeader):
     def solve(self):
         self.rehash()
         target = uint256_from_compact(self.nBits)
-        target_hash = self.sha256 if not hasattr(self, 'height') or self.height < CHANGE_BLOCK_HEIGHT else self.lyra2re2Hash
+        # target_hash = self.sha256 if not hasattr(self, 'height') or self.height < CHANGE_BLOCK_HEIGHT else self.lyra2rec0banHash
+        target_hash = self._get_target_hash()
         while target_hash > target:
             self.nNonce += 1
             self.rehash()
-            target_hash = self.sha256 if not hasattr(self, 'height') or self.height < CHANGE_BLOCK_HEIGHT else self.lyra2re2Hash
-
+            # target_hash = self.sha256 if not hasattr(self, 'height') or self.height < CHANGE_BLOCK_HEIGHT else self.lyra2rec0banHash
+            target_hash = self._get_target_hash()
 
     def __repr__(self):
         return "CBlock(nVersion=%i hashPrevBlock=%064x hashMerkleRoot=%064x nTime=%s nBits=%08x nNonce=%08x vtx=%s)" \

@@ -26,8 +26,18 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
     {
         // Reset difficulty for transition period NDA -> LWMA
         return UintToArith256(params.powLimit).GetCompact();
-    } else {
-        // Zawy's LWMA.
+    }
+    else if (pindexLast->nHeight+1 < Params().SwitchLyra2REvc0ban_LWMA())
+    {
+        return LwmaGetNextWorkRequired(pindexLast, pblock, params);
+    }
+    else if (pindexLast->nHeight+1 < Params().SwitchLyra2REvc0ban_LWMA()+Params().AveragingWindow())
+    {
+        // Reset difficulty
+        return UintToArith256(params.powLimit).GetCompact();
+    }
+    else
+    {
         return LwmaGetNextWorkRequired(pindexLast, pblock, params);
     }
 }
@@ -166,6 +176,7 @@ bool CheckProofOfWork(uint256 hash, unsigned int nBits, bool postfork, const Con
     bnTarget.SetCompact(nBits, &fNegative, &fOverflow);
 
     // Check range
+    // not change PowLimit args for lyra2rec0ban_hash. Because powlimit of lyra2re2_hash and lyra2rec0ban_hash are the same.
     if (fNegative || bnTarget == 0 || fOverflow || bnTarget > UintToArith256(params.PowLimit(postfork))) {
         return false;
     }

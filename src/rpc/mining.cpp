@@ -130,7 +130,8 @@ UniValue generateBlocks(std::shared_ptr<CReserveScript> coinbaseScript, int nGen
             IncrementExtraNonce(pblock, chainActive.Tip(), nExtraNonce);
         }
         bool isPostFork = nHeight+1 >= Params().SwitchLyra2REv2_LWMA();
-        while (nMaxTries > 0 && pblock->nNonce < nInnerLoopCount && !CheckProofOfWork(pblock->GetPoWHash(isPostFork), pblock->nBits, isPostFork, Params().GetConsensus())) {
+        bool isPostForkLyra2C0ban = nHeight+1 >= Params().SwitchLyra2REvc0ban_LWMA();
+        while (nMaxTries > 0 && pblock->nNonce < nInnerLoopCount && !CheckProofOfWork(pblock->GetPoWHash(isPostFork, isPostForkLyra2C0ban), pblock->nBits, isPostFork, Params().GetConsensus())) {
             ++pblock->nNonce;
             --nMaxTries;
         }

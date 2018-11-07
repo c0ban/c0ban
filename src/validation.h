@@ -302,8 +302,10 @@ void PruneAndFlush();
 /** Prune block files up to a given height */
 void PruneBlockFilesManual(int nManualPruneHeight);
 
-/** Check if UAHF has activated. */
+/** Check if HF has activated. */
 bool IsUAHFenabled(const CBlockIndex *pindexPrev);
+bool IsLyra2vc0banHFenabled(int nHeight);
+bool IsLyra2vc0banHFenabled(const CBlockIndex *pindexPrev);
 
 /** (try to) add transaction to memory pool
  * plTxnReplaced will be appended to with all transactions replaced from mempool **/

@@ -22,10 +22,11 @@ protected:
     const CKeyStore* keystore;
 
 public:
-    BaseSignatureCreator(const CKeyStore* keystoreIn) : keystore(keystoreIn) {}
+    BaseSignatureCreator(const CKeyStore* keystoreIn, uint32_t flagsIn = SCRIPT_VERIFY_NONE) : keystore(keystoreIn), flags(flagsIn) {}
     const CKeyStore& KeyStore() const { return *keystore; };
     virtual ~BaseSignatureCreator() {}
     virtual const BaseSignatureChecker& Checker() const =0;
+    const uint32_t flags;
 
     /** Create a singular (non-script) signature. */
     virtual bool CreateSig(std::vector<unsigned char>& vchSig, const CKeyID& keyid, const CScript& scriptCode, SigVersion sigversion) const =0;
@@ -40,7 +41,7 @@ class TransactionSignatureCreator : public BaseSignatureCreator {
     const TransactionSignatureChecker checker;
 
 public:
-    TransactionSignatureCreator(const CKeyStore* keystoreIn, const CTransaction* txToIn, unsigned int nInIn, const CAmount& amountIn, SigHashType sigHashTypeIn = SigHashType());
+    TransactionSignatureCreator(const CKeyStore* keystoreIn, const CTransaction* txToIn, unsigned int nInIn, const CAmount& amountIn, SigHashType sigHashTypeIn = SigHashType(), uint32_t flagsIn = SCRIPT_VERIFY_NONE);
     const BaseSignatureChecker& Checker() const override { return checker; }
     bool CreateSig(std::vector<unsigned char>& vchSig, const CKeyID& keyid, const CScript& scriptCode, SigVersion sigversion) const override;
 };
@@ -49,7 +50,7 @@ class MutableTransactionSignatureCreator : public TransactionSignatureCreator {
     CTransaction tx;
 
 public:
-    MutableTransactionSignatureCreator(const CKeyStore* keystoreIn, const CMutableTransaction* txToIn, unsigned int nInIn, const CAmount& amountIn, SigHashType sigHashTypeIn) : TransactionSignatureCreator(keystoreIn, &tx, nInIn, amountIn, sigHashTypeIn), tx(*txToIn) {}
+    MutableTransactionSignatureCreator(const CKeyStore* keystoreIn, const CMutableTransaction* txToIn, unsigned int nInIn, const CAmount& amountIn, SigHashType sigHashTypeIn, uint32_t flagsIn) : TransactionSignatureCreator(keystoreIn, &tx, nInIn, amountIn, sigHashTypeIn, flagsIn), tx(*txToIn) {}
 };
 
 /** A signature creator that just produces 72-byte empty signatures. */

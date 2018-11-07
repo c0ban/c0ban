@@ -1213,8 +1213,15 @@ PrecomputedTransactionData::PrecomputedTransactionData(const CTransaction& txTo)
 
 uint256 SignatureHash(const CScript& scriptCode, const CTransaction& txTo,
                       unsigned int nIn, SigHashType sigHashType, const CAmount& amount,
-                      SigVersion sigversion, const PrecomputedTransactionData* cache, uint32_t flags)
+                      SigVersion sigversion, const PrecomputedTransactionData* cache,
+                      uint32_t flags)
 {
+    // enable lyra2rc0ban
+    if (flags & SCRIPT_ENABLE_REPLAY_PROTECTION) {
+        // add fork value
+        sigHashType = sigHashType.withForkValue(FORKID_CBN_LYRA2RC0BAN);
+    }
+
     if (sigversion == SIGVERSION_WITNESS_V0) {
         uint256 hashPrevouts;
         uint256 hashSequence;

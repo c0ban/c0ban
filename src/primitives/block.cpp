@@ -17,11 +17,16 @@ uint256 CBlockHeader::GetHash() const
     return SerializeHash(*this);
 }
 
-uint256 CBlockHeader::GetPoWHash(bool bLyra2REv2) const
+uint256 CBlockHeader::GetPoWHash(bool bLyra2REv2, bool bLyra2REvc0ban) const
 {
     if(bLyra2REv2){
         uint256 thash;
-        lyra2re2_hash(BEGIN(nVersion), BEGIN(thash));
+        if (bLyra2REvc0ban) {
+            lyra2rec0ban_hash(BEGIN(nVersion), BEGIN(thash));
+        }
+        else {
+            lyra2re2_hash(BEGIN(nVersion), BEGIN(thash));
+        }
         return thash;
     }
     return GetHash();
