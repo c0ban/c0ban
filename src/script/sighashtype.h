@@ -1,6 +1,11 @@
 // Copyright (c) 2017-2018 Bitcoin developers
+// Copyright (c) 2017-2018 The Bitcoin ABC developers
+// Copyright (c) 2017-2018 The Bitcoin Gold developers
+// Copyright (c) 2017-2018 The c0ban Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
+//
+// Implementing replay protection(such as when assigning ForkID at transaction signature) with reference to Bitcoin ABC and Bitcoin Gold.
 
 #ifndef BITCOIN_SCRIPT_HASH_TYPE_H
 #define BITCOIN_SCRIPT_HASH_TYPE_H
