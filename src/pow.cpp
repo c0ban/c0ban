@@ -1,7 +1,13 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2016 The Bitcoin Core developers
+// Copyright (C) 2013-2018 The Monacoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
+//
+// Adopted LWMA described in the issue of zawy's repository for difficulty-algorithms.
+// https://github.com/zawy12/difficulty-algorithms/issues/3#issuecomment-388386175
+//
+// Lyra2REv2, LWMA's algorithm was used when introducing it into cban with reference to Monacoin.
 
 #include "pow.h"
 
