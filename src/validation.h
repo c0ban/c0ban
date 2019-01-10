@@ -494,8 +494,8 @@ bool LoadMempool();
 static const int MAX_STAGES = 10;
 static const int STAGES = 7;
 
-static const int ISSUE_BLOCK[ MAX_STAGES ]  =  { 1000,  739125 , 985500 , 1231875, 1478250, 9358687, 9358688};
-static const int ISSUE_PRICE[ MAX_STAGES ]  =  { 22000, 0, 2, 4, 6, 8, 4 };
+static const int ISSUE_BLOCK[ MAX_STAGES ]  =  { 1000,  739125 , 985500 , 1231875, 1478250, 1818600, 62139300};
+static const int ISSUE_PRICE[ MAX_STAGES ]  =  { 22000, 0, 2, 4, 6, 8, 1 };
 
 
 #endif // BITCOIN_VALIDATION_H
