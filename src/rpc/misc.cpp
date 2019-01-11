@@ -116,6 +116,18 @@ UniValue getinfo(const JSONRPCRequest& request)
 #endif
     obj.push_back(Pair("relayfee",      ValueFromAmount(::minRelayTxFee.GetFeePerK())));
     obj.push_back(Pair("errors",        GetWarnings("statusbar")));
+    obj.push_back(Pair("lyra2rev2_hf_blockheight",      Params().SwitchLyra2REv2_LWMA()));
+    obj.push_back(Pair("lyra2revc0ban_hf_blockheight",  Params().SwitchLyra2REvc0ban_LWMA()));
+    std::string prices = "";
+    std::string blocks = "";
+    for( int i = 0; i < STAGES; ++i ){
+        prices += " ";
+        prices += std::to_string(ISSUE_PRICE[i]);
+        blocks += " ";
+        blocks += std::to_string(ISSUE_BLOCK[i]);
+    }
+    obj.push_back(Pair("issueprices",  prices));
+    obj.push_back(Pair("issueblocks",  blocks));
     return obj;
 }
 
