@@ -1,5 +1,8 @@
 // Copyright (c) 2010 Satoshi Nakamoto
 // Copyright (c) 2009-2019 The Bitcoin Core developers
+// Copyright (c) 2017-2018 The Bitcoin ABC developers
+// Copyright (c) 2017-2018 The Bitcoin Gold developers
+// Copyright (c) 2017-2021 The c0ban Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -540,7 +543,7 @@ static UniValue decodescript(const JSONRPCRequest& request)
                         {RPCResult::Type::NUM, "reqSigs", "The required signatures"},
                         {RPCResult::Type::ARR, "addresses", "",
                         {
-                            {RPCResult::Type::STR, "address", "bitcoin address"},
+                            {RPCResult::Type::STR, "address", "c0ban address"},
                         }},
                         {RPCResult::Type::STR, "p2sh", "address of P2SH script wrapping this redeem script (not returned if the script is already a P2SH)"},
                         {RPCResult::Type::OBJ, "segwit", "Result of a witness script public key wrapping this redeem script (not returned if the script is a P2SH or witness)",
