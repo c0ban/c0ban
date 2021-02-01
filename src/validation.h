@@ -820,4 +820,11 @@ inline bool IsBlockPruned(const CBlockIndex* pblockindex)
     return (fHavePruned && !(pblockindex->nStatus & BLOCK_HAVE_DATA) && pblockindex->nTx > 0);
 }
 
+static const int MAX_STAGES = 10;
+static const int STAGES = 7;
+
+static const int ISSUE_BLOCK[ MAX_STAGES ]  =  { 1000,  739125 , 985500 , 1231875, 1478250, 1818600, 62139300};
+static const int ISSUE_PRICE[ MAX_STAGES ]  =  { 22000, 0, 2, 4, 6, 8, 1 };
+
+
 #endif // BITCOIN_VALIDATION_H

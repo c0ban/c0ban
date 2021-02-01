@@ -1,6 +1,6 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2020 The Bitcoin Core developers
-// Copyright (c) 2017-2020 The c0ban Core developers
+// Copyright (c) 2017-2021 The c0ban Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -125,6 +125,8 @@ NODISCARD static bool CreatePidFile()
         return InitError(strprintf(_("Unable to create the PID file '%s': %s").translated, GetPidFile().string(), std::strerror(errno)));
     }
 }
+
+int nIssuePrices[10] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -573,6 +575,8 @@ void SetupServerArgs()
 #else
     hidden_args.emplace_back("-daemon");
 #endif
+
+    gArgs.AddArg("-issueprices", "Change mining reward each block range", ArgsManager::ALLOW_ANY, OptionsCategory::DEBUG_TEST);
 
     // Add the hidden options
     gArgs.AddHiddenArgs(hidden_args);
@@ -1160,6 +1164,26 @@ bool AppInitParameterInteraction()
 
     if (gArgs.GetArg("-rpcserialversion", DEFAULT_RPC_SERIALIZE_VERSION) > 1)
         return InitError("unknown rpcserialversion requested.");
+
+    if (gArgs.IsArgSet("-issueprices"))
+    {
+        std::string strIssuePricesList = gArgs.GetArg("-issueprices", "");
+        std::vector<std::string> vStrInputParts;
+        boost::split(vStrInputParts, strIssuePricesList, boost::is_any_of(","));
+
+        if(vStrInputParts.size() != STAGES)
+          return InitError("invalid issueprices values.");
+
+        for(int i = 0; i < STAGES; ++i) {
+            nIssuePrices[i] = std::stoi(vStrInputParts[i]);
+        }
+
+    }
+    else {
+        for(int i = 0; i < STAGES; ++i) {
+            nIssuePrices[i] = ISSUE_PRICE[i];
+        }
+    }
 
     nMaxTipAge = gArgs.GetArg("-maxtipage", DEFAULT_MAX_TIP_AGE);
 
