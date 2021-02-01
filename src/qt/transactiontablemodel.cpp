@@ -1,4 +1,5 @@
 // Copyright (c) 2011-2019 The Bitcoin Core developers
+// Copyright (c) 2017-2021 The c0ban Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -15,6 +16,7 @@
 
 #include <core_io.h>
 #include <interfaces/handler.h>
+#include <cmath>
 #include <uint256.h>
 
 #include <algorithm>
@@ -445,8 +447,9 @@ QVariant TransactionTableModel::txStatusDecoration(const TransactionRecord *wtx)
         return QIcon(":/icons/transaction_0");
     case TransactionStatus::Abandoned:
         return QIcon(":/icons/transaction_abandoned");
-    case TransactionStatus::Confirming:
-        switch(wtx->status.depth)
+    case TransactionStatus::Confirming: {
+        int confirms = (int)std::ceil((double)wtx->status.depth * 5 / (double)TransactionRecord::RecommendedNumConfirmations);
+        switch(confirms)
         {
         case 1: return QIcon(":/icons/transaction_1");
         case 2: return QIcon(":/icons/transaction_2");
@@ -454,6 +457,7 @@ QVariant TransactionTableModel::txStatusDecoration(const TransactionRecord *wtx)
         case 4: return QIcon(":/icons/transaction_4");
         default: return QIcon(":/icons/transaction_5");
         };
+        }
     case TransactionStatus::Confirmed:
         return QIcon(":/icons/transaction_confirmed");
     case TransactionStatus::Conflicted:
