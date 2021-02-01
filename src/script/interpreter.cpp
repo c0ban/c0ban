@@ -1,7 +1,12 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2019 The Bitcoin Core developers
+// Copyright (c) 2017-2018 The Bitcoin ABC developers
+// Copyright (c) 2017-2018 The Bitcoin Gold developers
+// Copyright (c) 2017-2021 The c0ban Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
+//
+// Implementing replay protection(such as when assigning ForkID at transaction signature) with reference to Bitcoin ABC and Bitcoin Gold.
 
 #include <script/interpreter.h>
 
@@ -425,8 +430,8 @@ bool EvalScript(std::vector<std::vector<unsigned char> >& stack, const CScript& 
                 return set_error(serror, SCRIPT_ERR_DISABLED_OPCODE); // Disabled opcodes (CVE-2010-5137).
 
             // With SCRIPT_VERIFY_CONST_SCRIPTCODE, OP_CODESEPARATOR in non-segwit script is rejected even in an unexecuted branch
-            if (opcode == OP_CODESEPARATOR && sigversion == SigVersion::BASE && (flags & SCRIPT_VERIFY_CONST_SCRIPTCODE))
-                return set_error(serror, SCRIPT_ERR_OP_CODESEPARATOR);
+            // if (opcode == OP_CODESEPARATOR && sigversion == SigVersion::BASE && (flags & SCRIPT_VERIFY_CONST_SCRIPTCODE))
+            //     return set_error(serror, SCRIPT_ERR_OP_CODESEPARATOR);
 
             if (fExec && 0 <= opcode && opcode <= OP_PUSHDATA4) {
                 if (fRequireMinimal && !CheckMinimalPush(vchPushValue, opcode)) {
@@ -989,15 +994,15 @@ bool EvalScript(std::vector<std::vector<unsigned char> >& stack, const CScript& 
                 }
                 break;
 
-                case OP_CODESEPARATOR:
-                {
-                    // If SCRIPT_VERIFY_CONST_SCRIPTCODE flag is set, use of OP_CODESEPARATOR is rejected in pre-segwit
-                    // script, even in an unexecuted branch (this is checked above the opcode case statement).
+                // case OP_CODESEPARATOR:
+                // {
+                //     // If SCRIPT_VERIFY_CONST_SCRIPTCODE flag is set, use of OP_CODESEPARATOR is rejected in pre-segwit
+                //     // script, even in an unexecuted branch (this is checked above the opcode case statement).
 
-                    // Hash starts after the code separator
-                    pbegincodehash = pc;
-                }
-                break;
+                //     // Hash starts after the code separator
+                //     pbegincodehash = pc;
+                // }
+                // break;
 
                 case OP_CHECKSIG:
                 case OP_CHECKSIGVERIFY:
@@ -1079,15 +1084,15 @@ bool EvalScript(std::vector<std::vector<unsigned char> >& stack, const CScript& 
                     CScript scriptCode(pbegincodehash, pend);
 
                     // Drop the signature in pre-segwit scripts but not segwit scripts
-                    for (int k = 0; k < nSigsCount; k++)
-                    {
-                        valtype& vchSig = stacktop(-isig-k);
-                        if (sigversion == SigVersion::BASE) {
-                            int found = FindAndDelete(scriptCode, CScript() << vchSig);
-                            if (found > 0 && (flags & SCRIPT_VERIFY_CONST_SCRIPTCODE))
-                                return set_error(serror, SCRIPT_ERR_SIG_FINDANDDELETE);
-                        }
-                    }
+                    // for (int k = 0; k < nSigsCount; k++)
+                    // {
+                    //     valtype& vchSig = stacktop(-isig-k);
+                    //     if (sigversion == SigVersion::BASE) {
+                    //         int found = FindAndDelete(scriptCode, CScript() << vchSig);
+                    //         if (found > 0 && (flags & SCRIPT_VERIFY_CONST_SCRIPTCODE))
+                    //             return set_error(serror, SCRIPT_ERR_SIG_FINDANDDELETE);
+                    //     }
+                    // }
 
                     bool fSuccess = true;
                     while (fSuccess && nSigsCount > 0)

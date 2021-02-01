@@ -1,7 +1,12 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2018 The Bitcoin Core developers
+// Copyright (c) 2017-2018 The Bitcoin ABC developers
+// Copyright (c) 2017-2018 The Bitcoin Gold developers
+// Copyright (c) 2017-2021 The c0ban Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
+//
+// Implementing replay protection(such as when assigning ForkID at transaction signature) with reference to Bitcoin ABC and Bitcoin Gold.
 
 #include <script/script_error.h>
 
@@ -89,10 +94,14 @@ const char* ScriptErrorString(const ScriptError serror)
             return "Witness provided for non-witness script";
         case SCRIPT_ERR_WITNESS_PUBKEYTYPE:
             return "Using non-compressed keys in segwit";
-        case SCRIPT_ERR_OP_CODESEPARATOR:
-            return "Using OP_CODESEPARATOR in non-witness script";
-        case SCRIPT_ERR_SIG_FINDANDDELETE:
-            return "Signature is found in scriptCode";
+        // case SCRIPT_ERR_OP_CODESEPARATOR:
+        //     return "Using OP_CODESEPARATOR in non-witness script";
+        // case SCRIPT_ERR_SIG_FINDANDDELETE:
+        //     return "Signature is found in scriptCode";
+        case SCRIPT_ERR_ILLEGAL_FORKID:
+            return "Illegal use of SIGHASH_FORKID";
+        case SCRIPT_ERR_MUST_USE_FORKID:
+            return "Signature must use SIGHASH_FORKID";
         case SCRIPT_ERR_UNKNOWN_ERROR:
         case SCRIPT_ERR_ERROR_COUNT:
         default: break;
