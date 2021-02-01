@@ -111,7 +111,8 @@ static const int64_t DEFAULT_MAX_TIP_AGE = 24 * 60 * 60;
 /** Maximum age of our tip in seconds for us to be considered current for fee estimation */
 static const int64_t MAX_FEE_ESTIMATION_TIP_AGE = 3 * 60 * 60;
 
-static const bool DEFAULT_CHECKPOINTS_ENABLED = true;
+// TODO: set DEFAULT_CHECKPOINTS_ENABLED to false because it is necessary to adjust the parameter and test it
+static const bool DEFAULT_CHECKPOINTS_ENABLED = false;
 static const bool DEFAULT_TXINDEX = false;
 static const char* const DEFAULT_BLOCKFILTERINDEX = "0";
 static const unsigned int DEFAULT_BANSCORE_THRESHOLD = 100;
