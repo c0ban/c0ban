@@ -6,6 +6,7 @@
 
 Test that the DERSIG soft-fork activates at (regtest) height 1251.
 """
+import time
 
 from test_framework.blocktools import create_coinbase, create_block, create_transaction
 from test_framework.messages import msg_block
@@ -111,6 +112,7 @@ class BIP66Test(BitcoinTestFramework):
 
         # First we show that this tx is valid except for DERSIG by getting it
         # rejected from the mempool for exactly that reason.
+        import pdb; pdb.set_trace();
         assert_equal(
             [{'txid': spendtx.hash, 'allowed': False, 'reject-reason': 'non-mandatory-script-verify-flag (Non-canonical DER signature)'}],
             self.nodes[0].testmempoolaccept(rawtxs=[spendtx.serialize().hex()], maxfeerate=0)

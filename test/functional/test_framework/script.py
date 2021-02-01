@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # Copyright (c) 2015-2019 The Bitcoin Core developers
+# Copyright (c) 2017-2021 The c0ban Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Functionality to build scripts, as well as signature hash functions.
@@ -601,7 +602,10 @@ class CScript(bytes):
 SIGHASH_ALL = 1
 SIGHASH_NONE = 2
 SIGHASH_SINGLE = 3
+SIGHASH_FORKID = 0x40
 SIGHASH_ANYONECANPAY = 0x80
+
+FORKID_CBN_LYRA2RC0BAN = 88
 
 def FindAndDelete(script, sig):
     """Consensus critical, see FindAndDelete() in Satoshi codebase"""
@@ -665,6 +669,8 @@ def LegacySignatureHash(script, txTo, inIdx, hashtype):
         txtmp.vin.append(tmp)
 
     s = txtmp.serialize_without_witness()
+    if hashtype & SIGHASH_FORKID:
+        hashtype |= FORKID_CBN_LYRA2RC0BAN << 8
     s += struct.pack(b"<I", hashtype)
 
     hash = hash256(s)
@@ -701,6 +707,9 @@ def SegwitV0SignatureHash(script, txTo, inIdx, hashtype, amount):
     elif ((hashtype & 0x1f) == SIGHASH_SINGLE and inIdx < len(txTo.vout)):
         serialize_outputs = txTo.vout[inIdx].serialize()
         hashOutputs = uint256_from_str(hash256(serialize_outputs))
+
+    if hashtype & SIGHASH_FORKID:
+        hashtype |= FORKID_CBN_LYRA2RC0BAN << 8
 
     ss = bytes()
     ss += struct.pack("<i", txTo.nVersion)

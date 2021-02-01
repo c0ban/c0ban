@@ -2,6 +2,7 @@
 # Copyright (c) 2010 ArtForz -- public domain half-a-node
 # Copyright (c) 2012 Jeff Garzik
 # Copyright (c) 2010-2019 The Bitcoin Core developers
+# Copyright (c) 2017-2021 The c0ban Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Bitcoin P2P network half-a-node.
@@ -89,8 +90,8 @@ MESSAGEMAP = {
 }
 
 MAGIC_BYTES = {
-    "mainnet": b"\xf9\xbe\xb4\xd9",   # mainnet
-    "testnet3": b"\x0b\x11\x09\x07",  # testnet3
+    "mainnet": b"\x63\x30\x62\x6e",   # mainnet
+    "testnet3": b"\x63\x30\x62\x6e",  # testnet3
     "regtest": b"\xfa\xbf\xb5\xda",   # regtest
 }
 

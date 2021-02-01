@@ -2,6 +2,7 @@
 # Copyright (c) 2010 ArtForz -- public domain half-a-node
 # Copyright (c) 2012 Jeff Garzik
 # Copyright (c) 2010-2019 The Bitcoin Core developers
+# Copyright (c) 2017-2021 The c0ban Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Bitcoin test framework primitive and message structures
@@ -27,6 +28,8 @@ import socket
 import struct
 import time
 
+import lyra2re2_hash, lyra2rec0ban_hash
+
 from test_framework.siphash import siphash256
 from test_framework.util import hex_str_to_bytes, assert_equal
 
@@ -36,10 +39,16 @@ MY_SUBVERSION = b"/python-mininode-tester:0.0.3/"
 MY_RELAY = 1 # from version 70001 onwards, fRelay should be appended to version messages (BIP37)
 
 MAX_LOCATOR_SZ = 101
-MAX_BLOCK_BASE_SIZE = 1000000
+# MAX_BLOCK_BASE_SIZE = 1000000
+MAX_BLOCK_BASE_SIZE = 4000000
 
 COIN = 100000000  # 1 btc in satoshis
-MAX_MONEY = 21000000 * COIN
+
+# MAX_MONEY = 21000000 * COIN
+MAX_MONEY = 88000000 * COIN
+
+CHANGE_BLOCK_HEIGHT = 1  # regtest
+CHANGE_BLOCK_SECOND_FORK_HEIGHT = 1  # regtest
 
 BIP125_SEQUENCE_NUMBER = 0xfffffffd  # Sequence number that is BIP 125 opt-in and BIP 68-opt-out
 
@@ -185,7 +194,7 @@ def FromHex(obj, hex_string):
 def ToHex(obj):
     return obj.serialize().hex()
 
-# Objects that map to bitcoind objects, which can be serialized/deserialized
+# Objects that map to c0band objects, which can be serialized/deserialized
 
 
 class CAddress:
@@ -444,7 +453,7 @@ class CTransaction:
         if len(self.vin) == 0:
             flags = struct.unpack("<B", f.read(1))[0]
             # Not sure why flags can't be zero, but this
-            # matches the implementation in bitcoind
+            # matches the implementation in c0band
             if (flags != 0):
                 self.vin = deser_vector(f, CTxIn)
                 self.vout = deser_vector(f, CTxOut)
@@ -526,7 +535,7 @@ class CTransaction:
 
 class CBlockHeader:
     __slots__ = ("hash", "hashMerkleRoot", "hashPrevBlock", "nBits", "nNonce",
-                 "nTime", "nVersion", "sha256")
+                 "nTime", "nVersion", "sha256", "lyra2re2Hash", "lyra2rec0banHash")
 
     def __init__(self, header=None):
         if header is None:
@@ -540,6 +549,8 @@ class CBlockHeader:
             self.nNonce = header.nNonce
             self.sha256 = header.sha256
             self.hash = header.hash
+            self.lyra2re2Hash = header.lyra2re2Hash
+            self.lyra2rec0banHash = header.lyra2rec0banHash
             self.calc_sha256()
 
     def set_null(self):
@@ -551,6 +562,8 @@ class CBlockHeader:
         self.nNonce = 0
         self.sha256 = None
         self.hash = None
+        self.lyra2re2Hash = None
+        self.lyra2rec0banHash = None
 
     def deserialize(self, f):
         self.nVersion = struct.unpack("<i", f.read(4))[0]
@@ -561,6 +574,8 @@ class CBlockHeader:
         self.nNonce = struct.unpack("<I", f.read(4))[0]
         self.sha256 = None
         self.hash = None
+        self.lyra2re2Hash = None
+        self.lyra2rec0banHash = None
 
     def serialize(self):
         r = b""
@@ -583,9 +598,13 @@ class CBlockHeader:
             r += struct.pack("<I", self.nNonce)
             self.sha256 = uint256_from_str(hash256(r))
             self.hash = encode(hash256(r)[::-1], 'hex_codec').decode('ascii')
+            self.lyra2re2Hash = uint256_from_str(lyra2re2_hash.getPoWHash(r))
+            self.lyra2rec0banHash = uint256_from_str(lyra2rec0ban_hash.getPoWHash(r))
 
     def rehash(self):
         self.sha256 = None
+        self.lyra2re2Hash = None
+        self.lyra2rec0banHash = None
         self.calc_sha256()
         return self.sha256
 
@@ -598,7 +617,7 @@ BLOCK_HEADER_SIZE = len(CBlockHeader().serialize())
 assert_equal(BLOCK_HEADER_SIZE, 80)
 
 class CBlock(CBlockHeader):
-    __slots__ = ("vtx",)
+    __slots__ = ("vtx", "height",)
 
     def __init__(self, header=None):
         super(CBlock, self).__init__(header)
@@ -646,10 +665,22 @@ class CBlock(CBlockHeader):
 
         return self.get_merkle_root(hashes)
 
+    def _get_target_hash(self):
+        return self.lyra2rec0banHash
+        # import pdb; pdb.set_trace()
+        # if not hasattr(self, 'height') or self.height < CHANGE_BLOCK_HEIGHT:
+        #     return self.sha256
+        # elif self.height < CHANGE_BLOCK_SECOND_FORK_HEIGHT:
+        #     return self.lyra2re2Hash
+        # else:
+        #     return self.lyra2rec0banHash
+
     def is_valid(self):
         self.calc_sha256()
         target = uint256_from_compact(self.nBits)
-        if self.sha256 > target:
+        # target_hash = self.sha256 if not hasattr(self, 'height') or self.height < CHANGE_BLOCK_HEIGHT else self.lyra2rec0banHash
+        target_hash = self._get_target_hash()
+        if target_hash > target:
             return False
         for tx in self.vtx:
             if not tx.is_valid():
@@ -661,9 +692,13 @@ class CBlock(CBlockHeader):
     def solve(self):
         self.rehash()
         target = uint256_from_compact(self.nBits)
-        while self.sha256 > target:
+        # target_hash = self.sha256 if not hasattr(self, 'height') or self.height < CHANGE_BLOCK_HEIGHT else self.lyra2rec0banHash
+        target_hash = self._get_target_hash()
+        while target_hash > target:
             self.nNonce += 1
             self.rehash()
+            # target_hash = self.sha256 if not hasattr(self, 'height') or self.height < CHANGE_BLOCK_HEIGHT else self.lyra2rec0banHash
+            target_hash = self._get_target_hash()
 
     def __repr__(self):
         return "CBlock(nVersion=%i hashPrevBlock=%064x hashMerkleRoot=%064x nTime=%s nBits=%08x nNonce=%08x vtx=%s)" \
@@ -1307,7 +1342,7 @@ class msg_headers:
         self.headers = headers if headers is not None else []
 
     def deserialize(self, f):
-        # comment in bitcoind indicates these should be deserialized as blocks
+        # comment in c0band indicates these should be deserialized as blocks
         blocks = deser_vector(f, CBlock)
         for x in blocks:
             self.headers.append(CBlockHeader(x))

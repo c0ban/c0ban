@@ -318,7 +318,7 @@ class BIP68Test(BitcoinTestFramework):
         tip = int(self.nodes[0].getblockhash(self.nodes[0].getblockcount()-1), 16)
         height = self.nodes[0].getblockcount()
         for i in range(2):
-            block = create_block(tip, create_coinbase(height), cur_time)
+            block = create_block(tip, create_coinbase(height), cur_time, height=height)
             block.nVersion = 3
             block.rehash()
             block.solve()

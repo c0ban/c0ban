@@ -129,7 +129,7 @@ class BlockchainTest(BitcoinTestFramework):
             'bip66': {'type': 'buried', 'active': False, 'height': 1251},
             'bip65': {'type': 'buried', 'active': False, 'height': 1351},
             'csv': {'type': 'buried', 'active': False, 'height': 432},
-            'segwit': {'type': 'buried', 'active': True, 'height': 0},
+            'segwit': {'type': 'buried', 'active': False, 'height': 1050},
             'testdummy': {
                 'type': 'bip9',
                 'bip9': {
@@ -207,7 +207,8 @@ class BlockchainTest(BitcoinTestFramework):
         node = self.nodes[0]
         res = node.gettxoutsetinfo()
 
-        assert_equal(res['total_amount'], Decimal('8725.00000000'))
+        # assert_equal(res['total_amount'], Decimal('8725.00000000'))
+        assert_equal(res['total_amount'], Decimal('4400000.00000000'))
         assert_equal(res['transactions'], 200)
         assert_equal(res['height'], 200)
         assert_equal(res['txouts'], 200)
