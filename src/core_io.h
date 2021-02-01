@@ -11,6 +11,8 @@
 #include <string>
 #include <vector>
 
+#include <script/sighashtype.h>
+
 class CBlock;
 class CBlockHeader;
 class CScript;
@@ -36,7 +38,7 @@ bool DecodeHexBlockHeader(CBlockHeader&, const std::string& hex_header);
  */
 bool ParseHashStr(const std::string& strHex, uint256& result);
 std::vector<unsigned char> ParseHexUV(const UniValue& v, const std::string& strName);
-int ParseSighashString(const UniValue& sighash);
+SigHashType ParseSighashString(const UniValue& sighash);
 
 // core_write.cpp
 UniValue ValueFromAmount(const CAmount& amount);

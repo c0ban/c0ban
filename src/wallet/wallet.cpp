@@ -1,5 +1,6 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2020 The Bitcoin Core developers
+// Copyright (c) 2017-2021 The c0ban Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -20,6 +21,7 @@
 #include <primitives/transaction.h>
 #include <script/descriptor.h>
 #include <script/script.h>
+#include <script/sighashtype.h>
 #include <script/signingprovider.h>
 #include <util/bip32.h>
 #include <util/error.h>
@@ -2427,10 +2429,11 @@ bool CWallet::SignTransaction(CMutableTransaction& tx) const
         coins[input.prevout] = Coin(wtx.tx->vout[input.prevout.n], wtx.m_confirm.block_height, wtx.IsCoinBase());
     }
     std::map<int, std::string> input_errors;
-    return SignTransaction(tx, coins, SIGHASH_ALL, input_errors);
+    SigHashType sigHashType = SigHashType().withForkId();
+    return SignTransaction(tx, coins, sigHashType, input_errors);
 }
 
-bool CWallet::SignTransaction(CMutableTransaction& tx, const std::map<COutPoint, Coin>& coins, int sighash, std::map<int, std::string>& input_errors) const
+bool CWallet::SignTransaction(CMutableTransaction& tx, const std::map<COutPoint, Coin>& coins, SigHashType& sigHashTypeIn, std::map<int, std::string>& input_errors) const
 {
     // Sign the tx with ScriptPubKeyMans
     // Because each ScriptPubKeyMan can sign more than one input, we need to keep track of each ScriptPubKeyMan that has signed this transaction.
@@ -2468,7 +2471,7 @@ bool CWallet::SignTransaction(CMutableTransaction& tx, const std::map<COutPoint,
             // Sign the tx.
             // spk_man->SignTransaction will return true if the transaction is complete,
             // so we can exit early and return true if that happens.
-            if (spk_man->SignTransaction(tx, coins, sighash, input_errors)) {
+            if (spk_man->SignTransaction(tx, coins, sigHashTypeIn, input_errors)) {
                 return true;
             }
 
@@ -2479,7 +2482,7 @@ bool CWallet::SignTransaction(CMutableTransaction& tx, const std::map<COutPoint,
     return false;
 }
 
-TransactionError CWallet::FillPSBT(PartiallySignedTransaction& psbtx, bool& complete, int sighash_type, bool sign, bool bip32derivs) const
+TransactionError CWallet::FillPSBT(PartiallySignedTransaction& psbtx, bool& complete, SigHashType sigHashTypeIn, bool sign, bool bip32derivs) const
 {
     LOCK(cs_wallet);
     // Get all of the previous transactions
@@ -2549,7 +2552,7 @@ TransactionError CWallet::FillPSBT(PartiallySignedTransaction& psbtx, bool& comp
             }
 
             // Fill in the information from the spk_man
-            TransactionError res = spk_man->FillPSBT(psbtx, sighash_type, sign, bip32derivs);
+            TransactionError res = spk_man->FillPSBT(psbtx, sigHashTypeIn, sign, bip32derivs);
             if (res != TransactionError::OK) {
                 return res;
             }

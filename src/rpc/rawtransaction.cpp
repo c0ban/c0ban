@@ -691,7 +691,7 @@ static UniValue combinerawtransaction(const JSONRPCRequest& request)
                 sigdata.MergeSignatureData(DataFromTransaction(txv, i, coin.out));
             }
         }
-        ProduceSignature(DUMMY_SIGNING_PROVIDER, MutableTransactionSignatureCreator(&mergedTx, i, coin.out.nValue, 1), coin.out.scriptPubKey, sigdata);
+        ProduceSignature(DUMMY_SIGNING_PROVIDER, MutableTransactionSignatureCreator(&mergedTx, i, coin.out.nValue, SigHashType().withForkId(), STANDARD_SCRIPT_VERIFY_FLAGS), coin.out.scriptPubKey, sigdata);
 
         UpdateInput(txin, sigdata);
     }
@@ -735,6 +735,12 @@ static UniValue signrawtransactionwithkey(const JSONRPCRequest& request)
             "       \"ALL|ANYONECANPAY\"\n"
             "       \"NONE|ANYONECANPAY\"\n"
             "       \"SINGLE|ANYONECANPAY\"\n"
+            "       \"ALL|FORKID\"\n"
+            "       \"NONE|FORKID\"\n"
+            "       \"SINGLE|FORKID\"\n"
+            "       \"ALL|FORKID|ANYONECANPAY\"\n"
+            "       \"NONE|FORKID|ANYONECANPAY\"\n"
+            "       \"SINGLE|FORKID|ANYONECANPAY\"\n"
                     },
                 },
                 RPCResult{
@@ -790,7 +796,9 @@ static UniValue signrawtransactionwithkey(const JSONRPCRequest& request)
     ParsePrevouts(request.params[2], &keystore, coins);
 
     UniValue result(UniValue::VOBJ);
-    SignTransaction(mtx, &keystore, coins, request.params[3], result);
+    SigHashType sigHashType = ParseSighashString(request.params[3]);
+    // SignTransaction(mtx, &keystore, coins, request.params[3], result);
+    SignTransaction(mtx, &keystore, coins, sigHashType, result);
     return result;
 }
 
@@ -1599,7 +1607,7 @@ UniValue utxoupdatepsbt(const JSONRPCRequest& request)
         // Update script/keypath information using descriptor data.
         // Note that SignPSBTInput does a lot more than just constructing ECDSA signatures
         // we don't actually care about those here, in fact.
-        SignPSBTInput(public_provider, psbtx, i, /* sighash_type */ 1);
+        SignPSBTInput(public_provider, psbtx, i, /* sighash_type */ SigHashType().withForkId());
     }
 
     // Update script/keypath information using descriptor data.

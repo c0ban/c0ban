@@ -1,5 +1,6 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2018 The Bitcoin Core developers
+// Copyright (c) 2017-2021 The c0ban Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -61,6 +62,8 @@ public:
     }
 
     uint256 GetHash() const;
+
+    uint256 GetPoWHash(bool bLyra2REv2 = false, bool bLyra2REvc0ban = false) const;
 
     int64_t GetBlockTime() const
     {

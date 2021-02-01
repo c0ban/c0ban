@@ -1,7 +1,12 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2019 The Bitcoin Core developers
+// Copyright (c) 2017-2018 The Bitcoin ABC developers
+// Copyright (c) 2017-2018 The Bitcoin Gold developers
+// Copyright (c) 2017-2021 The c0ban Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
+//
+// Implementing replay protection(such as when assigning ForkID at transaction signature) with reference to Bitcoin ABC and Bitcoin Gold.
 
 #include <script/sign.h>
 
@@ -11,10 +16,12 @@
 #include <script/signingprovider.h>
 #include <script/standard.h>
 #include <uint256.h>
+#include <validation.h>
 
 typedef std::vector<unsigned char> valtype;
 
-MutableTransactionSignatureCreator::MutableTransactionSignatureCreator(const CMutableTransaction* txToIn, unsigned int nInIn, const CAmount& amountIn, int nHashTypeIn) : txTo(txToIn), nIn(nInIn), nHashType(nHashTypeIn), amount(amountIn), checker(txTo, nIn, amountIn) {}
+MutableTransactionSignatureCreator::MutableTransactionSignatureCreator(const CMutableTransaction* txToIn, unsigned int nInIn, const CAmount& amountIn, SigHashType sigHashTypeIn, uint32_t flagsIn) :
+    BaseSignatureCreator(flagsIn), txTo(txToIn), nIn(nInIn), amount(amountIn), sigHashType(sigHashTypeIn), checker(txTo, nIn, amountIn) {}
 
 bool MutableTransactionSignatureCreator::CreateSig(const SigningProvider& provider, std::vector<unsigned char>& vchSig, const CKeyID& address, const CScript& scriptCode, SigVersion sigversion) const
 {
@@ -26,10 +33,10 @@ bool MutableTransactionSignatureCreator::CreateSig(const SigningProvider& provid
     if (sigversion == SigVersion::WITNESS_V0 && !key.IsCompressed())
         return false;
 
-    uint256 hash = SignatureHash(scriptCode, *txTo, nIn, nHashType, amount, sigversion);
+    uint256 hash = SignatureHash(scriptCode, *txTo, nIn, sigHashType, amount, sigversion, 0, flags);
     if (!key.Sign(hash, vchSig))
         return false;
-    vchSig.push_back((unsigned char)nHashType);
+    vchSig.push_back(uint8_t(sigHashType.getRawSigHashType()));
     return true;
 }
 
@@ -245,7 +252,7 @@ bool ProduceSignature(const SigningProvider& provider, const BaseSignatureCreato
     sigdata.scriptSig = PushAll(result);
 
     // Test solution
-    sigdata.complete = solved && VerifyScript(sigdata.scriptSig, fromPubKey, &sigdata.scriptWitness, STANDARD_SCRIPT_VERIFY_FLAGS, creator.Checker());
+    sigdata.complete = solved && VerifyScript(sigdata.scriptSig, fromPubKey, &sigdata.scriptWitness, STANDARD_SCRIPT_VERIFY_FLAGS | creator.flags, creator.Checker());
     return sigdata.complete;
 }
 
@@ -258,9 +265,9 @@ private:
 
 public:
     SignatureExtractorChecker(SignatureData& sigdata, BaseSignatureChecker& checker) : sigdata(sigdata), checker(checker) {}
-    bool CheckSig(const std::vector<unsigned char>& scriptSig, const std::vector<unsigned char>& vchPubKey, const CScript& scriptCode, SigVersion sigversion) const override
+    bool CheckSig(const std::vector<unsigned char>& scriptSig, const std::vector<unsigned char>& vchPubKey, const CScript& scriptCode, SigVersion sigversion, uint32_t flags) const override
     {
-        if (checker.CheckSig(scriptSig, vchPubKey, scriptCode, sigversion)) {
+        if (checker.CheckSig(scriptSig, vchPubKey, scriptCode, sigversion, flags)) {
             CPubKey pubkey(vchPubKey);
             sigdata.signatures.emplace(pubkey.GetID(), SigPair(pubkey, scriptSig));
             return true;
@@ -277,7 +284,7 @@ struct Stacks
     Stacks() = delete;
     Stacks(const Stacks&) = delete;
     explicit Stacks(const SignatureData& data) : witness(data.scriptWitness.stack) {
-        EvalScript(script, data.scriptSig, SCRIPT_VERIFY_STRICTENC, BaseSignatureChecker(), SigVersion::BASE);
+        EvalScript(script, data.scriptSig, MANDATORY_SCRIPT_VERIFY_FLAGS, BaseSignatureChecker(), SigVersion::BASE);
     }
 };
 }
@@ -337,7 +344,7 @@ SignatureData DataFromTransaction(const CMutableTransaction& tx, unsigned int nI
             for (unsigned int i = last_success_key; i < num_pubkeys; ++i) {
                 const valtype& pubkey = solutions[i+1];
                 // We either have a signature for this pubkey, or we have found a signature and it is valid
-                if (data.signatures.count(CPubKey(pubkey).GetID()) || extractor_checker.CheckSig(sig, pubkey, next_script, sigversion)) {
+                if (data.signatures.count(CPubKey(pubkey).GetID()) || extractor_checker.CheckSig(sig, pubkey, next_script, sigversion, STANDARD_SCRIPT_VERIFY_FLAGS)) {
                     last_success_key = i + 1;
                     break;
                 }
@@ -370,11 +377,11 @@ void SignatureData::MergeSignatureData(SignatureData sigdata)
     signatures.insert(std::make_move_iterator(sigdata.signatures.begin()), std::make_move_iterator(sigdata.signatures.end()));
 }
 
-bool SignSignature(const SigningProvider &provider, const CScript& fromPubKey, CMutableTransaction& txTo, unsigned int nIn, const CAmount& amount, int nHashType)
+bool SignSignature(const SigningProvider &provider, const CScript& fromPubKey, CMutableTransaction& txTo, unsigned int nIn, const CAmount& amount, SigHashType sigHashType)
 {
     assert(nIn < txTo.vin.size());
 
-    MutableTransactionSignatureCreator creator(&txTo, nIn, amount, nHashType);
+    MutableTransactionSignatureCreator creator(&txTo, nIn, amount, sigHashType);
 
     SignatureData sigdata;
     bool ret = ProduceSignature(provider, creator, fromPubKey, sigdata);
@@ -382,14 +389,14 @@ bool SignSignature(const SigningProvider &provider, const CScript& fromPubKey, C
     return ret;
 }
 
-bool SignSignature(const SigningProvider &provider, const CTransaction& txFrom, CMutableTransaction& txTo, unsigned int nIn, int nHashType)
+bool SignSignature(const SigningProvider &provider, const CTransaction& txFrom, CMutableTransaction& txTo, unsigned int nIn, SigHashType sigHashType)
 {
     assert(nIn < txTo.vin.size());
     CTxIn& txin = txTo.vin[nIn];
     assert(txin.prevout.n < txFrom.vout.size());
     const CTxOut& txout = txFrom.vout[txin.prevout.n];
 
-    return SignSignature(provider, txout.scriptPubKey, txTo, nIn, txout.nValue, nHashType);
+    return SignSignature(provider, txout.scriptPubKey, txTo, nIn, txout.nValue, sigHashType);
 }
 
 namespace {
@@ -398,7 +405,7 @@ class DummySignatureChecker final : public BaseSignatureChecker
 {
 public:
     DummySignatureChecker() {}
-    bool CheckSig(const std::vector<unsigned char>& scriptSig, const std::vector<unsigned char>& vchPubKey, const CScript& scriptCode, SigVersion sigversion) const override { return true; }
+    bool CheckSig(const std::vector<unsigned char>& scriptSig, const std::vector<unsigned char>& vchPubKey, const CScript& scriptCode, SigVersion sigversion, uint32_t flags) const override { return true; }
 };
 const DummySignatureChecker DUMMY_CHECKER;
 
@@ -421,7 +428,7 @@ public:
         vchSig[4 + m_r_len] = 0x02;
         vchSig[5 + m_r_len] = m_s_len;
         vchSig[6 + m_r_len] = 0x01;
-        vchSig[6 + m_r_len + m_s_len] = SIGHASH_ALL;
+        vchSig[6 + m_r_len + m_s_len] = SIGHASH_ALL | SIGHASH_FORKID;
         return true;
     }
 };
@@ -466,9 +473,19 @@ bool IsSegWitOutput(const SigningProvider& provider, const CScript& script)
     return false;
 }
 
-bool SignTransaction(CMutableTransaction& mtx, const SigningProvider* keystore, const std::map<COutPoint, Coin>& coins, int nHashType, std::map<int, std::string>& input_errors)
+bool SignTransaction(CMutableTransaction& mtx, const SigningProvider* keystore, const std::map<COutPoint, Coin>& coins, const SigHashType& sigHashType, std::map<int, std::string>& input_errors)
 {
-    bool fHashSingle = ((nHashType & ~SIGHASH_ANYONECANPAY) == SIGHASH_SINGLE);
+    // bool fHashSingle = ((nHashType & ~SIGHASH_ANYONECANPAY) == SIGHASH_SINGLE);
+
+    // unsigned int scriptVerifyFlags = STANDARD_SCRIPT_VERIFY_FLAGS | SCRIPT_ENABLE_REPLAY_PROTECTION;
+    unsigned int scriptVerifyFlags = STANDARD_SCRIPT_VERIFY_FLAGS;
+    // // Set extraFlags as a set of flags that needs to be activated.
+    // uint32_t extraFlags = SCRIPT_VERIFY_NONE;
+    // // if (IsLyra2vc0banHFenabled(::ChainActive().Height())) {
+    //     extraFlags |= SCRIPT_ENABLE_REPLAY_PROTECTION;
+    // // }
+    // // Make sure whatever we need to activate is actually activated.
+    // scriptVerifyFlags |= extraFlags;
 
     // Use CTransaction for the constant parts of the
     // transaction to avoid rehashing.
@@ -486,8 +503,12 @@ bool SignTransaction(CMutableTransaction& mtx, const SigningProvider* keystore, 
 
         SignatureData sigdata = DataFromTransaction(mtx, i, coin->second.out);
         // Only sign SIGHASH_SINGLE if there's a corresponding output:
-        if (!fHashSingle || (i < mtx.vout.size())) {
-            ProduceSignature(*keystore, MutableTransactionSignatureCreator(&mtx, i, amount, nHashType), prevPubKey, sigdata);
+        // if (!fHashSingle || (i < mtx.vout.size())) {
+        //     ProduceSignature(*keystore, MutableTransactionSignatureCreator(&mtx, i, amount, nHashType), prevPubKey, sigdata);
+        // }
+        if ((sigHashType.getBaseType() != BaseSigHashType::SINGLE) || (i < mtx.vout.size())) {
+            // uint32_t flags = IsLyra2vc0banHFenabled(::ChainActive().Height()) ? SCRIPT_ENABLE_REPLAY_PROTECTION : SCRIPT_VERIFY_NONE;
+            ProduceSignature(*keystore, MutableTransactionSignatureCreator(&mtx, i, amount, sigHashType, scriptVerifyFlags), prevPubKey, sigdata);
         }
 
         UpdateInput(txin, sigdata);
@@ -499,7 +520,9 @@ bool SignTransaction(CMutableTransaction& mtx, const SigningProvider* keystore, 
         }
 
         ScriptError serror = SCRIPT_ERR_OK;
-        if (!VerifyScript(txin.scriptSig, prevPubKey, &txin.scriptWitness, STANDARD_SCRIPT_VERIFY_FLAGS, TransactionSignatureChecker(&txConst, i, amount), &serror)) {
+
+        // if (!VerifyScript(txin.scriptSig, prevPubKey, &txin.scriptWitness, STANDARD_SCRIPT_VERIFY_FLAGS, TransactionSignatureChecker(&txConst, i, amount), &serror)) {
+        if (!VerifyScript(txin.scriptSig, prevPubKey, &txin.scriptWitness, scriptVerifyFlags, TransactionSignatureChecker(&txConst, i, amount), &serror)) {
             if (serror == SCRIPT_ERR_INVALID_STACK_OPERATION) {
                 // Unable to sign input and verification failed (possible attempt to partially sign).
                 input_errors[i] = "Unable to sign input, invalid stack size (possibly missing key)";

@@ -1,5 +1,6 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2019 The Bitcoin Core developers
+// Copyright (c) 2017-2021 The c0ban Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -86,6 +87,9 @@ public:
     const std::vector<SeedSpec6>& FixedSeeds() const { return vFixedSeeds; }
     const CCheckpointData& Checkpoints() const { return checkpointData; }
     const ChainTxData& TxData() const { return chainTxData; }
+    int SwitchLyra2REv2_LWMA() const { return nSwitchLyra2REv2_LWMA; }
+    int SwitchLyra2REvc0ban_LWMA() const { return nSwitchLyra2REvc0ban_LWMA; }
+    int AveragingWindow() const { return nZawyLwmaAveragingWindow; }
 protected:
     CChainParams() {}
 
@@ -107,6 +111,9 @@ protected:
     bool m_is_mockable_chain;
     CCheckpointData checkpointData;
     ChainTxData chainTxData;
+    int nSwitchLyra2REv2_LWMA;
+    int nSwitchLyra2REvc0ban_LWMA;
+    int nZawyLwmaAveragingWindow;
 };
 
 /**

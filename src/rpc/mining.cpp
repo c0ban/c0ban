@@ -1,5 +1,6 @@
 // Copyright (c) 2010 Satoshi Nakamoto
 // Copyright (c) 2009-2020 The Bitcoin Core developers
+// Copyright (c) 2017-2021 The c0ban Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -123,7 +124,12 @@ static UniValue generateBlocks(const CTxMemPool& mempool, const CScript& coinbas
             LOCK(cs_main);
             IncrementExtraNonce(pblock, ::ChainActive().Tip(), nExtraNonce);
         }
-        while (nMaxTries > 0 && pblock->nNonce < std::numeric_limits<uint32_t>::max() && !CheckProofOfWork(pblock->GetHash(), pblock->nBits, Params().GetConsensus()) && !ShutdownRequested()) {
+        bool isPostFork = nHeight+1 >= Params().SwitchLyra2REv2_LWMA();
+        bool isPostForkLyra2C0ban = nHeight+1 >= Params().SwitchLyra2REvc0ban_LWMA();
+        // while (nMaxTries > 0 && pblock->nNonce < std::numeric_limits<uint32_t>::max() && !CheckProofOfWork(pblock->GetHash(), pblock->nBits, Params().GetConsensus()) && !ShutdownRequested()) {
+        while (nMaxTries > 0 && pblock->nNonce < std::numeric_limits<uint32_t>::max() 
+                && !CheckProofOfWork(pblock->GetPoWHash(isPostFork, isPostForkLyra2C0ban), pblock->nBits, isPostFork, Params().GetConsensus())
+                && !ShutdownRequested()) {
             ++pblock->nNonce;
             --nMaxTries;
         }
@@ -212,7 +218,7 @@ static UniValue generatetoaddress(const JSONRPCRequest& request)
             }.Check(request);
 
     int nGenerate = request.params[0].get_int();
-    uint64_t nMaxTries = 1000000;
+    uint64_t nMaxTries = 100000000000;
     if (!request.params[2].isNull()) {
         nMaxTries = request.params[2].get_int();
     }

@@ -1,7 +1,12 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2020 The Bitcoin Core developers
+// Copyright (c) 2017-2018 The Bitcoin ABC developers
+// Copyright (c) 2017-2018 The Bitcoin Gold developers
+// Copyright (c) 2017-2021 The c0ban Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
+//
+// Implementing replay protection(such as when assigning ForkID at transaction signature) with reference to Bitcoin ABC and Bitcoin Gold.
 
 #include <validation.h>
 
@@ -333,6 +338,30 @@ static bool IsCurrentForFeeEstimation() EXCLUSIVE_LOCKS_REQUIRED(cs_main)
     if (::ChainActive().Height() < pindexBestHeader->nHeight - 1)
         return false;
     return true;
+}
+
+static bool IsUAHFenabled(int nHeight) {
+    return nHeight >= Params().SwitchLyra2REv2_LWMA();
+}
+
+bool IsUAHFenabled(const CBlockIndex *pindexPrev) {
+    if (pindexPrev == nullptr) {
+        return false;
+    }
+
+    return IsUAHFenabled(pindexPrev->nHeight);
+}
+
+bool IsLyra2vc0banHFenabled(int nHeight) {
+    return nHeight >= Params().SwitchLyra2REvc0ban_LWMA();
+}
+
+bool IsLyra2vc0banHFenabled(const CBlockIndex *pindexPrev) {
+    if (pindexPrev == nullptr) {
+        return false;
+    }
+
+    return IsLyra2vc0banHFenabled(pindexPrev->nHeight);
 }
 
 /* Make mempool consistent after a reorg, by re-adding or recursively erasing
@@ -903,7 +932,20 @@ bool MemPoolAccept::PolicyScriptChecks(ATMPArgs& args, Workspace& ws, Precompute
 
     TxValidationState &state = args.m_state;
 
-    constexpr unsigned int scriptVerifyFlags = STANDARD_SCRIPT_VERIFY_FLAGS;
+    unsigned int scriptVerifyFlags = STANDARD_SCRIPT_VERIFY_FLAGS | SCRIPT_ENABLE_REPLAY_PROTECTION;
+    // const CChainParams& chainparams = args.m_chainparams;
+    // if (!chainparams.RequireStandard()) {
+    //     scriptVerifyFlags = SCRIPT_ENABLE_SIGHASH_FORKID;
+    // }
+
+    // // Set extraFlags as a set of flags that needs to be activated.
+    // uint32_t extraFlags = SCRIPT_VERIFY_NONE;
+    // if (IsLyra2vc0banHFenabled(::ChainActive().Height())) {
+    //     extraFlags |= SCRIPT_ENABLE_REPLAY_PROTECTION;
+    // }
+
+    // Make sure whatever we need to activate is actually activated.
+    // scriptVerifyFlags |= extraFlags;
 
     // Check input scripts and signatures.
     // This is done last to help prevent CPU exhaustion denial-of-service attacks.
@@ -1130,7 +1172,7 @@ static bool WriteBlockToDisk(const CBlock& block, FlatFilePos& pos, const CMessa
     return true;
 }
 
-bool ReadBlockFromDisk(CBlock& block, const FlatFilePos& pos, const Consensus::Params& consensusParams)
+bool ReadBlockFromDisk(CBlock& block, const FlatFilePos& pos, int nHeight, const Consensus::Params& consensusParams)
 {
     block.SetNull();
 
@@ -1148,7 +1190,9 @@ bool ReadBlockFromDisk(CBlock& block, const FlatFilePos& pos, const Consensus::P
     }
 
     // Check the header
-    if (!CheckProofOfWork(block.GetHash(), block.nBits, consensusParams))
+    bool isPostFork = nHeight >= Params().SwitchLyra2REv2_LWMA();
+    bool isPostForkLyra2C0ban = nHeight >= Params().SwitchLyra2REvc0ban_LWMA();
+    if (!CheckProofOfWork(block.GetPoWHash(isPostFork, isPostForkLyra2C0ban), block.nBits, isPostFork, consensusParams))
         return error("ReadBlockFromDisk: Errors in block header at %s", pos.ToString());
 
     return true;
@@ -1162,7 +1206,7 @@ bool ReadBlockFromDisk(CBlock& block, const CBlockIndex* pindex, const Consensus
         blockPos = pindex->GetBlockPos();
     }
 
-    if (!ReadBlockFromDisk(block, blockPos, consensusParams))
+    if (!ReadBlockFromDisk(block, blockPos, pindex->nHeight, consensusParams))
         return false;
     if (block.GetHash() != pindex->GetBlockHash())
         return error("ReadBlockFromDisk(CBlock&, CBlockIndex*): GetHash() doesn't match index for %s at %s",
@@ -1873,6 +1917,17 @@ static unsigned int GetBlockScriptFlags(const CBlockIndex* pindex, const Consens
     // Start enforcing BIP147 NULLDUMMY (activated simultaneously with segwit)
     if (IsWitnessEnabled(pindex->pprev, consensusparams)) {
         flags |= SCRIPT_VERIFY_NULLDUMMY;
+    }
+
+    // If the UAHF is enabled, we start accepting replay protected txns
+    if (IsUAHFenabled(pindex)) {
+        flags |= SCRIPT_ENABLE_SIGHASH_FORKID;
+    }
+
+    // We make sure this node will have replay protection during the next hard
+    // fork.
+    if (IsLyra2vc0banHFenabled(pindex)) {
+        flags |= SCRIPT_ENABLE_REPLAY_PROTECTION;
     }
 
     return flags;
@@ -3268,9 +3323,25 @@ static bool FindUndoPos(BlockValidationState &state, int nFile, FlatFilePos &pos
 
 static bool CheckBlockHeader(const CBlockHeader& block, BlockValidationState& state, const Consensus::Params& consensusParams, bool fCheckPOW = true)
 {
+    // Get prev block index
+    CBlockIndex* pindexPrev = NULL;
+    int nHeight = 0;
+    // BlockMap::iterator mi = mapBlockIndex.find(block.hashPrevBlock);
+    // if (mi != mapBlockIndex.end()) {
+    //     pindexPrev = (*mi).second;
+    //     nHeight = pindexPrev->nHeight + 1;
+    // }
+    CBlockIndex* pindex = LookupBlockIndex(block.hashPrevBlock);
+    if (pindex) {
+        nHeight = pindex->nHeight + 1;
+    }
+
     // Check proof of work matches claimed amount
-    if (fCheckPOW && !CheckProofOfWork(block.GetHash(), block.nBits, consensusParams))
+    bool isPostFork = nHeight >= Params().SwitchLyra2REv2_LWMA();
+    bool isPostForkLyra2C0ban = nHeight >= Params().SwitchLyra2REvc0ban_LWMA();
+    if (fCheckPOW && !CheckProofOfWork(block.GetPoWHash(isPostFork, isPostForkLyra2C0ban), block.nBits, isPostFork, consensusParams)) {
         return state.Invalid(BlockValidationResult::BLOCK_INVALID_HEADER, "high-hash", "proof of work failed");
+    }
 
     return true;
 }
@@ -4710,7 +4781,10 @@ bool LoadExternalBlockFile(const CChainParams& chainparams, FILE* fileIn, FlatFi
                     while (range.first != range.second) {
                         std::multimap<uint256, FlatFilePos>::iterator it = range.first;
                         std::shared_ptr<CBlock> pblockrecursive = std::make_shared<CBlock>();
-                        if (ReadBlockFromDisk(*pblockrecursive, it->second, chainparams.GetConsensus()))
+                        uint256 hash = block.GetHash();
+                        CBlockIndex* pindex = LookupBlockIndex(block.hashPrevBlock);
+                        int nHeight = pindex->nHeight;
+                        if (ReadBlockFromDisk(*pblockrecursive, it->second, nHeight, chainparams.GetConsensus()))
                         {
                             LogPrint(BCLog::REINDEX, "%s: Processing out of order child %s of %s\n", __func__, pblockrecursive->GetHash().ToString(),
                                     head.ToString());

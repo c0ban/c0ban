@@ -1,5 +1,6 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2020 The Bitcoin Core developers
+// Copyright (c) 2017-2021 The c0ban Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -271,6 +272,11 @@ void UnlinkPrunedFiles(const std::set<int>& setFilesToPrune);
 
 /** Prune block files up to a given height */
 void PruneBlockFilesManual(int nManualPruneHeight);
+
+/** Check if HF has activated. */
+bool IsUAHFenabled(const CBlockIndex *pindexPrev);
+bool IsLyra2vc0banHFenabled(int nHeight);
+bool IsLyra2vc0banHFenabled(const CBlockIndex *pindexPrev);
 
 /** (try to) add transaction to memory pool
  * plTxnReplaced will be appended to with all transactions replaced from mempool **/

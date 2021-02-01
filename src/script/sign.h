@@ -1,5 +1,6 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2019 The Bitcoin Core developers
+// Copyright (c) 2017-2021 The c0ban Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -11,6 +12,7 @@
 #include <pubkey.h>
 #include <script/interpreter.h>
 #include <script/keyorigin.h>
+#include <script/sighashtype.h>
 #include <streams.h>
 
 class CKey;
@@ -25,23 +27,26 @@ struct CMutableTransaction;
 /** Interface for signature creators. */
 class BaseSignatureCreator {
 public:
+    BaseSignatureCreator(uint32_t flagsIn = SCRIPT_VERIFY_NONE) : flags(flagsIn) {}
     virtual ~BaseSignatureCreator() {}
     virtual const BaseSignatureChecker& Checker() const =0;
 
     /** Create a singular (non-script) signature. */
     virtual bool CreateSig(const SigningProvider& provider, std::vector<unsigned char>& vchSig, const CKeyID& keyid, const CScript& scriptCode, SigVersion sigversion) const =0;
+
+    const uint32_t flags;
 };
 
 /** A signature creator for transactions. */
 class MutableTransactionSignatureCreator : public BaseSignatureCreator {
     const CMutableTransaction* txTo;
     unsigned int nIn;
-    int nHashType;
     CAmount amount;
     const MutableTransactionSignatureChecker checker;
+    SigHashType sigHashType;
 
 public:
-    MutableTransactionSignatureCreator(const CMutableTransaction* txToIn, unsigned int nInIn, const CAmount& amountIn, int nHashTypeIn = SIGHASH_ALL);
+    MutableTransactionSignatureCreator(const CMutableTransaction* txToIn, unsigned int nInIn, const CAmount& amountIn, SigHashType sigHashTypeIn = SigHashType(), uint32_t flagsIn = SCRIPT_VERIFY_NONE);
     const BaseSignatureChecker& Checker() const override { return checker; }
     bool CreateSig(const SigningProvider& provider, std::vector<unsigned char>& vchSig, const CKeyID& keyid, const CScript& scriptCode, SigVersion sigversion) const override;
 };
@@ -153,8 +158,8 @@ void SerializeHDKeypaths(Stream& s, const std::map<CPubKey, KeyOriginInfo>& hd_k
 bool ProduceSignature(const SigningProvider& provider, const BaseSignatureCreator& creator, const CScript& scriptPubKey, SignatureData& sigdata);
 
 /** Produce a script signature for a transaction. */
-bool SignSignature(const SigningProvider &provider, const CScript& fromPubKey, CMutableTransaction& txTo, unsigned int nIn, const CAmount& amount, int nHashType);
-bool SignSignature(const SigningProvider &provider, const CTransaction& txFrom, CMutableTransaction& txTo, unsigned int nIn, int nHashType);
+bool SignSignature(const SigningProvider &provider, const CScript& fromPubKey, CMutableTransaction& txTo, unsigned int nIn, const CAmount& amount, SigHashType sigHashType);
+bool SignSignature(const SigningProvider &provider, const CTransaction& txFrom, CMutableTransaction& txTo, unsigned int nIn, SigHashType sigHashType);
 
 /** Extract signature data from a transaction input, and insert it. */
 SignatureData DataFromTransaction(const CMutableTransaction& tx, unsigned int nIn, const CTxOut& txout);
@@ -170,6 +175,6 @@ bool IsSolvable(const SigningProvider& provider, const CScript& script);
 bool IsSegWitOutput(const SigningProvider& provider, const CScript& script);
 
 /** Sign the CMutableTransaction */
-bool SignTransaction(CMutableTransaction& mtx, const SigningProvider* provider, const std::map<COutPoint, Coin>& coins, int sighash, std::map<int, std::string>& input_errors);
+bool SignTransaction(CMutableTransaction& mtx, const SigningProvider* provider, const std::map<COutPoint, Coin>& coins, const SigHashType& sigHashTypeIn, std::map<int, std::string>& input_errors);
 
 #endif // BITCOIN_SCRIPT_SIGN_H

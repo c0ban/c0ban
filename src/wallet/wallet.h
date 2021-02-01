@@ -934,7 +934,7 @@ public:
     // Fetch the inputs and sign with SIGHASH_ALL.
     bool SignTransaction(CMutableTransaction& tx) const EXCLUSIVE_LOCKS_REQUIRED(cs_wallet);
     // Sign the tx given the input coins and sighash.
-    bool SignTransaction(CMutableTransaction& tx, const std::map<COutPoint, Coin>& coins, int sighash, std::map<int, std::string>& input_errors) const;
+    bool SignTransaction(CMutableTransaction& tx, const std::map<COutPoint, Coin>& coins, SigHashType& sigHashTypeIn, std::map<int, std::string>& input_errors) const;
     SigningResult SignMessage(const std::string& message, const PKHash& pkhash, std::string& str_sig) const;
 
     /**
@@ -945,14 +945,14 @@ public:
      *
      * @param[in]  psbtx PartiallySignedTransaction to fill in
      * @param[out] complete indicates whether the PSBT is now complete
-     * @param[in]  sighash_type the sighash type to use when signing (if PSBT does not specify)
+     * @param[in]  sigHashType the sighash type to use when signing (if PSBT does not specify)
      * @param[in]  sign whether to sign or not
      * @param[in]  bip32derivs whether to fill in bip32 derivation information if available
      * return error
      */
     TransactionError FillPSBT(PartiallySignedTransaction& psbtx,
                   bool& complete,
-                  int sighash_type = 1 /* SIGHASH_ALL */,
+                  SigHashType sigHashType = SigHashType().withForkId() /* SIGHASH_ALL */,
                   bool sign = true,
                   bool bip32derivs = true) const;
 

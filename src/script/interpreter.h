@@ -1,13 +1,19 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2019 The Bitcoin Core developers
+// Copyright (c) 2017-2018 The Bitcoin ABC developers
+// Copyright (c) 2017-2018 The Bitcoin Gold developers
+// Copyright (c) 2017-2021 The c0ban Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
+//
+// Implementing replay protection(such as when assigning ForkID at transaction signature) with reference to Bitcoin ABC and Bitcoin Gold.
 
 #ifndef BITCOIN_SCRIPT_INTERPRETER_H
 #define BITCOIN_SCRIPT_INTERPRETER_H
 
 #include <script/script_error.h>
 #include <primitives/transaction.h>
+#include <script/sighashtype.h>
 
 #include <vector>
 #include <stdint.h>
@@ -16,15 +22,6 @@ class CPubKey;
 class CScript;
 class CTransaction;
 class uint256;
-
-/** Signature hash types/flags */
-enum
-{
-    SIGHASH_ALL = 1,
-    SIGHASH_NONE = 2,
-    SIGHASH_SINGLE = 3,
-    SIGHASH_ANYONECANPAY = 0x80,
-};
 
 /** Script verification flags.
  *
@@ -113,7 +110,15 @@ enum
 
     // Making OP_CODESEPARATOR and FindAndDelete fail any non-segwit scripts
     //
-    SCRIPT_VERIFY_CONST_SCRIPTCODE = (1U << 16),
+    // SCRIPT_VERIFY_CONST_SCRIPTCODE = (1U << 16),
+
+    // Do we accept signature using SIGHASH_FORKID
+    //
+    SCRIPT_ENABLE_SIGHASH_FORKID = (1U << 16),
+
+    // Do we accept activate replay protection using a different fork id.
+    //
+    SCRIPT_ENABLE_REPLAY_PROTECTION = (1U << 17),
 };
 
 bool CheckSignatureEncoding(const std::vector<unsigned char> &vchSig, unsigned int flags, ScriptError* serror);
@@ -138,12 +143,17 @@ static constexpr size_t WITNESS_V0_SCRIPTHASH_SIZE = 32;
 static constexpr size_t WITNESS_V0_KEYHASH_SIZE = 20;
 
 template <class T>
-uint256 SignatureHash(const CScript& scriptCode, const T& txTo, unsigned int nIn, int nHashType, const CAmount& amount, SigVersion sigversion, const PrecomputedTransactionData* cache = nullptr);
+uint256 SignatureHash(const CScript &scriptCode, const T& txTo,
+                      unsigned int nIn, SigHashType sigHashType,
+                      const CAmount& amount,
+                      SigVersion sigversion,
+                      const PrecomputedTransactionData *cache = nullptr,
+                      uint32_t flags = SCRIPT_ENABLE_SIGHASH_FORKID);
 
 class BaseSignatureChecker
 {
 public:
-    virtual bool CheckSig(const std::vector<unsigned char>& scriptSig, const std::vector<unsigned char>& vchPubKey, const CScript& scriptCode, SigVersion sigversion) const
+    virtual bool CheckSig(const std::vector<unsigned char>& scriptSig, const std::vector<unsigned char>& vchPubKey, const CScript& scriptCode, SigVersion sigversion, uint32_t flags) const
     {
         return false;
     }
@@ -176,7 +186,7 @@ protected:
 public:
     GenericTransactionSignatureChecker(const T* txToIn, unsigned int nInIn, const CAmount& amountIn) : txTo(txToIn), nIn(nInIn), amount(amountIn), txdata(nullptr) {}
     GenericTransactionSignatureChecker(const T* txToIn, unsigned int nInIn, const CAmount& amountIn, const PrecomputedTransactionData& txdataIn) : txTo(txToIn), nIn(nInIn), amount(amountIn), txdata(&txdataIn) {}
-    bool CheckSig(const std::vector<unsigned char>& scriptSig, const std::vector<unsigned char>& vchPubKey, const CScript& scriptCode, SigVersion sigversion) const override;
+    bool CheckSig(const std::vector<unsigned char>& scriptSig, const std::vector<unsigned char>& vchPubKey, const CScript& scriptCode, SigVersion sigversion, uint32_t flags) const override;
     bool CheckLockTime(const CScriptNum& nLockTime) const override;
     bool CheckSequence(const CScriptNum& nSequence) const override;
 };

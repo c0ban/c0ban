@@ -346,13 +346,13 @@ public:
         }
         return {};
     }
-    TransactionError fillPSBT(int sighash_type,
+    TransactionError fillPSBT(SigHashType sigHashTypeIn,
         bool sign,
         bool bip32derivs,
         PartiallySignedTransaction& psbtx,
         bool& complete) override
     {
-        return m_wallet->FillPSBT(psbtx, complete, sighash_type, sign, bip32derivs);
+        return m_wallet->FillPSBT(psbtx, complete, sigHashTypeIn, sign, bip32derivs);
     }
     WalletBalances getBalances() override
     {

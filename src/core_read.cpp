@@ -202,25 +202,29 @@ std::vector<unsigned char> ParseHexUV(const UniValue& v, const std::string& strN
     return ParseHex(strHex);
 }
 
-int ParseSighashString(const UniValue& sighash)
+SigHashType ParseSighashString(const UniValue& sighash)
 {
-    int hash_type = SIGHASH_ALL;
+    SigHashType sigHashType = SigHashType().withForkId();
     if (!sighash.isNull()) {
         static std::map<std::string, int> map_sighash_values = {
             {std::string("ALL"), int(SIGHASH_ALL)},
             {std::string("ALL|ANYONECANPAY"), int(SIGHASH_ALL|SIGHASH_ANYONECANPAY)},
+            {std::string("ALL|FORKID"), int(SIGHASH_ALL|SIGHASH_FORKID)},
+            {std::string("ALL|FORKID|ANYONECANPAY"), int(SIGHASH_ALL|SIGHASH_FORKID|SIGHASH_ANYONECANPAY)},
             {std::string("NONE"), int(SIGHASH_NONE)},
             {std::string("NONE|ANYONECANPAY"), int(SIGHASH_NONE|SIGHASH_ANYONECANPAY)},
+            {std::string("NONE|FORKID"), int(SIGHASH_NONE|SIGHASH_FORKID)},
+            {std::string("NONE|FORKID|ANYONECANPAY"), int(SIGHASH_NONE|SIGHASH_FORKID|SIGHASH_ANYONECANPAY)},
             {std::string("SINGLE"), int(SIGHASH_SINGLE)},
             {std::string("SINGLE|ANYONECANPAY"), int(SIGHASH_SINGLE|SIGHASH_ANYONECANPAY)},
+            {std::string("SINGLE|FORKID"), int(SIGHASH_SINGLE|SIGHASH_FORKID)},
+            {std::string("SINGLE|FORKID|ANYONECANPAY"), int(SIGHASH_SINGLE|SIGHASH_FORKID|SIGHASH_ANYONECANPAY)},
         };
         std::string strHashType = sighash.get_str();
-        const auto& it = map_sighash_values.find(strHashType);
-        if (it != map_sighash_values.end()) {
-            hash_type = it->second;
-        } else {
-            throw std::runtime_error(strHashType + " is not a valid sighash parameter.");
+        sigHashType = SigHashType(map_sighash_values[strHashType]);
+        if (!sigHashType.hasForkId()) {
+            throw std::runtime_error("Signature must use SIGHASH_FORKID.");
         }
     }
-    return hash_type;
+    return sigHashType;
 }

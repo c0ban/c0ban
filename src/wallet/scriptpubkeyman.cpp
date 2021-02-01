@@ -507,9 +507,9 @@ bool LegacyScriptPubKeyMan::CanProvide(const CScript& script, SignatureData& sig
     }
 }
 
-bool LegacyScriptPubKeyMan::SignTransaction(CMutableTransaction& tx, const std::map<COutPoint, Coin>& coins, int sighash, std::map<int, std::string>& input_errors) const
+bool LegacyScriptPubKeyMan::SignTransaction(CMutableTransaction& tx, const std::map<COutPoint, Coin>& coins, SigHashType& sigHashTypeIn, std::map<int, std::string>& input_errors) const
 {
-    return ::SignTransaction(tx, this, coins, sighash, input_errors);
+    return ::SignTransaction(tx, this, coins, sigHashTypeIn, input_errors);
 }
 
 SigningResult LegacyScriptPubKeyMan::SignMessage(const std::string& message, const PKHash& pkhash, std::string& str_sig) const
@@ -526,7 +526,7 @@ SigningResult LegacyScriptPubKeyMan::SignMessage(const std::string& message, con
     return SigningResult::SIGNING_FAILED;
 }
 
-TransactionError LegacyScriptPubKeyMan::FillPSBT(PartiallySignedTransaction& psbtx, int sighash_type, bool sign, bool bip32derivs) const
+TransactionError LegacyScriptPubKeyMan::FillPSBT(PartiallySignedTransaction& psbtx, SigHashType sigHashTypeIn, bool sign, bool bip32derivs) const
 {
     for (unsigned int i = 0; i < psbtx.tx->vin.size(); ++i) {
         const CTxIn& txin = psbtx.tx->vin[i];
@@ -542,9 +542,9 @@ TransactionError LegacyScriptPubKeyMan::FillPSBT(PartiallySignedTransaction& psb
         }
 
         // Get the Sighash type
-        if (sign && input.sighash_type > 0 && input.sighash_type != sighash_type) {
-            return TransactionError::SIGHASH_MISMATCH;
-        }
+        // if (sign && input.sighash_type > 0 && input.sighash_type != sighash_type) {
+        //     return TransactionError::SIGHASH_MISMATCH;
+        // }
 
         // Check non_witness_utxo has specified prevout
         if (input.non_witness_utxo) {
@@ -557,7 +557,7 @@ TransactionError LegacyScriptPubKeyMan::FillPSBT(PartiallySignedTransaction& psb
         }
         SignatureData sigdata;
         input.FillSignatureData(sigdata);
-        SignPSBTInput(HidingSigningProvider(this, !sign, !bip32derivs), psbtx, i, sighash_type);
+        SignPSBTInput(HidingSigningProvider(this, !sign, !bip32derivs), psbtx, i, sigHashTypeIn);
     }
 
     // Fill in the bip32 keypaths and redeemscripts for the outputs so that hardware wallets can identify change

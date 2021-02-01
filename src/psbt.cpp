@@ -226,14 +226,14 @@ void UpdatePSBTOutput(const SigningProvider& provider, PartiallySignedTransactio
     // Construct a would-be spend of this output, to update sigdata with.
     // Note that ProduceSignature is used to fill in metadata (not actual signatures),
     // so provider does not need to provide any private keys (it can be a HidingSigningProvider).
-    MutableTransactionSignatureCreator creator(psbt.tx.get_ptr(), /* index */ 0, out.nValue, SIGHASH_ALL);
+    MutableTransactionSignatureCreator creator(psbt.tx.get_ptr(), /* index */ 0, out.nValue, SigHashType().withForkId());
     ProduceSignature(provider, creator, out.scriptPubKey, sigdata);
 
     // Put redeem_script, witness_script, key paths, into PSBTOutput.
     psbt_out.FromSignatureData(sigdata);
 }
 
-bool SignPSBTInput(const SigningProvider& provider, PartiallySignedTransaction& psbt, int index, int sighash, SignatureData* out_sigdata, bool use_dummy)
+bool SignPSBTInput(const SigningProvider& provider, PartiallySignedTransaction& psbt, int index, SigHashType sigHashTypeIn, SignatureData* out_sigdata, bool use_dummy)
 {
     PSBTInput& input = psbt.inputs.at(index);
     const CMutableTransaction& tx = *psbt.tx;
@@ -281,7 +281,7 @@ bool SignPSBTInput(const SigningProvider& provider, PartiallySignedTransaction& 
     if (use_dummy) {
         sig_complete = ProduceSignature(provider, DUMMY_SIGNATURE_CREATOR, utxo.scriptPubKey, sigdata);
     } else {
-        MutableTransactionSignatureCreator creator(&tx, index, utxo.nValue, sighash);
+        MutableTransactionSignatureCreator creator(&tx, index, utxo.nValue, sigHashTypeIn);
         sig_complete = ProduceSignature(provider, creator, utxo.scriptPubKey, sigdata);
     }
     // Verify that a witness signature was produced in case one was required.
@@ -313,7 +313,7 @@ bool FinalizePSBT(PartiallySignedTransaction& psbtx)
     //   script.
     bool complete = true;
     for (unsigned int i = 0; i < psbtx.tx->vin.size(); ++i) {
-        complete &= SignPSBTInput(DUMMY_SIGNING_PROVIDER, psbtx, i, SIGHASH_ALL);
+        complete &= SignPSBTInput(DUMMY_SIGNING_PROVIDER, psbtx, i, SigHashType().withForkId());
     }
 
     return complete;

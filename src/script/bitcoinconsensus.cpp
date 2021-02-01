@@ -1,7 +1,12 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2018 The Bitcoin Core developers
+// Copyright (c) 2017-2018 The Bitcoin ABC developers
+// Copyright (c) 2017-2018 The Bitcoin Gold developers
+// Copyright (c) 2017-2021 The c0ban Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
+//
+// Implementing replay protection(such as when assigning ForkID at transaction signature) with reference to Bitcoin ABC and Bitcoin Gold.
 
 #include <script/bitcoinconsensus.h>
 
@@ -114,7 +119,8 @@ int bitcoinconsensus_verify_script(const unsigned char *scriptPubKey, unsigned i
                                    const unsigned char *txTo        , unsigned int txToLen,
                                    unsigned int nIn, unsigned int flags, bitcoinconsensus_error* err)
 {
-    if (flags & bitcoinconsensus_SCRIPT_FLAGS_VERIFY_WITNESS) {
+    if (flags & bitcoinconsensus_SCRIPT_ENABLE_SIGHASH_FORKID ||
+        flags & bitcoinconsensus_SCRIPT_FLAGS_VERIFY_WITNESS) {
         return set_error(err, bitcoinconsensus_ERR_AMOUNT_REQUIRED);
     }
 

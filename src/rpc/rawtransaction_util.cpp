@@ -1,5 +1,6 @@
 // Copyright (c) 2010 Satoshi Nakamoto
 // Copyright (c) 2009-2019 The Bitcoin Core developers
+// Copyright (c) 2017-2021 The c0ban Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -268,14 +269,12 @@ void ParsePrevouts(const UniValue& prevTxsUnival, FillableSigningProvider* keyst
     }
 }
 
-void SignTransaction(CMutableTransaction& mtx, const SigningProvider* keystore, const std::map<COutPoint, Coin>& coins, const UniValue& hashType, UniValue& result)
+void SignTransaction(CMutableTransaction& mtx, const SigningProvider* keystore, const std::map<COutPoint, Coin>& coins, const SigHashType& sigHashType, UniValue& result)
 {
-    int nHashType = ParseSighashString(hashType);
-
     // Script verification errors
     std::map<int, std::string> input_errors;
 
-    bool complete = SignTransaction(mtx, keystore, coins, nHashType, input_errors);
+    bool complete = SignTransaction(mtx, keystore, coins, sigHashType, input_errors);
     SignTransactionResultToJSON(mtx, complete, coins, input_errors, result);
 }
 

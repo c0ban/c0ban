@@ -192,7 +192,7 @@ public:
         int& num_blocks) = 0;
 
     //! Fill PSBT.
-    virtual TransactionError fillPSBT(int sighash_type,
+    virtual TransactionError fillPSBT(SigHashType sigHashTypeIn, // int sighash_type,
         bool sign,
         bool bip32derivs,
         PartiallySignedTransaction& psbtx,

@@ -1,4 +1,5 @@
 // Copyright (c) 2017-2019 The Bitcoin Core developers
+// Copyright (c) 2017-2021 The c0ban Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -7,6 +8,7 @@
 
 #include <map>
 #include <string>
+#include <script/sighashtype.h>
 
 class FillableSigningProvider;
 class UniValue;
@@ -24,7 +26,7 @@ class SigningProvider;
  * @param  hashType      The signature hash type
  * @param result         JSON object where signed transaction results accumulate
  */
-void SignTransaction(CMutableTransaction& mtx, const SigningProvider* keystore, const std::map<COutPoint, Coin>& coins, const UniValue& hashType, UniValue& result);
+void SignTransaction(CMutableTransaction& mtx, const SigningProvider* keystore, const std::map<COutPoint, Coin>& coins, const SigHashType& hashType, UniValue& result);
 void SignTransactionResultToJSON(CMutableTransaction& mtx, bool complete, const std::map<COutPoint, Coin>& coins, std::map<int, std::string>& input_errors, UniValue& result);
 
 /**

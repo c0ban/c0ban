@@ -387,7 +387,7 @@ void SendCoinsDialog::on_sendButton_clicked()
         CMutableTransaction mtx = CMutableTransaction{*(currentTransaction.getWtx())};
         PartiallySignedTransaction psbtx(mtx);
         bool complete = false;
-        const TransactionError err = model->wallet().fillPSBT(SIGHASH_ALL, false /* sign */, true /* bip32derivs */, psbtx, complete);
+        const TransactionError err = model->wallet().fillPSBT(SigHashType().withForkId(), false /* sign */, true /* bip32derivs */, psbtx, complete);
         assert(!complete);
         assert(err == TransactionError::OK);
         // Serialize the PSBT

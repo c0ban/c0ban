@@ -3329,12 +3329,12 @@ UniValue signrawtransactionwithwallet(const JSONRPCRequest& request)
     // Parse the prevtxs array
     ParsePrevouts(request.params[1], nullptr, coins);
 
-    int nHashType = ParseSighashString(request.params[2]);
+    SigHashType sigHashType = ParseSighashString(request.params[2]);
 
     // Script verification errors
     std::map<int, std::string> input_errors;
 
-    bool complete = pwallet->SignTransaction(mtx, coins, nHashType, input_errors);
+    bool complete = pwallet->SignTransaction(mtx, coins, sigHashType, input_errors);
     UniValue result(UniValue::VOBJ);
     SignTransactionResultToJSON(mtx, complete, coins, input_errors, result);
     return result;
@@ -3494,7 +3494,7 @@ static UniValue bumpfee(const JSONRPCRequest& request)
     } else {
         PartiallySignedTransaction psbtx(mtx);
         bool complete = false;
-        const TransactionError err = pwallet->FillPSBT(psbtx, complete, SIGHASH_ALL, false /* sign */, true /* bip32derivs */);
+        const TransactionError err = pwallet->FillPSBT(psbtx, complete, SigHashType().withForkId(), false /* sign */, true /* bip32derivs */);
         CHECK_NONFATAL(err == TransactionError::OK);
         CHECK_NONFATAL(!complete);
         CDataStream ssTx(SER_NETWORK, PROTOCOL_VERSION);
@@ -4107,13 +4107,13 @@ UniValue walletprocesspsbt(const JSONRPCRequest& request)
     }
 
     // Get the sighash type
-    int nHashType = ParseSighashString(request.params[2]);
+    SigHashType sigHashType = ParseSighashString(request.params[2]);
 
     // Fill transaction with our data and also sign
     bool sign = request.params[1].isNull() ? true : request.params[1].get_bool();
     bool bip32derivs = request.params[3].isNull() ? true : request.params[3].get_bool();
     bool complete = true;
-    const TransactionError err = pwallet->FillPSBT(psbtx, complete, nHashType, sign, bip32derivs);
+    const TransactionError err = pwallet->FillPSBT(psbtx, complete, sigHashType, sign, bip32derivs);
     if (err != TransactionError::OK) {
         throw JSONRPCTransactionError(err);
     }
@@ -4236,7 +4236,7 @@ UniValue walletcreatefundedpsbt(const JSONRPCRequest& request)
     // Fill transaction with out data but don't sign
     bool bip32derivs = request.params[4].isNull() ? true : request.params[4].get_bool();
     bool complete = true;
-    const TransactionError err = pwallet->FillPSBT(psbtx, complete, 1, false, bip32derivs);
+    const TransactionError err = pwallet->FillPSBT(psbtx, complete, SigHashType().withForkId(), false, bip32derivs);
     if (err != TransactionError::OK) {
         throw JSONRPCTransactionError(err);
     }

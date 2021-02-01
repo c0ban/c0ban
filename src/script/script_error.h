@@ -1,7 +1,12 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2018 The Bitcoin Core developers
+// Copyright (c) 2017-2018 The Bitcoin ABC developers
+// Copyright (c) 2017-2018 The Bitcoin Gold developers
+// Copyright (c) 2017-2021 The c0ban Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
+//
+// Implementing replay protection(such as when assigning ForkID at transaction signature) with reference to Bitcoin ABC and Bitcoin Gold.
 
 #ifndef BITCOIN_SCRIPT_SCRIPT_ERROR_H
 #define BITCOIN_SCRIPT_SCRIPT_ERROR_H
@@ -63,6 +68,10 @@ typedef enum ScriptError_t
     SCRIPT_ERR_WITNESS_MALLEATED_P2SH,
     SCRIPT_ERR_WITNESS_UNEXPECTED,
     SCRIPT_ERR_WITNESS_PUBKEYTYPE,
+
+    /* anti replay */
+    SCRIPT_ERR_ILLEGAL_FORKID,
+    SCRIPT_ERR_MUST_USE_FORKID,
 
     /* Constant scriptCode */
     SCRIPT_ERR_OP_CODESEPARATOR,
