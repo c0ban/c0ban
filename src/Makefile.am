@@ -1,4 +1,5 @@
 # Copyright (c) 2013-2016 The Bitcoin Core developers
+# Copyright (c) 2017-2021 The c0ban Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -82,18 +83,18 @@ TESTS =
 BENCHMARKS =
 
 if BUILD_BITCOIND
-  bin_PROGRAMS += bitcoind
+  bin_PROGRAMS += c0band
 endif
 
 if BUILD_BITCOIN_CLI
-  bin_PROGRAMS += bitcoin-cli
+  bin_PROGRAMS += c0ban-cli
 endif
 if BUILD_BITCOIN_TX
-  bin_PROGRAMS += bitcoin-tx
+  bin_PROGRAMS += c0ban-tx
 endif
 if ENABLE_WALLET
 if BUILD_BITCOIN_WALLET
-  bin_PROGRAMS += bitcoin-wallet
+  bin_PROGRAMS += c0ban-wallet
 endif
 endif
 
@@ -391,7 +392,26 @@ crypto_libbitcoin_crypto_base_a_SOURCES = \
   crypto/sha512.cpp \
   crypto/sha512.h \
   crypto/siphash.cpp \
-  crypto/siphash.h
+  crypto/siphash.h \
+  crypto/Lyra2RE/Lyra2RE.c \
+  crypto/Lyra2RE/Lyra2RE.h \
+  crypto/Lyra2RE/Lyra2.c \
+  crypto/Lyra2RE/Lyra2.h \
+  crypto/Lyra2RE/Sponge.c \
+  crypto/Lyra2RE/Sponge.h \
+  crypto/Lyra2RE/blake.c \
+  crypto/Lyra2RE/sph_blake.h \
+  crypto/Lyra2RE/groestl.c \
+  crypto/Lyra2RE/sph_groestl.h \
+  crypto/Lyra2RE/keccak.c \
+  crypto/Lyra2RE/sph_keccak.h \
+  crypto/Lyra2RE/skein.c \
+  crypto/Lyra2RE/sph_skein.h \
+  crypto/Lyra2RE/cubehash.c \
+  crypto/Lyra2RE/sph_cubehash.h \
+  crypto/Lyra2RE/bmw.c \
+  crypto/Lyra2RE/sph_bmw.h \
+  crypto/Lyra2RE/sph_types.h
 
 if USE_ASM
 crypto_libbitcoin_crypto_base_a_SOURCES += crypto/sha256_sse4.cpp
@@ -443,6 +463,7 @@ libbitcoin_consensus_a_SOURCES = \
   script/script.h \
   script/script_error.cpp \
   script/script_error.h \
+  script/sighashtype.h \
   serialize.h \
   span.h \
   tinyformat.h \
@@ -543,17 +564,17 @@ libbitcoin_cli_a_SOURCES = \
 nodist_libbitcoin_util_a_SOURCES = $(srcdir)/obj/build.h
 #
 
-# bitcoind binary #
-bitcoind_SOURCES = bitcoind.cpp
-bitcoind_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
-bitcoind_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-bitcoind_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+# c0band binary #
+c0band_SOURCES = bitcoind.cpp
+c0band_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
+c0band_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+c0band_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 
 if TARGET_WINDOWS
-bitcoind_SOURCES += bitcoind-res.rc
+c0band_SOURCES += bitcoind-res.rc
 endif
 
-bitcoind_LDADD = \
+c0band_LDADD = \
   $(LIBBITCOIN_SERVER) \
   $(LIBBITCOIN_WALLET) \
   $(LIBBITCOIN_COMMON) \
@@ -567,38 +588,38 @@ bitcoind_LDADD = \
   $(LIBMEMENV) \
   $(LIBSECP256K1)
 
-bitcoind_LDADD += $(BOOST_LIBS) $(BDB_LIBS) $(MINIUPNPC_LIBS) $(EVENT_PTHREADS_LIBS) $(EVENT_LIBS) $(ZMQ_LIBS)
+c0band_LDADD += $(BOOST_LIBS) $(BDB_LIBS) $(MINIUPNPC_LIBS) $(EVENT_PTHREADS_LIBS) $(EVENT_LIBS) $(ZMQ_LIBS)
 
-# bitcoin-cli binary #
-bitcoin_cli_SOURCES = bitcoin-cli.cpp
-bitcoin_cli_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(EVENT_CFLAGS)
-bitcoin_cli_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-bitcoin_cli_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+# c0ban-cli binary #
+c0ban_cli_SOURCES = bitcoin-cli.cpp
+c0ban_cli_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(EVENT_CFLAGS)
+c0ban_cli_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+c0ban_cli_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 
 if TARGET_WINDOWS
-bitcoin_cli_SOURCES += bitcoin-cli-res.rc
+c0ban_cli_SOURCES += bitcoin-cli-res.rc
 endif
 
-bitcoin_cli_LDADD = \
+c0ban_cli_LDADD = \
   $(LIBBITCOIN_CLI) \
   $(LIBUNIVALUE) \
   $(LIBBITCOIN_UTIL) \
   $(LIBBITCOIN_CRYPTO)
 
-bitcoin_cli_LDADD += $(BOOST_LIBS) $(EVENT_LIBS)
+c0ban_cli_LDADD += $(BOOST_LIBS) $(EVENT_LIBS)
 #
 
-# bitcoin-tx binary #
-bitcoin_tx_SOURCES = bitcoin-tx.cpp
-bitcoin_tx_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
-bitcoin_tx_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-bitcoin_tx_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+# c0ban-tx binary #
+c0ban_tx_SOURCES = bitcoin-tx.cpp
+c0ban_tx_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
+c0ban_tx_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+c0ban_tx_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 
 if TARGET_WINDOWS
-bitcoin_tx_SOURCES += bitcoin-tx-res.rc
+c0ban_tx_SOURCES += bitcoin-tx-res.rc
 endif
 
-bitcoin_tx_LDADD = \
+c0ban_tx_LDADD = \
   $(LIBUNIVALUE) \
   $(LIBBITCOIN_COMMON) \
   $(LIBBITCOIN_UTIL) \
@@ -606,20 +627,20 @@ bitcoin_tx_LDADD = \
   $(LIBBITCOIN_CRYPTO) \
   $(LIBSECP256K1)
 
-bitcoin_tx_LDADD += $(BOOST_LIBS)
+c0ban_tx_LDADD += $(BOOST_LIBS)
 #
 
-# bitcoin-wallet binary #
-bitcoin_wallet_SOURCES = bitcoin-wallet.cpp
-bitcoin_wallet_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
-bitcoin_wallet_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-bitcoin_wallet_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+# c0ban-wallet binary #
+c0ban_wallet_SOURCES = bitcoin-wallet.cpp
+c0ban_wallet_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
+c0ban_wallet_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+c0ban_wallet_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 
 if TARGET_WINDOWS
-bitcoin_wallet_SOURCES += bitcoin-wallet-res.rc
+c0ban_wallet_SOURCES += bitcoin-wallet-res.rc
 endif
 
-bitcoin_wallet_LDADD = \
+c0ban_wallet_LDADD = \
   $(LIBBITCOIN_WALLET_TOOL) \
   $(LIBBITCOIN_WALLET) \
   $(LIBBITCOIN_COMMON) \
@@ -633,7 +654,7 @@ bitcoin_wallet_LDADD = \
   $(LIBSECP256K1) \
   $(LIBUNIVALUE)
 
-bitcoin_wallet_LDADD += $(BOOST_LIBS) $(BDB_LIBS) $(EVENT_PTHREADS_LIBS) $(EVENT_LIBS) $(MINIUPNPC_LIBS) $(ZMQ_LIBS)
+c0ban_wallet_LDADD += $(BOOST_LIBS) $(BDB_LIBS) $(EVENT_PTHREADS_LIBS) $(EVENT_LIBS) $(MINIUPNPC_LIBS) $(ZMQ_LIBS)
 #
 
 # bitcoinconsensus library #
@@ -646,7 +667,7 @@ if GLIBC_BACK_COMPAT
 endif
 
 libbitcoinconsensus_la_LDFLAGS = $(AM_LDFLAGS) -no-undefined $(RELDFLAGS)
-libbitcoinconsensus_la_LIBADD = $(LIBSECP256K1)
+libbitcoinconsensus_la_LIBADD = $(LIBSECP256K1) $(CRYPTO_LIBS)
 libbitcoinconsensus_la_CPPFLAGS = $(AM_CPPFLAGS) -I$(builddir)/obj -I$(srcdir)/secp256k1/include -DBUILD_BITCOIN_INTERNAL
 libbitcoinconsensus_la_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
 
@@ -727,18 +748,18 @@ endif
 include Makefile.test_util.include
 include Makefile.test_fuzz.include
 
-if ENABLE_TESTS
-include Makefile.test.include
-endif
+# if ENABLE_TESTS
+# include Makefile.test.include
+# endif
 
-if ENABLE_BENCH
-include Makefile.bench.include
-endif
+# if ENABLE_BENCH
+# include Makefile.bench.include
+# endif
 
 if ENABLE_QT
 include Makefile.qt.include
 endif
 
-if ENABLE_QT_TESTS
-include Makefile.qttest.include
-endif
+# if ENABLE_QT_TESTS
+# include Makefile.qttest.include
+# endif

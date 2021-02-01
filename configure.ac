@@ -7,18 +7,18 @@ define(_CLIENT_VERSION_RC, 0)
 define(_CLIENT_VERSION_IS_RELEASE, true)
 define(_COPYRIGHT_YEAR, 2020)
 define(_COPYRIGHT_HOLDERS,[The %s developers])
-define(_COPYRIGHT_HOLDERS_SUBSTITUTION,[[Bitcoin Core]])
-AC_INIT([Bitcoin Core],m4_join([.], _CLIENT_VERSION_MAJOR, _CLIENT_VERSION_MINOR, _CLIENT_VERSION_REVISION, m4_if(_CLIENT_VERSION_BUILD, [0], [], _CLIENT_VERSION_BUILD))m4_if(_CLIENT_VERSION_RC, [0], [], [rc]_CLIENT_VERSION_RC),[https://github.com/bitcoin/bitcoin/issues],[bitcoin],[https://bitcoincore.org/])
+define(_COPYRIGHT_HOLDERS_SUBSTITUTION,[[c0ban Core]])
+AC_INIT([c0ban Core],m4_join([.], _CLIENT_VERSION_MAJOR, _CLIENT_VERSION_MINOR, _CLIENT_VERSION_REVISION, m4_if(_CLIENT_VERSION_BUILD, [0], [], _CLIENT_VERSION_BUILD))m4_if(_CLIENT_VERSION_RC, [0], [], [rc]_CLIENT_VERSION_RC),[https://github.com/c0ban/c0ban/issues],[c0ban],[https://www.c0ban.co/])
 AC_CONFIG_SRCDIR([src/validation.cpp])
 AC_CONFIG_HEADERS([src/config/bitcoin-config.h])
 AC_CONFIG_AUX_DIR([build-aux])
 AC_CONFIG_MACRO_DIR([build-aux/m4])
 
-BITCOIN_DAEMON_NAME=bitcoind
-BITCOIN_GUI_NAME=bitcoin-qt
-BITCOIN_CLI_NAME=bitcoin-cli
-BITCOIN_TX_NAME=bitcoin-tx
-BITCOIN_WALLET_TOOL_NAME=bitcoin-wallet
+BITCOIN_DAEMON_NAME=c0band
+BITCOIN_GUI_NAME=c0ban-qt
+BITCOIN_CLI_NAME=c0ban-cli
+BITCOIN_TX_NAME=c0ban-tx
+BITCOIN_WALLET_TOOL_NAME=c0ban-wallet
 
 dnl Unless the user specified ARFLAGS, force it to be cr
 AC_ARG_VAR(ARFLAGS, [Flags for the archiver, defaults to <cr> if not set])
@@ -272,6 +272,8 @@ AC_ARG_ENABLE([werror],
 
 AC_LANG_PUSH([C++])
 AX_CHECK_COMPILE_FLAG([-Werror],[CXXFLAG_WERROR="-Werror"],[CXXFLAG_WERROR=""])
+
+CFLAGS="$CFLAGS -fPIC"
 
 if test "x$enable_debug" = xyes; then
   dnl Clear default -g -O2 flags
