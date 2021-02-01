@@ -52,7 +52,7 @@
 #include <boost/thread.hpp>
 
 #if defined(NDEBUG)
-# error "Bitcoin cannot be compiled without assertions."
+# error "c0ban cannot be compiled without assertions."
 #endif
 
 #define MICRO 0.000001
