@@ -1,10 +1,9 @@
-// Copyright (c) 2014-2016 The Bitcoin Core developers
+// Copyright (c) 2014-2019 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include "chain.h"
-#include "util.h"
-#include "test/test_bitcoin.h"
+#include <chain.h>
+#include <test/util/setup_common.h>
 
 #include <vector>
 
@@ -39,7 +38,7 @@ BOOST_AUTO_TEST_CASE(skiplist_test)
 
         BOOST_CHECK(vIndex[SKIPLIST_LENGTH - 1].GetAncestor(from) == &vIndex[from]);
         BOOST_CHECK(vIndex[from].GetAncestor(to) == &vIndex[to]);
-        BOOST_CHECK(vIndex[from].GetAncestor(0) == &vIndex[0]);
+        BOOST_CHECK(vIndex[from].GetAncestor(0) == vIndex.data());
     }
 }
 
@@ -64,7 +63,7 @@ BOOST_AUTO_TEST_CASE(getlocator_test)
     for (unsigned int i=0; i<vBlocksSide.size(); i++) {
         vHashSide[i] = ArithToUint256(i + 50000 + (arith_uint256(1) << 128)); // Add 1<<128 to the hashes, so GetLow64() still returns the height.
         vBlocksSide[i].nHeight = i + 50000;
-        vBlocksSide[i].pprev = i ? &vBlocksSide[i - 1] : &vBlocksMain[49999];
+        vBlocksSide[i].pprev = i ? &vBlocksSide[i - 1] : (vBlocksMain.data()+49999);
         vBlocksSide[i].phashBlock = &vHashSide[i];
         vBlocksSide[i].BuildSkip();
         BOOST_CHECK_EQUAL((int)UintToArith256(vBlocksSide[i].GetBlockHash()).GetLow64(), vBlocksSide[i].nHeight);
@@ -136,7 +135,7 @@ BOOST_AUTO_TEST_CASE(findearliestatleast_test)
         // Pick a random element in vBlocksMain.
         int r = InsecureRandRange(vBlocksMain.size());
         int64_t test_time = vBlocksMain[r].nTime;
-        CBlockIndex *ret = chain.FindEarliestAtLeast(test_time);
+        CBlockIndex* ret = chain.FindEarliestAtLeast(test_time, 0);
         BOOST_CHECK(ret->nTimeMax >= test_time);
         BOOST_CHECK((ret->pprev==nullptr) || ret->pprev->nTimeMax < test_time);
         BOOST_CHECK(vBlocksMain[r].GetAncestor(ret->nHeight) == ret);
@@ -146,7 +145,7 @@ BOOST_AUTO_TEST_CASE(findearliestatleast_test)
 BOOST_AUTO_TEST_CASE(findearliestatleast_edge_test)
 {
     std::list<CBlockIndex> blocks;
-    for (unsigned int timeMax : {100, 100, 100, 200, 200, 200, 300, 300, 300}) {
+    for (const unsigned int timeMax : {100, 100, 100, 200, 200, 200, 300, 300, 300}) {
         CBlockIndex* prev = blocks.empty() ? nullptr : &blocks.back();
         blocks.emplace_back();
         blocks.back().nHeight = prev ? prev->nHeight + 1 : 0;
@@ -158,23 +157,34 @@ BOOST_AUTO_TEST_CASE(findearliestatleast_edge_test)
     CChain chain;
     chain.SetTip(&blocks.back());
 
-    BOOST_CHECK_EQUAL(chain.FindEarliestAtLeast(50)->nHeight, 0);
-    BOOST_CHECK_EQUAL(chain.FindEarliestAtLeast(100)->nHeight, 0);
-    BOOST_CHECK_EQUAL(chain.FindEarliestAtLeast(150)->nHeight, 3);
-    BOOST_CHECK_EQUAL(chain.FindEarliestAtLeast(200)->nHeight, 3);
-    BOOST_CHECK_EQUAL(chain.FindEarliestAtLeast(250)->nHeight, 6);
-    BOOST_CHECK_EQUAL(chain.FindEarliestAtLeast(300)->nHeight, 6);
-    BOOST_CHECK(!chain.FindEarliestAtLeast(350));
+    BOOST_CHECK_EQUAL(chain.FindEarliestAtLeast(50, 0)->nHeight, 0);
+    BOOST_CHECK_EQUAL(chain.FindEarliestAtLeast(100, 0)->nHeight, 0);
+    BOOST_CHECK_EQUAL(chain.FindEarliestAtLeast(150, 0)->nHeight, 3);
+    BOOST_CHECK_EQUAL(chain.FindEarliestAtLeast(200, 0)->nHeight, 3);
+    BOOST_CHECK_EQUAL(chain.FindEarliestAtLeast(250, 0)->nHeight, 6);
+    BOOST_CHECK_EQUAL(chain.FindEarliestAtLeast(300, 0)->nHeight, 6);
+    BOOST_CHECK(!chain.FindEarliestAtLeast(350, 0));
 
-    BOOST_CHECK_EQUAL(chain.FindEarliestAtLeast(0)->nHeight, 0);
-    BOOST_CHECK_EQUAL(chain.FindEarliestAtLeast(-1)->nHeight, 0);
+    BOOST_CHECK_EQUAL(chain.FindEarliestAtLeast(0, 0)->nHeight, 0);
+    BOOST_CHECK_EQUAL(chain.FindEarliestAtLeast(-1, 0)->nHeight, 0);
 
-    BOOST_CHECK_EQUAL(chain.FindEarliestAtLeast(std::numeric_limits<int64_t>::min())->nHeight, 0);
-    BOOST_CHECK_EQUAL(chain.FindEarliestAtLeast(std::numeric_limits<unsigned int>::min())->nHeight, 0);
-    BOOST_CHECK_EQUAL(chain.FindEarliestAtLeast(-int64_t(std::numeric_limits<unsigned int>::max()) - 1)->nHeight, 0);
-    BOOST_CHECK(!chain.FindEarliestAtLeast(std::numeric_limits<int64_t>::max()));
-    BOOST_CHECK(!chain.FindEarliestAtLeast(std::numeric_limits<unsigned int>::max()));
-    BOOST_CHECK(!chain.FindEarliestAtLeast(int64_t(std::numeric_limits<unsigned int>::max()) + 1));
+    BOOST_CHECK_EQUAL(chain.FindEarliestAtLeast(std::numeric_limits<int64_t>::min(), 0)->nHeight, 0);
+    BOOST_CHECK_EQUAL(chain.FindEarliestAtLeast(-int64_t(std::numeric_limits<unsigned int>::max()) - 1, 0)->nHeight, 0);
+    BOOST_CHECK(!chain.FindEarliestAtLeast(std::numeric_limits<int64_t>::max(), 0));
+    BOOST_CHECK(!chain.FindEarliestAtLeast(std::numeric_limits<unsigned int>::max(), 0));
+    BOOST_CHECK(!chain.FindEarliestAtLeast(int64_t(std::numeric_limits<unsigned int>::max()) + 1, 0));
+
+    BOOST_CHECK_EQUAL(chain.FindEarliestAtLeast(0, -1)->nHeight, 0);
+    BOOST_CHECK_EQUAL(chain.FindEarliestAtLeast(0, 0)->nHeight, 0);
+    BOOST_CHECK_EQUAL(chain.FindEarliestAtLeast(0, 3)->nHeight, 3);
+    BOOST_CHECK_EQUAL(chain.FindEarliestAtLeast(0, 8)->nHeight, 8);
+    BOOST_CHECK(!chain.FindEarliestAtLeast(0, 9));
+
+    CBlockIndex* ret1 = chain.FindEarliestAtLeast(100, 2);
+    BOOST_CHECK(ret1->nTimeMax >= 100 && ret1->nHeight == 2);
+    BOOST_CHECK(!chain.FindEarliestAtLeast(300, 9));
+    CBlockIndex* ret2 = chain.FindEarliestAtLeast(200, 4);
+    BOOST_CHECK(ret2->nTimeMax >= 200 && ret2->nHeight == 4);
 }
 
 BOOST_AUTO_TEST_SUITE_END()

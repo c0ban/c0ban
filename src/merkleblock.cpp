@@ -1,15 +1,15 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2016 The Bitcoin Core developers
+// Copyright (c) 2009-2019 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include "merkleblock.h"
+#include <merkleblock.h>
 
-#include "hash.h"
-#include "consensus/consensus.h"
-#include "utilstrencodings.h"
+#include <hash.h>
+#include <consensus/consensus.h>
 
-CMerkleBlock::CMerkleBlock(const CBlock& block, CBloomFilter& filter)
+
+CMerkleBlock::CMerkleBlock(const CBlock& block, CBloomFilter* filter, const std::set<uint256>* txids)
 {
     header = block.GetBlockHeader();
 
@@ -22,36 +22,14 @@ CMerkleBlock::CMerkleBlock(const CBlock& block, CBloomFilter& filter)
     for (unsigned int i = 0; i < block.vtx.size(); i++)
     {
         const uint256& hash = block.vtx[i]->GetHash();
-        if (filter.IsRelevantAndUpdate(*block.vtx[i]))
-        {
+        if (txids && txids->count(hash)) {
             vMatch.push_back(true);
-            vMatchedTxn.push_back(std::make_pair(i, hash));
+        } else if (filter && filter->IsRelevantAndUpdate(*block.vtx[i])) {
+            vMatch.push_back(true);
+            vMatchedTxn.emplace_back(i, hash);
+        } else {
+            vMatch.push_back(false);
         }
-        else
-            vMatch.push_back(false);
-        vHashes.push_back(hash);
-    }
-
-    txn = CPartialMerkleTree(vHashes, vMatch);
-}
-
-CMerkleBlock::CMerkleBlock(const CBlock& block, const std::set<uint256>& txids)
-{
-    header = block.GetBlockHeader();
-
-    std::vector<bool> vMatch;
-    std::vector<uint256> vHashes;
-
-    vMatch.reserve(block.vtx.size());
-    vHashes.reserve(block.vtx.size());
-
-    for (unsigned int i = 0; i < block.vtx.size(); i++)
-    {
-        const uint256& hash = block.vtx[i]->GetHash();
-        if (txids.count(hash))
-            vMatch.push_back(true);
-        else
-            vMatch.push_back(false);
         vHashes.push_back(hash);
     }
 
@@ -74,7 +52,7 @@ uint256 CPartialMerkleTree::CalcHash(int height, unsigned int pos, const std::ve
         else
             right = left;
         // combine subhashes
-        return Hash(BEGIN(left), END(left), BEGIN(right), END(right));
+        return Hash(left.begin(), left.end(), right.begin(), right.end());
     }
 }
 
@@ -130,7 +108,7 @@ uint256 CPartialMerkleTree::TraverseAndExtract(int height, unsigned int pos, uns
             right = left;
         }
         // and combine them before returning
-        return Hash(BEGIN(left), END(left), BEGIN(right), END(right));
+        return Hash(left.begin(), left.end(), right.begin(), right.end());
     }
 }
 

@@ -7,7 +7,9 @@ src/c0ban
 src/c0band
 src/c0ban-cli
 src/c0ban-tx
+src/c0ban-wallet
 src/bench/bench_c0ban
+src/obj
 src/test/test_c0ban
 src/test/test_c0ban_fuzzy
 src/qt/test/test_c0ban-qt
@@ -112,3 +114,7 @@ test/cache/*
 
 libbitcoinconsensus.pc
 contrib/devtools/split-debug.sh
+
+.vscode
+tmp
+db4/*

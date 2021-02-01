@@ -1,21 +1,15 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2016 The Bitcoin Core developers
-// Copyright (c) 2017-2018 The Bitcoin ABC developers
-// Copyright (c) 2017-2018 The Bitcoin Gold developers
-// Copyright (c) 2017-2018 The c0ban Core developers
+// Copyright (c) 2009-2018 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
-//
-// Implementing replay protection(such as when assigning ForkID at transaction signature) with reference to Bitcoin ABC and Bitcoin Gold.
 
-
-#ifndef BITCOIN_BITCOINCONSENSUS_H
-#define BITCOIN_BITCOINCONSENSUS_H
+#ifndef BITCOIN_SCRIPT_BITCOINCONSENSUS_H
+#define BITCOIN_SCRIPT_BITCOINCONSENSUS_H
 
 #include <stdint.h>
 
 #if defined(BUILD_BITCOIN_INTERNAL) && defined(HAVE_CONFIG_H)
-#include "config/bitcoin-config.h"
+#include <config/bitcoin-config.h>
   #if defined(_WIN32)
     #if defined(DLL_EXPORT)
       #if defined(HAVE_FUNC_ATTRIBUTE_DLLEXPORT)
@@ -61,8 +55,6 @@ enum
     bitcoinconsensus_SCRIPT_FLAGS_VERIFY_CHECKLOCKTIMEVERIFY = (1U << 9), // enable CHECKLOCKTIMEVERIFY (BIP65)
     bitcoinconsensus_SCRIPT_FLAGS_VERIFY_CHECKSEQUENCEVERIFY = (1U << 10), // enable CHECKSEQUENCEVERIFY (BIP112)
     bitcoinconsensus_SCRIPT_FLAGS_VERIFY_WITNESS             = (1U << 11), // enable WITNESS (BIP141)
-    // enable SIGHASH_FORKID replay protection
-    bitcoinconsensus_SCRIPT_ENABLE_SIGHASH_FORKID            = (1U << 16),
     bitcoinconsensus_SCRIPT_FLAGS_VERIFY_ALL                 = bitcoinconsensus_SCRIPT_FLAGS_VERIFY_P2SH | bitcoinconsensus_SCRIPT_FLAGS_VERIFY_DERSIG |
                                                                bitcoinconsensus_SCRIPT_FLAGS_VERIFY_NULLDUMMY | bitcoinconsensus_SCRIPT_FLAGS_VERIFY_CHECKLOCKTIMEVERIFY |
                                                                bitcoinconsensus_SCRIPT_FLAGS_VERIFY_CHECKSEQUENCEVERIFY | bitcoinconsensus_SCRIPT_FLAGS_VERIFY_WITNESS
@@ -88,4 +80,4 @@ EXPORT_SYMBOL unsigned int bitcoinconsensus_version();
 
 #undef EXPORT_SYMBOL
 
-#endif // BITCOIN_BITCOINCONSENSUS_H
+#endif // BITCOIN_SCRIPT_BITCOINCONSENSUS_H

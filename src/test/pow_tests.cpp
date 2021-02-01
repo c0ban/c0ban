@@ -1,13 +1,11 @@
-// Copyright (c) 2015 The Bitcoin Core developers
-// Distributed under the MIT/X11 software license, see the accompanying
+// Copyright (c) 2015-2019 The Bitcoin Core developers
+// Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include "chain.h"
-#include "chainparams.h"
-#include "pow.h"
-#include "random.h"
-#include "util.h"
-#include "test/test_bitcoin.h"
+#include <chain.h>
+#include <chainparams.h>
+#include <pow.h>
+#include <test/util/setup_common.h>
 
 #include <boost/test/unit_test.hpp>
 
@@ -22,7 +20,7 @@ BOOST_AUTO_TEST_CASE(get_next_work)
     pindexLast.nHeight = 32255;
     pindexLast.nTime = 1262152739;  // Block #32255
     pindexLast.nBits = 0x1d00ffff;
-    BOOST_CHECK_EQUAL(CalculateNextWorkRequired(&pindexLast, nLastRetargetTime, chainParams->GetConsensus()), 0x1d00d86a);
+    BOOST_CHECK_EQUAL(CalculateNextWorkRequired(&pindexLast, nLastRetargetTime, chainParams->GetConsensus()), 0x1d00d86aU);
 }
 
 /* Test the constraint on the upper bound for next work */
@@ -34,7 +32,7 @@ BOOST_AUTO_TEST_CASE(get_next_work_pow_limit)
     pindexLast.nHeight = 2015;
     pindexLast.nTime = 1233061996;  // Block #2015
     pindexLast.nBits = 0x1d00ffff;
-    BOOST_CHECK_EQUAL(CalculateNextWorkRequired(&pindexLast, nLastRetargetTime, chainParams->GetConsensus()), 0x1d00ffff);
+    BOOST_CHECK_EQUAL(CalculateNextWorkRequired(&pindexLast, nLastRetargetTime, chainParams->GetConsensus()), 0x1d00ffffU);
 }
 
 /* Test the constraint on the lower bound for actual time taken */
@@ -46,7 +44,7 @@ BOOST_AUTO_TEST_CASE(get_next_work_lower_limit_actual)
     pindexLast.nHeight = 68543;
     pindexLast.nTime = 1279297671;  // Block #68543
     pindexLast.nBits = 0x1c05a3f4;
-    BOOST_CHECK_EQUAL(CalculateNextWorkRequired(&pindexLast, nLastRetargetTime, chainParams->GetConsensus()), 0x1c0168fd);
+    BOOST_CHECK_EQUAL(CalculateNextWorkRequired(&pindexLast, nLastRetargetTime, chainParams->GetConsensus()), 0x1c0168fdU);
 }
 
 /* Test the constraint on the upper bound for actual time taken */
@@ -58,7 +56,61 @@ BOOST_AUTO_TEST_CASE(get_next_work_upper_limit_actual)
     pindexLast.nHeight = 46367;
     pindexLast.nTime = 1269211443;  // Block #46367
     pindexLast.nBits = 0x1c387f6f;
-    BOOST_CHECK_EQUAL(CalculateNextWorkRequired(&pindexLast, nLastRetargetTime, chainParams->GetConsensus()), 0x1d00e1fd);
+    BOOST_CHECK_EQUAL(CalculateNextWorkRequired(&pindexLast, nLastRetargetTime, chainParams->GetConsensus()), 0x1d00e1fdU);
+}
+
+BOOST_AUTO_TEST_CASE(CheckProofOfWork_test_negative_target)
+{
+    const auto consensus = CreateChainParams(CBaseChainParams::MAIN)->GetConsensus();
+    uint256 hash;
+    unsigned int nBits;
+    nBits = UintToArith256(consensus.powLimit).GetCompact(true);
+    hash.SetHex("0x1");
+    BOOST_CHECK(!CheckProofOfWork(hash, nBits, consensus));
+}
+
+BOOST_AUTO_TEST_CASE(CheckProofOfWork_test_overflow_target)
+{
+    const auto consensus = CreateChainParams(CBaseChainParams::MAIN)->GetConsensus();
+    uint256 hash;
+    unsigned int nBits = ~0x00800000;
+    hash.SetHex("0x1");
+    BOOST_CHECK(!CheckProofOfWork(hash, nBits, consensus));
+}
+
+BOOST_AUTO_TEST_CASE(CheckProofOfWork_test_too_easy_target)
+{
+    const auto consensus = CreateChainParams(CBaseChainParams::MAIN)->GetConsensus();
+    uint256 hash;
+    unsigned int nBits;
+    arith_uint256 nBits_arith = UintToArith256(consensus.powLimit);
+    nBits_arith *= 2;
+    nBits = nBits_arith.GetCompact();
+    hash.SetHex("0x1");
+    BOOST_CHECK(!CheckProofOfWork(hash, nBits, consensus));
+}
+
+BOOST_AUTO_TEST_CASE(CheckProofOfWork_test_biger_hash_than_target)
+{
+    const auto consensus = CreateChainParams(CBaseChainParams::MAIN)->GetConsensus();
+    uint256 hash;
+    unsigned int nBits;
+    arith_uint256 hash_arith = UintToArith256(consensus.powLimit);
+    nBits = hash_arith.GetCompact();
+    hash_arith *= 2; // hash > nBits
+    hash = ArithToUint256(hash_arith);
+    BOOST_CHECK(!CheckProofOfWork(hash, nBits, consensus));
+}
+
+BOOST_AUTO_TEST_CASE(CheckProofOfWork_test_zero_target)
+{
+    const auto consensus = CreateChainParams(CBaseChainParams::MAIN)->GetConsensus();
+    uint256 hash;
+    unsigned int nBits;
+    arith_uint256 hash_arith{0};
+    nBits = hash_arith.GetCompact();
+    hash = ArithToUint256(hash_arith);
+    BOOST_CHECK(!CheckProofOfWork(hash, nBits, consensus));
 }
 
 BOOST_AUTO_TEST_CASE(GetBlockProofEquivalentTime_test)

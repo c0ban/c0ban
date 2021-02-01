@@ -4,7 +4,7 @@
 <context>
     <name>AddressBookPage</name>
     <message>
-        <location filename="../forms/addressbookpage.ui" line="+30"/>
+        <location filename="../forms/addressbookpage.ui" line="+37"/>
         <source>Right-click to edit address or label</source>
         <translation type="unfinished"></translation>
     </message>
@@ -39,7 +39,12 @@
         <translation>Delete the currently selected address from the list</translation>
     </message>
     <message>
-        <location line="+30"/>
+        <location line="-71"/>
+        <source>Enter address or label to search</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+101"/>
         <source>Export the data in the current tab to a file</source>
         <translation>Export the data in the current tab to a file</translation>
     </message>
@@ -54,7 +59,7 @@
         <translation>&amp;Delete</translation>
     </message>
     <message>
-        <location filename="../addressbookpage.cpp" line="+50"/>
+        <location filename="../addressbookpage.cpp" line="+84"/>
         <source>Choose the address to send coins to</source>
         <translation type="unfinished"></translation>
     </message>
@@ -84,12 +89,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+4"/>
-        <source>These are your Bitcoin addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
+        <location line="+5"/>
+        <source>These are your Bitcoin addresses for receiving payments. Use the &apos;Create new receiving address&apos; button in the receive tab to create new addresses.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+7"/>
         <source>&amp;Copy Address</source>
         <translation type="unfinished"></translation>
     </message>
@@ -104,7 +109,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+193"/>
+        <location line="+177"/>
         <source>Export Address List</source>
         <translation type="unfinished"></translation>
     </message>
@@ -127,7 +132,7 @@
 <context>
     <name>AddressTableModel</name>
     <message>
-        <location filename="../addresstablemodel.cpp" line="+169"/>
+        <location filename="../addresstablemodel.cpp" line="+165"/>
         <source>Label</source>
         <translation type="unfinished"></translation>
     </message>
@@ -165,12 +170,12 @@
         <translation>Repeat new passphrase</translation>
     </message>
     <message>
-        <location filename="../askpassphrasedialog.cpp" line="+46"/>
-        <source>Enter the new passphrase to the wallet.&lt;br/&gt;Please use a passphrase of &lt;b&gt;ten or more random characters&lt;/b&gt;, or &lt;b&gt;eight or more words&lt;/b&gt;.</source>
+        <location line="+14"/>
+        <source>Show passphrase</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location filename="../askpassphrasedialog.cpp" line="+50"/>
         <source>Encrypt wallet</source>
         <translation type="unfinished"></translation>
     </message>
@@ -200,12 +205,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1"/>
-        <source>Enter the old passphrase and new passphrase to the wallet.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+44"/>
+        <location line="+46"/>
         <source>Confirm wallet encryption</source>
         <translation type="unfinished"></translation>
     </message>
@@ -220,48 +220,74 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+9"/>
-        <location line="+58"/>
+        <location line="+19"/>
+        <location line="+57"/>
         <source>Wallet encrypted</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-56"/>
-        <source>%1 will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your bitcoins from being stolen by malware infecting your computer.</source>
+        <location line="-145"/>
+        <source>Enter the new passphrase for the wallet.&lt;br/&gt;Please use a passphrase of &lt;b&gt;ten or more random characters&lt;/b&gt;, or &lt;b&gt;eight or more words&lt;/b&gt;.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+23"/>
+        <source>Enter the old passphrase and new passphrase for the wallet.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+53"/>
+        <source>Remember that encrypting your wallet cannot fully protect your bitcoins from being stolen by malware infecting your computer.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+4"/>
+        <source>Wallet to be encrypted</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Your wallet is about to be encrypted. </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>Your wallet is now encrypted. </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
         <source>IMPORTANT: Any previous backups you have made of your wallet file should be replaced with the newly generated, encrypted wallet file. For security reasons, previous backups of the unencrypted wallet file will become useless as soon as you start using the new, encrypted wallet.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+9"/>
-        <location line="+7"/>
-        <location line="+42"/>
+        <location line="+8"/>
+        <location line="+8"/>
+        <location line="+43"/>
         <location line="+6"/>
         <source>Wallet encryption failed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-54"/>
+        <location line="-56"/>
         <source>Wallet encryption failed due to an internal error. Your wallet was not encrypted.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+7"/>
-        <location line="+48"/>
+        <location line="+8"/>
+        <location line="+49"/>
         <source>The supplied passphrases do not match.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-37"/>
+        <location line="-38"/>
+        <location line="+6"/>
         <source>Wallet unlock failed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1"/>
-        <location line="+11"/>
+        <location line="-5"/>
+        <location line="+12"/>
         <location line="+19"/>
         <source>The passphrase entered for the wallet decryption was incorrect.</source>
         <translation type="unfinished"></translation>
@@ -278,7 +304,7 @@
     </message>
     <message>
         <location line="+47"/>
-        <location line="+24"/>
+        <location line="+33"/>
         <source>Warning: The Caps Lock key is on!</source>
         <translation type="unfinished"></translation>
     </message>
@@ -286,7 +312,7 @@
 <context>
     <name>BanTableModel</name>
     <message>
-        <location filename="../bantablemodel.cpp" line="+89"/>
+        <location filename="../bantablemodel.cpp" line="+86"/>
         <source>IP/Netmask</source>
         <translation type="unfinished"></translation>
     </message>
@@ -299,27 +325,22 @@
 <context>
     <name>BitcoinGUI</name>
     <message>
-        <location filename="../bitcoingui.cpp" line="+357"/>
+        <location filename="../bitcoingui.cpp" line="+316"/>
         <source>Sign &amp;message...</source>
         <translation>Sign &amp;message...</translation>
     </message>
     <message>
-        <location line="+429"/>
+        <location line="+630"/>
         <source>Synchronizing with network...</source>
         <translation>Synchronizing with network...</translation>
     </message>
     <message>
-        <location line="-507"/>
+        <location line="-708"/>
         <source>&amp;Overview</source>
         <translation>&amp;Overview</translation>
     </message>
     <message>
-        <location line="-143"/>
-        <source>Node</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+144"/>
+        <location line="+1"/>
         <source>Show general overview of wallet</source>
         <translation>Show general overview of wallet</translation>
     </message>
@@ -389,22 +410,27 @@
         <translation>&amp;Change Passphrase...</translation>
     </message>
     <message>
-        <location line="+12"/>
-        <source>&amp;Sending addresses...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+2"/>
-        <source>&amp;Receiving addresses...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+3"/>
+        <location line="+18"/>
         <source>Open &amp;URI...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+359"/>
+        <location line="+11"/>
+        <source>Create Wallet...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Create a new wallet</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+191"/>
+        <source>Wallet:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+339"/>
         <source>Click to disable network activity.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -424,12 +450,17 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+37"/>
+        <location line="+53"/>
         <source>Reindexing blocks on disk...</source>
         <translation>Reindexing blocks on disk...</translation>
     </message>
     <message>
-        <location line="-510"/>
+        <location line="+317"/>
+        <source>Proxy is &lt;b&gt;enabled&lt;/b&gt;: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-1028"/>
         <source>Send coins to a Bitcoin address</source>
         <translation>Send coins to a Bitcoin address</translation>
     </message>
@@ -444,32 +475,12 @@
         <translation>Change the passphrase used for wallet encryption</translation>
     </message>
     <message>
-        <location line="+6"/>
-        <source>&amp;Debug window</source>
-        <translation>&amp;Debug window</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Open debugging and diagnostic console</source>
-        <translation>Open debugging and diagnostic console</translation>
-    </message>
-    <message>
-        <location line="-4"/>
+        <location line="+3"/>
         <source>&amp;Verify message...</source>
         <translation>&amp;Verify message...</translation>
     </message>
     <message>
-        <location line="+516"/>
-        <source>Bitcoin</source>
-        <translation>Bitcoin</translation>
-    </message>
-    <message>
-        <location line="-741"/>
-        <source>Wallet</source>
-        <translation>Wallet</translation>
-    </message>
-    <message>
-        <location line="+152"/>
+        <location line="-73"/>
         <source>&amp;Send</source>
         <translation>&amp;Send</translation>
     </message>
@@ -504,32 +515,32 @@
         <translation>Verify messages to ensure they were signed with specified Bitcoin addresses</translation>
     </message>
     <message>
-        <location line="+58"/>
+        <location line="+111"/>
         <source>&amp;File</source>
         <translation>&amp;File</translation>
     </message>
     <message>
-        <location line="+14"/>
+        <location line="+15"/>
         <source>&amp;Settings</source>
         <translation>&amp;Settings</translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location line="+59"/>
         <source>&amp;Help</source>
         <translation>&amp;Help</translation>
     </message>
     <message>
-        <location line="+15"/>
+        <location line="+11"/>
         <source>Tabs toolbar</source>
         <translation>Tabs toolbar</translation>
     </message>
     <message>
-        <location line="-158"/>
+        <location line="-258"/>
         <source>Request payments (generates QR codes and bitcoin: URIs)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+70"/>
+        <location line="+71"/>
         <source>Show the list of used sending addresses and labels</source>
         <translation type="unfinished"></translation>
     </message>
@@ -539,17 +550,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+3"/>
-        <source>Open a bitcoin: URI or payment request</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+2"/>
+        <location line="+17"/>
         <source>&amp;Command-line options</source>
         <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
-        <location line="+356"/>
+        <location line="+528"/>
         <source>%n active connection(s) to Bitcoin network</source>
         <translation>
             <numerusform>%n active connection to Bitcoin network</numerusform>
@@ -557,7 +563,7 @@
         </translation>
     </message>
     <message>
-        <location line="+60"/>
+        <location line="+76"/>
         <source>Indexing blocks on disk...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -575,7 +581,7 @@
         </translation>
     </message>
     <message>
-        <location line="+24"/>
+        <location line="+23"/>
         <source>%1 behind</source>
         <translation>%1 behind</translation>
     </message>
@@ -590,47 +596,132 @@
         <translation>Transactions after this will not yet be visible.</translation>
     </message>
     <message>
-        <location line="+27"/>
+        <location line="+28"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+4"/>
         <source>Warning</source>
         <translation>Warning</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+4"/>
         <source>Information</source>
         <translation>Information</translation>
     </message>
     <message>
-        <location line="-78"/>
+        <location line="-81"/>
         <source>Up to date</source>
         <translation>Up to date</translation>
     </message>
     <message>
-        <location line="-440"/>
+        <location line="-655"/>
+        <source>Node window</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Open node debugging and diagnostic console</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>&amp;Sending addresses</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>&amp;Receiving addresses</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Open a bitcoin: URI</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Open Wallet</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Open a wallet</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Close Wallet...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Close wallet</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+8"/>
         <source>Show the %1 help message to get a list with possible Bitcoin command-line options</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+199"/>
+        <location line="+29"/>
+        <source>default wallet</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+21"/>
+        <source>No wallets available</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+55"/>
+        <source>&amp;Window</source>
+        <translation type="unfinished">&amp;Window</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Minimize</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+10"/>
+        <source>Zoom</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+18"/>
+        <source>Main Window</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+238"/>
         <source>%1 client</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+227"/>
+        <location line="+241"/>
         <source>Connecting to peers...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+38"/>
+        <location line="+37"/>
         <source>Catching up...</source>
         <translation>Catching up...</translation>
     </message>
     <message>
-        <location line="+145"/>
+        <location line="+50"/>
+        <source>Error: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Warning: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+99"/>
         <source>Date: %1
 </source>
         <translation type="unfinished"></translation>
@@ -642,7 +733,13 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
+        <source>Wallet: %1
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
         <source>Type: %1
 </source>
         <translation type="unfinished"></translation>
@@ -680,6 +777,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location line="+0"/>
+        <source>Private key &lt;b&gt;disabled&lt;/b&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location line="+19"/>
         <source>Wallet is &lt;b&gt;encrypted&lt;/b&gt; and currently &lt;b&gt;unlocked&lt;/b&gt;</source>
         <translation>Wallet is &lt;b&gt;encrypted&lt;/b&gt; and currently &lt;b&gt;unlocked&lt;/b&gt;</translation>
@@ -690,7 +792,7 @@
         <translation>Wallet is &lt;b&gt;encrypted&lt;/b&gt; and currently &lt;b&gt;locked&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../bitcoin.cpp" line="+534"/>
+        <location filename="../bitcoin.cpp" line="+384"/>
         <source>A fatal error occurred. Bitcoin can no longer continue safely and will quit.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -844,12 +946,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+325"/>
+        <location line="+308"/>
         <source>(%1 locked)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+155"/>
+        <location line="+157"/>
         <source>yes</source>
         <translation type="unfinished"></translation>
     </message>
@@ -869,8 +971,8 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+42"/>
-        <location line="+52"/>
+        <location line="+38"/>
+        <location line="+54"/>
         <source>(no label)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -882,6 +984,72 @@
     <message>
         <location line="+1"/>
         <source>(change)</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>CreateWalletActivity</name>
+    <message>
+        <location filename="../walletcontroller.cpp" line="+217"/>
+        <source>Creating Wallet &lt;b&gt;%1&lt;/b&gt;...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+26"/>
+        <source>Create wallet failed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Create wallet warning</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>CreateWalletDialog</name>
+    <message>
+        <location filename="../forms/createwalletdialog.ui" line="+14"/>
+        <source>Create Wallet</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+38"/>
+        <source>Wallet Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+13"/>
+        <source>Encrypt the wallet. The wallet will be encrypted with a passphrase of your choice.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Encrypt Wallet</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+19"/>
+        <source>Disable private keys for this wallet. Wallets with private keys disabled will have no private keys and cannot have an HD seed or imported private keys. This is ideal for watch-only wallets.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Disable Private Keys</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+13"/>
+        <source>Make a blank wallet. Blank wallets do not initially have private keys or scripts. Private keys and addresses can be imported, or an HD seed can be set, at a later time.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Make Blank Wallet</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../createwalletdialog.cpp" line="+19"/>
+        <source>Create</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -913,12 +1081,7 @@
         <translation>&amp;Address</translation>
     </message>
     <message>
-        <location filename="../editaddressdialog.cpp" line="+28"/>
-        <source>New receiving address</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+4"/>
+        <location filename="../editaddressdialog.cpp" line="+29"/>
         <source>New sending address</source>
         <translation type="unfinished"></translation>
     </message>
@@ -933,17 +1096,22 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+71"/>
+        <location line="+75"/>
         <source>The entered address &quot;%1&quot; is not a valid Bitcoin address.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+5"/>
-        <source>The entered address &quot;%1&quot; is already in the address book.</source>
+        <location line="+33"/>
+        <source>Address &quot;%1&quot; already exists as a receiving address with label &quot;%2&quot; and so cannot be added as a sending address.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+5"/>
+        <source>The entered address &quot;%1&quot; is already in the address book with label &quot;%2&quot;.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-28"/>
         <source>Could not unlock wallet.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -956,7 +1124,7 @@
 <context>
     <name>FreespaceChecker</name>
     <message>
-        <location filename="../intro.cpp" line="+76"/>
+        <location filename="../intro.cpp" line="+71"/>
         <source>A new data directory will be created.</source>
         <translation>A new data directory will be created.</translation>
     </message>
@@ -984,69 +1152,18 @@
 <context>
     <name>HelpMessageDialog</name>
     <message>
-        <location filename="../utilitydialog.cpp" line="+40"/>
+        <location filename="../utilitydialog.cpp" line="+35"/>
         <source>version</source>
         <translation type="unfinished">version</translation>
     </message>
     <message>
-        <location line="+5"/>
-        <location line="+2"/>
-        <source>(%1-bit)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+5"/>
+        <location line="+4"/>
         <source>About %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+19"/>
         <source>Command-line options</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Usage:</source>
-        <translation type="unfinished">Usage:</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>command-line options</source>
-        <translation type="unfinished">command-line options</translation>
-    </message>
-    <message>
-        <location line="+9"/>
-        <source>UI Options:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+4"/>
-        <source>Choose data directory on startup (default: %u)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Set language, for example &quot;de_DE&quot; (default: system locale)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Start minimized</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Set SSL root certificates for payment request (default: -system-)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Show splash screen on startup (default: %u)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Reset all settings changed in the GUI</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1074,6 +1191,11 @@
     </message>
     <message>
         <location line="+10"/>
+        <source>Reverting this setting requires re-downloading the entire blockchain. It is faster to download the full chain first and prune it later. Disables some advanced features.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+10"/>
         <source>This initial synchronisation is very demanding, and may expose hardware problems with your computer that had previously gone unnoticed. Each time you run %1, it will continue downloading where it left off.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1083,7 +1205,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-160"/>
+        <location line="-170"/>
         <source>Use the default data directory</source>
         <translation>Use the default data directory</translation>
     </message>
@@ -1093,22 +1215,27 @@
         <translation>Use a custom data directory:</translation>
     </message>
     <message>
-        <location filename="../intro.cpp" line="+20"/>
+        <location filename="../intro.cpp" line="+32"/>
         <source>Bitcoin</source>
         <translation type="unfinished">Bitcoin</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+8"/>
+        <source>Discard blocks after verification, except most recent %1 GB (prune)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+212"/>
         <source>At least %1 GB of data will be stored in this directory, and it will grow over time.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+3"/>
         <source>Approximately %1 GB of data will be stored in this directory.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location line="+4"/>
         <source>%1 will download and store a copy of the Bitcoin block chain.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1118,17 +1245,17 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+70"/>
+        <location line="-137"/>
         <source>Error: Specified data directory &quot;%1&quot; cannot be created.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+26"/>
+        <location line="+30"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
     <message numerus="yes">
-        <location line="+9"/>
+        <location line="+21"/>
         <source>%n GB of free space available</source>
         <translation>
             <numerusform>%n GB of free space available</numerusform>
@@ -1136,11 +1263,19 @@
         </translation>
     </message>
     <message numerus="yes">
-        <location line="+3"/>
+        <location line="+2"/>
         <source>(of %n GB needed)</source>
         <translation>
             <numerusform>(of %n GB needed)</numerusform>
             <numerusform>(of %n GB needed)</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <location line="+3"/>
+        <source>(%n GB needed for full chain)</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
         </translation>
     </message>
 </context>
@@ -1169,7 +1304,7 @@
     <message>
         <location line="+7"/>
         <location line="+26"/>
-        <location filename="../modaloverlay.cpp" line="+138"/>
+        <location filename="../modaloverlay.cpp" line="+145"/>
         <source>Unknown...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1205,8 +1340,18 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../modaloverlay.cpp" line="-1"/>
-        <source>Unknown. Syncing Headers (%1)...</source>
+        <location line="+3"/>
+        <source>Esc</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../modaloverlay.cpp" line="-111"/>
+        <source>%1 is currently syncing.  It will download headers and blocks from peers and validate them until reaching the tip of the block chain.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+117"/>
+        <source>Unknown. Syncing Headers (%1, %2%)...</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1214,27 +1359,35 @@
     <name>OpenURIDialog</name>
     <message>
         <location filename="../forms/openuridialog.ui" line="+14"/>
-        <source>Open URI</source>
+        <source>Open bitcoin URI</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+6"/>
-        <source>Open payment request from URI or file</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+9"/>
+        <location line="+8"/>
         <source>URI:</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>OpenWalletActivity</name>
+    <message>
+        <location filename="../walletcontroller.cpp" line="+39"/>
+        <source>Open wallet failed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Open wallet warning</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+10"/>
-        <source>Select payment request file</source>
+        <source>default wallet</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../openuridialog.cpp" line="+47"/>
-        <source>Select payment request file to open</source>
+        <location line="+2"/>
+        <source>Opening Wallet &lt;b&gt;%1&lt;/b&gt;...</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1261,32 +1414,17 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location line="+72"/>
         <source>Size of &amp;database cache</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+16"/>
-        <source>MB</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+27"/>
+        <location line="+43"/>
         <source>Number of script &amp;verification threads</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+114"/>
-        <source>Accept connections from outside</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>Allow incoming connections</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+44"/>
+        <location line="+161"/>
         <location line="+187"/>
         <source>IP address of the proxy (e.g. IPv4: 127.0.0.1 / IPv6: ::1)</source>
         <translation type="unfinished"></translation>
@@ -1299,7 +1437,22 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+166"/>
+        <location line="+38"/>
+        <source>Use separate SOCKS&amp;5 proxy to reach peers via Tor hidden services:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+108"/>
+        <source>Hide the icon from the system tray.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>&amp;Hide tray icon</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+17"/>
         <source>Minimize instead of exit the application when the window is closed. When this option is enabled, the application will be closed only after selecting Exit in the menu.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1310,17 +1463,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-10"/>
-        <source>Third party transaction URLs</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+41"/>
-        <source>Active command-line options that override above options:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+45"/>
+        <location line="+79"/>
         <source>Open the %1 configuration file from the working directory.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1340,12 +1483,37 @@
         <translation>&amp;Reset Options</translation>
     </message>
     <message>
-        <location line="-529"/>
+        <location line="-532"/>
         <source>&amp;Network</source>
         <translation>&amp;Network</translation>
     </message>
     <message>
-        <location line="-85"/>
+        <location line="-191"/>
+        <source>Disables some advanced features but all blocks will still be fully validated. Reverting this setting requires re-downloading the entire blockchain. Actual disk usage may be somewhat higher.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Prune &amp;block storage to</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+10"/>
+        <source>GB</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+25"/>
+        <source>Reverting this setting requires re-downloading the entire blockchain.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+28"/>
+        <source>MiB</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+40"/>
         <source>(0 = auto, &lt;0 = leave that many cores free)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1385,7 +1553,17 @@
         <translation>Map port using &amp;UPnP</translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location line="+7"/>
+        <source>Accept connections from outside.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Allow incomin&amp;g connections</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
         <source>Connect to the Bitcoin network through a SOCKS5 proxy.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1438,27 +1616,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+3"/>
-        <source>Use separate SOCKS5 proxy to reach peers via Tor hidden services:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+102"/>
+        <location line="+105"/>
         <source>&amp;Window</source>
         <translation>&amp;Window</translation>
     </message>
     <message>
-        <location line="+6"/>
-        <source>&amp;Hide the icon from the system tray.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>Hide tray icon</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+7"/>
+        <location line="+16"/>
         <source>Show only a tray icon after minimizing the window.</source>
         <translation>Show only a tray icon after minimizing the window.</translation>
     </message>
@@ -1503,7 +1666,17 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+646"/>
+        <location line="+464"/>
+        <source>&amp;Third party transaction URLs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+44"/>
+        <source>Options set in this dialog are overridden by the command line or in the configuration file:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+141"/>
         <source>&amp;OK</source>
         <translation>&amp;OK</translation>
     </message>
@@ -1513,28 +1686,28 @@
         <translation>&amp;Cancel</translation>
     </message>
     <message>
-        <location filename="../optionsdialog.cpp" line="+84"/>
+        <location filename="../optionsdialog.cpp" line="+96"/>
         <source>default</source>
         <translation>default</translation>
     </message>
     <message>
-        <location line="+64"/>
+        <location line="+65"/>
         <source>none</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+72"/>
+        <location line="+89"/>
         <source>Confirm options reset</source>
         <translation>Confirm options reset</translation>
     </message>
     <message>
         <location line="+1"/>
-        <location line="+55"/>
+        <location line="+60"/>
         <source>Client restart required to activate changes.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-55"/>
+        <location line="-60"/>
         <source>Client will be shut down. Do you want to proceed?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1559,7 +1732,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+38"/>
+        <location line="+43"/>
         <source>This change would require a client restart.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1666,34 +1839,48 @@
 <context>
     <name>PaymentServer</name>
     <message>
-        <location filename="../paymentserver.cpp" line="+328"/>
-        <location line="+216"/>
-        <location line="+42"/>
-        <location line="+113"/>
-        <location line="+14"/>
-        <location line="+18"/>
+        <location filename="../paymentserver.cpp" line="+174"/>
         <source>Payment request error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-402"/>
+        <location line="+1"/>
         <source>Cannot start bitcoin: click-to-pay handler</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+103"/>
-        <location line="+14"/>
+        <location line="+50"/>
+        <location line="+13"/>
+        <location line="+6"/>
         <location line="+7"/>
         <source>URI handling</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-20"/>
-        <source>Payment request fetch URL is invalid: %1</source>
+        <location line="-26"/>
+        <source>&apos;bitcoin://&apos; is not a valid URI. Use &apos;bitcoin:&apos; instead.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="+14"/>
+        <location line="+23"/>
+        <source>Cannot process payment request because BIP70 is not supported.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-22"/>
+        <location line="+23"/>
+        <source>Due to widespread security flaws in BIP70 it&apos;s strongly recommended that any merchant instructions to switch wallets be ignored.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-22"/>
+        <location line="+23"/>
+        <source>If you are receiving this error you should request the merchant provide a BIP21 compatible URI.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-20"/>
         <source>Invalid payment address %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1703,96 +1890,15 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="+9"/>
         <source>Payment request file handling</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Payment request file cannot be read! This can be caused by an invalid payment request file.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+61"/>
-        <location line="+9"/>
-        <location line="+31"/>
-        <location line="+10"/>
-        <location line="+17"/>
-        <location line="+88"/>
-        <source>Payment request rejected</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="-155"/>
-        <source>Payment request network doesn&apos;t match client network.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+9"/>
-        <source>Payment request expired.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+6"/>
-        <source>Payment request is not initialized.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+26"/>
-        <source>Unverified payment requests to custom payment scripts are unsupported.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+9"/>
-        <location line="+17"/>
-        <source>Invalid payment request.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="-10"/>
-        <source>Requested payment amount of %1 is too small (considered dust).</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+55"/>
-        <source>Refund from %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+44"/>
-        <source>Payment request %1 is too large (%2 bytes, allowed %3 bytes).</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+9"/>
-        <source>Error communicating with %1: %2</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+20"/>
-        <source>Payment request cannot be parsed!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+13"/>
-        <source>Bad response from server %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+22"/>
-        <source>Network request error</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+11"/>
-        <source>Payment acknowledged</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>PeerTableModel</name>
     <message>
-        <location filename="../peertablemodel.cpp" line="+117"/>
+        <location filename="../peertablemodel.cpp" line="+107"/>
         <source>User Agent</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1811,21 +1917,31 @@
         <source>Ping</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location line="+0"/>
+        <source>Sent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Received</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../bitcoinunits.cpp" line="+176"/>
+        <location filename="../bitcoinunits.cpp" line="+195"/>
         <source>Amount</source>
         <translation type="unfinished">Amount</translation>
     </message>
     <message>
-        <location filename="../guiutil.cpp" line="+130"/>
+        <location filename="../guiutil.cpp" line="+111"/>
         <source>Enter a Bitcoin address (e.g. %1)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+766"/>
+        <location line="+618"/>
         <source>%1 d</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1841,7 +1957,7 @@
     </message>
     <message>
         <location line="+2"/>
-        <location line="+50"/>
+        <location line="+48"/>
         <source>%1 s</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1915,39 +2031,76 @@
         </translation>
     </message>
     <message>
-        <location filename="../bitcoin.cpp" line="+178"/>
-        <source>%1 didn&apos;t yet exit safely...</source>
+        <location line="+8"/>
+        <source>%1 B</source>
         <translation type="unfinished"></translation>
     </message>
-</context>
-<context>
-    <name>QObject::QObject</name>
     <message>
-        <location line="-86"/>
+        <location line="+2"/>
+        <source>%1 KB</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>%1 MB</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>%1 GB</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../bitcoin.cpp" line="+114"/>
         <source>Error: Specified data directory &quot;%1&quot; does not exist.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+7"/>
-        <source>Error: Cannot parse configuration file: %1. Only use key=value syntax.</source>
+        <location line="+6"/>
+        <source>Error: Cannot parse configuration file: %1.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+14"/>
+        <location line="+15"/>
         <source>Error: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+65"/>
+        <source>%1 didn&apos;t yet exit safely...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../modaloverlay.cpp" line="-36"/>
+        <source>unknown</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>QRImageWidget</name>
     <message>
-        <location filename="../receiverequestdialog.cpp" line="+36"/>
+        <location filename="../qrimagewidget.cpp" line="+29"/>
         <source>&amp;Save Image...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+3"/>
         <source>&amp;Copy Image</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+13"/>
+        <source>Resulting URI too long, try to reduce the text for label / message.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Error encoding URI into QR Code.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+39"/>
+        <source>QR code support not available.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1964,10 +2117,11 @@
 <context>
     <name>RPCConsole</name>
     <message>
-        <location filename="../forms/debugwindow.ui" line="+56"/>
+        <location filename="../forms/debugwindow.ui" line="+75"/>
         <location line="+26"/>
         <location line="+26"/>
-        <location line="+23"/>
+        <location line="+26"/>
+        <location line="+29"/>
         <location line="+26"/>
         <location line="+36"/>
         <location line="+23"/>
@@ -1975,7 +2129,7 @@
         <location line="+23"/>
         <location line="+36"/>
         <location line="+23"/>
-        <location line="+663"/>
+        <location line="+716"/>
         <location line="+23"/>
         <location line="+23"/>
         <location line="+23"/>
@@ -1993,11 +2147,13 @@
         <location line="+26"/>
         <location line="+23"/>
         <location line="+23"/>
+        <location line="+26"/>
+        <location filename="../rpcconsole.cpp" line="+1121"/>
         <source>N/A</source>
         <translation>N/A</translation>
     </message>
     <message>
-        <location line="-1345"/>
+        <location line="-1456"/>
         <source>Client version</source>
         <translation>Client version</translation>
     </message>
@@ -2007,12 +2163,7 @@
         <translation>&amp;Information</translation>
     </message>
     <message>
-        <location line="-10"/>
-        <source>Debug window</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+25"/>
+        <location line="+15"/>
         <source>General</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2027,7 +2178,22 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+26"/>
+        <location line="+10"/>
+        <source>To specify a non-default location of the data directory use the &apos;%1&apos; option.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+19"/>
+        <source>Blocksdir</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+10"/>
+        <source>To specify a non-default location of the blocks directory use the &apos;%1&apos; option.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+19"/>
         <source>Startup time</source>
         <translation>Startup time</translation>
     </message>
@@ -2072,41 +2238,51 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+324"/>
+        <location line="+94"/>
+        <source>Wallet: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+11"/>
+        <source>(none)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+241"/>
         <source>&amp;Reset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+80"/>
-        <location line="+558"/>
+        <location line="+589"/>
         <source>Received</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-478"/>
-        <location line="+455"/>
+        <location line="-509"/>
+        <location line="+486"/>
         <source>Sent</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-414"/>
+        <location line="-445"/>
         <source>&amp;Peers</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+53"/>
+        <location line="+67"/>
         <source>Banned peers</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+60"/>
-        <location filename="../rpcconsole.cpp" line="+467"/>
-        <location line="+728"/>
+        <location line="+65"/>
+        <location filename="../rpcconsole.cpp" line="-624"/>
+        <location line="+756"/>
         <source>Select a peer to view detailed information.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+25"/>
+        <location line="+37"/>
         <source>Whitelisted</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2136,28 +2312,43 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1079"/>
-        <location line="+987"/>
+        <location line="+256"/>
+        <source>The mapped Autonomous System used for diversifying peer selection.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Mapped AS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-1423"/>
+        <location line="+1072"/>
         <source>User Agent</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-684"/>
+        <location line="-1146"/>
+        <source>Node window</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+409"/>
         <source>Open the %1 debug log file from the current data directory. This can take a few seconds for large log files.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+68"/>
+        <location line="+84"/>
         <source>Decrease font size</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+29"/>
+        <location line="+32"/>
         <source>Increase font size</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+610"/>
+        <location line="+644"/>
         <source>Services</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2207,7 +2398,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1116"/>
+        <location line="-1169"/>
         <source>Last block time</source>
         <translation>Last block time</translation>
     </message>
@@ -2222,7 +2413,7 @@
         <translation>&amp;Console</translation>
     </message>
     <message>
-        <location line="+195"/>
+        <location line="+217"/>
         <source>&amp;Network Traffic</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2232,7 +2423,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../rpcconsole.cpp" line="-413"/>
+        <location filename="../rpcconsole.cpp" line="-408"/>
         <source>In:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2242,17 +2433,17 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../forms/debugwindow.ui" line="-299"/>
+        <location filename="../forms/debugwindow.ui" line="-321"/>
         <source>Debug log file</source>
         <translation>Debug log file</translation>
     </message>
     <message>
-        <location line="+136"/>
+        <location line="+155"/>
         <source>Clear console</source>
         <translation>Clear console</translation>
     </message>
     <message>
-        <location filename="../rpcconsole.cpp" line="-223"/>
+        <location filename="../rpcconsole.cpp" line="-243"/>
         <source>1 &amp;hour</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2285,27 +2476,32 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+48"/>
+        <location line="+38"/>
         <source>&amp;Unban</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+135"/>
+        <location line="+164"/>
         <source>Welcome to the %1 RPC console.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+2"/>
-        <source>Type &lt;b&gt;help&lt;/b&gt; for an overview of available commands.</source>
-        <translation>Type &lt;b&gt;help&lt;/b&gt; for an overview of available commands.</translation>
-    </message>
-    <message>
-        <location line="-1"/>
+        <location line="+1"/>
         <source>Use up and down arrows to navigate history, and %1 to clear screen.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+1"/>
+        <source>Type %1 for an overview of available commands.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>For more information on using this console type %1.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
         <source>WARNING: Scammers have been active, telling users to type commands here, stealing their wallet contents. Do not use this console without fully understanding the ramifications of a command.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2315,27 +2511,17 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+150"/>
-        <source>%1 B</source>
+        <location line="+66"/>
+        <source>Executing command without any wallet</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+2"/>
-        <source>%1 KB</source>
+        <location line="-2"/>
+        <source>Executing command using &quot;%1&quot; wallet</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+2"/>
-        <source>%1 MB</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+2"/>
-        <source>%1 GB</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+99"/>
+        <location line="+189"/>
         <source>(node id: %1)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2371,7 +2557,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+12"/>
+        <location line="+13"/>
         <location line="+6"/>
         <source>Unknown</source>
         <translation type="unfinished"></translation>
@@ -2380,39 +2566,27 @@
 <context>
     <name>ReceiveCoinsDialog</name>
     <message>
-        <location filename="../forms/receivecoinsdialog.ui" line="+107"/>
+        <location filename="../forms/receivecoinsdialog.ui" line="+37"/>
         <source>&amp;Amount:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-16"/>
+        <location line="+46"/>
         <source>&amp;Label:</source>
         <translation type="unfinished">&amp;Label:</translation>
     </message>
     <message>
-        <location line="-37"/>
+        <location line="-30"/>
         <source>&amp;Message:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-20"/>
-        <source>Reuse one of the previously used receiving addresses. Reusing addresses has security and privacy issues. Do not use this unless re-generating a payment request made before.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>R&amp;euse an existing receiving address (not recommended)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+14"/>
-        <location line="+23"/>
+        <location line="-3"/>
         <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the Bitcoin network.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-7"/>
-        <location line="+21"/>
+        <location line="+30"/>
         <source>An optional label to associate with the new receiving address.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2422,13 +2596,28 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+23"/>
-        <location line="+22"/>
+        <location line="-39"/>
+        <location line="+153"/>
         <source>An optional amount to request. Leave this empty or zero to not request a specific amount.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+32"/>
+        <location line="-121"/>
+        <source>An optional label to associate with the new receiving address (used by you to identify an invoice).  It is also attached to the payment request.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+30"/>
+        <source>An optional message that is attached to the payment request and may be displayed to the sender.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+15"/>
+        <source>&amp;Create new receiving address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+17"/>
         <source>Clear all fields of the form.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2438,17 +2627,22 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+75"/>
+        <location line="+78"/>
+        <source>Native segwit addresses (aka Bech32 or BIP-173) reduce your transaction fees later on and offer better protection against typos, but old wallets don&apos;t support them. When unchecked, an address compatible with older wallets will be created instead.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Generate native segwit (Bech32) address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+61"/>
         <source>Requested payments history</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-95"/>
-        <source>&amp;Request payment</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+120"/>
+        <location line="+25"/>
         <source>Show the selected request (does the same as double clicking an entry)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2468,7 +2662,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../receivecoinsdialog.cpp" line="+47"/>
+        <location filename="../receivecoinsdialog.cpp" line="+45"/>
         <source>Copy URI</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2511,7 +2705,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../receiverequestdialog.cpp" line="+65"/>
+        <location filename="../receiverequestdialog.cpp" line="+64"/>
         <source>Request payment to %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2546,20 +2740,15 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+10"/>
-        <source>Resulting URI too long, try to reduce the text for label / message.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+5"/>
-        <source>Error encoding URI into QR Code.</source>
-        <translation type="unfinished"></translation>
+        <location line="+2"/>
+        <source>Wallet</source>
+        <translation type="unfinished">Wallet</translation>
     </message>
 </context>
 <context>
     <name>RecentRequestsTableModel</name>
     <message>
-        <location filename="../recentrequeststablemodel.cpp" line="+28"/>
+        <location filename="../recentrequeststablemodel.cpp" line="+27"/>
         <source>Date</source>
         <translation type="unfinished">Date</translation>
     </message>
@@ -2598,7 +2787,7 @@
     <name>SendCoinsDialog</name>
     <message>
         <location filename="../forms/sendcoinsdialog.ui" line="+14"/>
-        <location filename="../sendcoinsdialog.cpp" line="+586"/>
+        <location filename="../sendcoinsdialog.cpp" line="+618"/>
         <source>Send Coins</source>
         <translation>Send Coins</translation>
     </message>
@@ -2683,38 +2872,24 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+26"/>
-        <source>collapse fee-settings</source>
+        <location line="+77"/>
+        <source>Specify a custom fee per kB (1,000 bytes) of the transaction&apos;s virtual size.
+
+Note:  Since the fee is calculated on a per-byte basis, a fee of &quot;100 satoshis per kB&quot; for a transaction size of 500 bytes (half of 1 kB) would ultimately yield a fee of only 50 satoshis.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+54"/>
+        <location line="+5"/>
         <source>per kilobyte</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-3"/>
-        <source>If the custom fee is set to 1000 satoshis and the transaction is only 250 bytes, then &quot;per kilobyte&quot; only pays 250 satoshis in fee, while &quot;total at least&quot; pays 1000 satoshis. For transactions bigger than a kilobyte both pay by kilobyte.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="-48"/>
+        <location line="-53"/>
         <source>Hide</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+84"/>
-        <location line="+13"/>
-        <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks. But be aware that this can end up in a never confirming transaction once there is more demand for bitcoin transactions than the network can process.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>(read the tooltip)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+29"/>
+        <location line="+112"/>
         <source>Recommended:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2724,22 +2899,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+52"/>
+        <location line="+49"/>
         <source>(Smart fee not initialized yet. This usually takes a few blocks...)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+103"/>
-        <source>Request Replace-By-Fee</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>Indicates that the sender may wish to replace this transaction with a new one paying higher fees (prior to being confirmed).</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+79"/>
+        <location line="+166"/>
         <source>Send to multiple recipients at once</source>
         <translation>Send to multiple recipients at once</translation>
     </message>
@@ -2754,17 +2919,42 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-839"/>
+        <location line="-800"/>
         <source>Dust:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+700"/>
+        <location line="+457"/>
+        <source>Hide transaction fee settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+86"/>
+        <source>When there is less transaction volume than space in the blocks, miners as well as relaying nodes may enforce a minimum fee. Paying only this minimum fee is just fine, but be aware that this can result in a never confirming transaction once there is more demand for bitcoin transactions than the network can process.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>A too low fee might result in a never confirming transaction (read the tooltip)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+131"/>
         <source>Confirmation time target:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+142"/>
+        <location line="+58"/>
+        <source>Enable Replace-By-Fee</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>With Replace-By-Fee (BIP-125) you can increase a transaction&apos;s fee after it is sent. Without this, a higher fee may be recommended to compensate for increased transaction delay risk.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+65"/>
         <source>Clear &amp;All</source>
         <translation>Clear &amp;All</translation>
     </message>
@@ -2784,7 +2974,7 @@
         <translation>S&amp;end</translation>
     </message>
     <message>
-        <location filename="../sendcoinsdialog.cpp" line="-499"/>
+        <location filename="../sendcoinsdialog.cpp" line="-528"/>
         <source>Copy quantity</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2819,50 +3009,117 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+82"/>
+        <location line="+74"/>
         <source>%1 (%2 blocks)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+129"/>
+        <location line="+22"/>
+        <source>Cr&amp;eate Unsigned</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Creates a Partially Signed Bitcoin Transaction (PSBT) for use with e.g. an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+95"/>
+        <source> from wallet &apos;%1&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+11"/>
+        <source>%1 to &apos;%2&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location line="+5"/>
-        <location line="+5"/>
-        <location line="+4"/>
         <source>%1 to %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+8"/>
+        <source>Do you want to draft this transaction?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
         <source>Are you sure you want to send?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+9"/>
-        <source>added as transaction fee</source>
+        <location line="+5"/>
+        <source>Please, review your transaction proposal. This will produce a Partially Signed Bitcoin Transaction (PSBT) which you can copy and then sign with e.g. an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+15"/>
-        <source>Total Amount %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+3"/>
+        <location line="+43"/>
         <source>or</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+5"/>
-        <source>This transaction signals replaceability (optin-RBF).</source>
+        <location line="-19"/>
+        <source>You can increase the fee later (signals Replace-By-Fee, BIP-125).</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="-22"/>
+        <source>Please, review your transaction.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>Transaction fee</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+16"/>
+        <source>Not signalling Replace-By-Fee, BIP-125.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+14"/>
+        <source>Total Amount</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <source>To review recipient list click &quot;Show Details...&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
         <source>Confirm send coins</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+191"/>
+        <location line="+0"/>
+        <source>Confirm transaction proposal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Copy PSBT to clipboard</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Send</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+23"/>
+        <source>PSBT copied</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+166"/>
+        <source>Watch-only balance:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+24"/>
         <source>The recipient address is not valid. Please recheck.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2893,11 +3150,6 @@
     </message>
     <message>
         <location line="+4"/>
-        <source>The transaction was rejected with the following reason: %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+4"/>
         <source>A fee higher than %1 is considered an absurdly high fee.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2906,13 +3158,8 @@
         <source>Payment request expired.</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <location line="+68"/>
-        <source>Pay only the required fee of %1</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message numerus="yes">
-        <location line="+42"/>
+        <location line="+118"/>
         <source>Estimated to begin confirmation within %n block(s).</source>
         <translation>
             <numerusform>Estimated to begin confirmation within %n block.</numerusform>
@@ -2920,12 +3167,12 @@
         </translation>
     </message>
     <message>
-        <location line="+101"/>
+        <location line="+100"/>
         <source>Warning: Invalid Bitcoin address</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location line="+5"/>
         <source>Warning: Unknown change address</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2949,13 +3196,13 @@
     <name>SendCoinsEntry</name>
     <message>
         <location filename="../forms/sendcoinsentry.ui" line="+155"/>
-        <location line="+539"/>
+        <location line="+550"/>
         <location line="+533"/>
         <source>A&amp;mount:</source>
         <translation>A&amp;mount:</translation>
     </message>
     <message>
-        <location line="-1185"/>
+        <location line="-1199"/>
         <source>Pay &amp;To:</source>
         <translation>Pay &amp;To:</translation>
     </message>
@@ -2970,12 +3217,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-46"/>
-        <source>This is a normal payment.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+39"/>
+        <location line="-7"/>
         <source>The Bitcoin address to send the payment to</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2996,19 +3238,29 @@
     </message>
     <message>
         <location line="+7"/>
-        <location line="+548"/>
+        <location line="+562"/>
         <location line="+533"/>
         <source>Remove this entry</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1021"/>
+        <location line="-1035"/>
+        <source>The amount to send in the selected unit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
         <source>The fee will be deducted from the amount being sent. The recipient will receive less bitcoins than you enter in the amount field. If multiple recipients are selected, the fee is split equally.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+3"/>
         <source>S&amp;ubtract fee from amount</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Use available balance</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3027,12 +3279,13 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1009"/>
+        <location line="-1023"/>
+        <location line="+3"/>
         <source>Enter a label for this address to add it to the list of used addresses</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+47"/>
+        <location line="+58"/>
         <source>A message that was attached to the bitcoin: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the Bitcoin network.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3048,25 +3301,11 @@
         <source>Memo:</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <location filename="../sendcoinsentry.cpp" line="+37"/>
-        <source>Enter a label for this address to add it to your address book</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>SendConfirmationDialog</name>
-    <message>
-        <location filename="../sendcoinsdialog.cpp" line="+83"/>
-        <location line="+5"/>
-        <source>Yes</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>ShutdownWindow</name>
     <message>
-        <location filename="../utilitydialog.cpp" line="+78"/>
+        <location filename="../utilitydialog.cpp" line="+83"/>
         <source>%1 is shutting down...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3100,18 +3339,18 @@
     </message>
     <message>
         <location line="+7"/>
-        <location line="+210"/>
+        <location line="+216"/>
         <source>Choose previously used address</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-200"/>
-        <location line="+210"/>
+        <location line="-206"/>
+        <location line="+216"/>
         <source>Alt+A</source>
         <translation>Alt+A</translation>
     </message>
     <message>
-        <location line="-200"/>
+        <location line="-206"/>
         <source>Paste address from clipboard</source>
         <translation>Paste address from clipboard</translation>
     </message>
@@ -3122,6 +3361,7 @@
     </message>
     <message>
         <location line="+12"/>
+        <location line="+3"/>
         <source>Enter the message you want to sign here</source>
         <translation>Enter the message you want to sign here</translation>
     </message>
@@ -3131,7 +3371,7 @@
         <translation>Signature</translation>
     </message>
     <message>
-        <location line="+27"/>
+        <location line="+30"/>
         <source>Copy the current signature to the system clipboard</source>
         <translation>Copy the current signature to the system clipboard</translation>
     </message>
@@ -3152,12 +3392,12 @@
     </message>
     <message>
         <location line="+3"/>
-        <location line="+143"/>
+        <location line="+157"/>
         <source>Clear &amp;All</source>
         <translation>Clear &amp;All</translation>
     </message>
     <message>
-        <location line="-84"/>
+        <location line="-98"/>
         <source>&amp;Verify Message</source>
         <translation>&amp;Verify Message</translation>
     </message>
@@ -3172,7 +3412,19 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+37"/>
+        <location line="+29"/>
+        <location line="+3"/>
+        <source>The signed message to verify</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <location line="+3"/>
+        <source>The signature given when the message was signed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+9"/>
         <source>Verify the message to ensure it was signed with the specified Bitcoin address</source>
         <translation>Verify the message to ensure it was signed with the specified Bitcoin address</translation>
     </message>
@@ -3187,89 +3439,86 @@
         <translation>Reset all verify message fields</translation>
     </message>
     <message>
-        <location filename="../signverifymessagedialog.cpp" line="+41"/>
+        <location line="-210"/>
         <source>Click &quot;Sign Message&quot; to generate signature</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+83"/>
-        <location line="+80"/>
+        <location filename="../signverifymessagedialog.cpp" line="+117"/>
+        <location line="+99"/>
         <source>The entered address is invalid.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-80"/>
-        <location line="+8"/>
-        <location line="+72"/>
-        <location line="+8"/>
+        <location line="-99"/>
+        <location line="+7"/>
+        <location line="+93"/>
+        <location line="+7"/>
         <source>Please check the address and try again.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-80"/>
-        <location line="+80"/>
+        <location line="-100"/>
+        <location line="+99"/>
         <source>The entered address does not refer to a key.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-72"/>
+        <location line="-91"/>
         <source>Wallet unlock was cancelled.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location line="+11"/>
+        <source>No error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
         <source>Private key for the entered address is not available.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+12"/>
+        <location line="+3"/>
         <source>Message signing failed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+12"/>
         <source>Message signed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+58"/>
+        <location line="+69"/>
         <source>The signature could not be decoded.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+0"/>
-        <location line="+13"/>
+        <location line="+1"/>
+        <location line="+7"/>
         <source>Please check the signature and try again.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+0"/>
+        <location line="-1"/>
         <source>The signature did not match the message digest.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+6"/>
         <source>Message verification failed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="-32"/>
         <source>Message verified.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
-    <name>SplashScreen</name>
-    <message>
-        <location filename="../networkstyle.cpp" line="+19"/>
-        <source>[testnet]</source>
-        <translation>[testnet]</translation>
-    </message>
-</context>
-<context>
     <name>TrafficGraphWidget</name>
     <message>
-        <location filename="../trafficgraphwidget.cpp" line="+80"/>
+        <location filename="../trafficgraphwidget.cpp" line="+81"/>
         <source>KB/s</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3277,7 +3526,7 @@
 <context>
     <name>TransactionDesc</name>
     <message numerus="yes">
-        <location filename="../transactiondesc.cpp" line="+30"/>
+        <location filename="../transactiondesc.cpp" line="+34"/>
         <source>Open for %n more block(s)</source>
         <translation>
             <numerusform>Open for %n more block</numerusform>
@@ -3292,11 +3541,6 @@
     <message>
         <location line="+6"/>
         <source>conflicted with a transaction with %1 confirmations</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+2"/>
-        <source>%1/offline</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3330,25 +3574,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location line="+50"/>
         <source>Status</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+5"/>
-        <source>, has not been successfully broadcast yet</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message numerus="yes">
-        <location line="+2"/>
-        <source>, broadcast through %n node(s)</source>
-        <translation>
-            <numerusform>, broadcast through %n node</numerusform>
-            <numerusform>, broadcast through %n nodes</numerusform>
-        </translation>
-    </message>
-    <message>
-        <location line="+4"/>
+        <location line="+3"/>
         <source>Date</source>
         <translation type="unfinished">Date</translation>
     </message>
@@ -3364,7 +3595,7 @@
     </message>
     <message>
         <location line="+5"/>
-        <location line="+13"/>
+        <location line="+14"/>
         <location line="+72"/>
         <source>From</source>
         <translation type="unfinished"></translation>
@@ -3377,12 +3608,12 @@
     <message>
         <location line="+1"/>
         <location line="+20"/>
-        <location line="+69"/>
+        <location line="+70"/>
         <source>To</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-87"/>
+        <location line="-88"/>
         <source>own address</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3398,16 +3629,16 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+34"/>
+        <location line="+36"/>
         <location line="+12"/>
-        <location line="+53"/>
-        <location line="+26"/>
-        <location line="+55"/>
+        <location line="+54"/>
+        <location line="+30"/>
+        <location line="+60"/>
         <source>Credit</source>
         <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
-        <location line="-144"/>
+        <location line="-154"/>
         <source>matures in %n more block(s)</source>
         <translation>
             <numerusform>matures in %n more block</numerusform>
@@ -3420,14 +3651,14 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+59"/>
-        <location line="+25"/>
-        <location line="+55"/>
+        <location line="+60"/>
+        <location line="+26"/>
+        <location line="+63"/>
         <source>Debit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-70"/>
+        <location line="-79"/>
         <source>Total debit</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3442,18 +3673,18 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="+22"/>
         <source>Net amount</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+6"/>
-        <location line="+11"/>
+        <location line="+12"/>
         <source>Message</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-9"/>
+        <location line="-10"/>
         <source>Comment</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3469,16 +3700,26 @@
     </message>
     <message>
         <location line="+1"/>
+        <source>Transaction virtual size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
         <source>Output index</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+18"/>
+        <location line="+16"/>
+        <source> (Certificate was not verified)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
         <source>Merchant</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+8"/>
         <source>Generated coins must mature %1 blocks before they can be spent. When you generated this block, it was broadcast to the network to be added to the block chain. If it fails to get into the chain, its state will change to &quot;not accepted&quot; and it won&apos;t be spendable. This may occasionally happen if another node generates a block within a few seconds of yours.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3498,7 +3739,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location line="+21"/>
         <source>Amount</source>
         <translation type="unfinished">Amount</translation>
     </message>
@@ -3531,7 +3772,7 @@
 <context>
     <name>TransactionTableModel</name>
     <message>
-        <location filename="../transactiontablemodel.cpp" line="+248"/>
+        <location filename="../transactiontablemodel.cpp" line="+225"/>
         <source>Date</source>
         <translation type="unfinished">Date</translation>
     </message>
@@ -3556,11 +3797,6 @@
     <message>
         <location line="+3"/>
         <source>Open until %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>Offline</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3591,11 +3827,6 @@
     <message>
         <location line="+3"/>
         <source>Immature (%1 confirmations, will be available after %2)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>This block was not received by any other nodes and will probably not be accepted!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3634,12 +3865,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+15"/>
+        <location line="+16"/>
         <source>(n/a)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+213"/>
+        <location line="+208"/>
         <source>(no label)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3677,7 +3908,7 @@
 <context>
     <name>TransactionView</name>
     <message>
-        <location filename="../transactionview.cpp" line="+70"/>
+        <location filename="../transactionview.cpp" line="+69"/>
         <location line="+16"/>
         <source>All</source>
         <translation type="unfinished"></translation>
@@ -3738,17 +3969,17 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+6"/>
-        <source>Enter address or label to search</source>
+        <location line="+5"/>
+        <source>Enter address, transaction id, or label to search</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+4"/>
         <source>Min amount</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+37"/>
+        <location line="+51"/>
         <source>Abandon transaction</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3798,7 +4029,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+193"/>
+        <location line="+194"/>
         <source>Export Transaction History</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3863,7 +4094,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+166"/>
+        <location line="+171"/>
         <source>Range:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3876,15 +4107,33 @@
 <context>
     <name>UnitDisplayStatusBarControl</name>
     <message>
-        <location filename="../bitcoingui.cpp" line="+129"/>
+        <location filename="../bitcoingui.cpp" line="+156"/>
         <source>Unit to show amounts in. Click to select another unit.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>WalletController</name>
+    <message>
+        <location filename="../walletcontroller.cpp" line="-219"/>
+        <source>Close wallet</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Are you sure you wish to close the wallet &lt;i&gt;%1&lt;/i&gt;?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Closing the wallet for too long can result in having to resync the entire chain if pruning is enabled.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>WalletFrame</name>
     <message>
-        <location filename="../walletframe.cpp" line="+27"/>
+        <location filename="../walletframe.cpp" line="+28"/>
         <source>No wallet has been loaded.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3892,29 +4141,35 @@
 <context>
     <name>WalletModel</name>
     <message>
-        <location filename="../walletmodel.cpp" line="+291"/>
+        <location filename="../walletmodel.cpp" line="+195"/>
         <source>Send Coins</source>
         <translation type="unfinished">Send Coins</translation>
     </message>
     <message>
-        <location line="+387"/>
-        <location line="+46"/>
-        <location line="+9"/>
+        <location line="+288"/>
+        <location line="+45"/>
+        <location line="+13"/>
+        <location line="+5"/>
         <source>Fee bump error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-55"/>
+        <location line="-63"/>
         <source>Increasing transaction fee failed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+8"/>
         <source>Do you want to increase the fee?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+0"/>
+        <source>Do you want to draft a transaction with fee increase?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
         <source>Current fee:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3934,13 +4189,28 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+22"/>
+        <location line="+21"/>
+        <source>Can&apos;t draft transaction.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>PSBT copied</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
         <source>Can&apos;t sign transaction.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location line="+5"/>
         <source>Could not commit transaction</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+20"/>
+        <source>default wallet</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3957,7 +4227,7 @@
         <translation type="unfinished">Export the data in the current tab to a file</translation>
     </message>
     <message>
-        <location line="+201"/>
+        <location line="+182"/>
         <source>Backup Wallet</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3986,46 +4256,21 @@
         <source>The wallet data was successfully saved to %1.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location line="+44"/>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>bitcoin-core</name>
     <message>
-        <location filename="../bitcoinstrings.cpp" line="+341"/>
-        <source>Options:</source>
-        <translation>Options:</translation>
-    </message>
-    <message>
-        <location line="+31"/>
-        <source>Specify data directory</source>
-        <translation>Specify data directory</translation>
-    </message>
-    <message>
-        <location line="-95"/>
-        <source>Connect to a node to retrieve peer addresses, and disconnect</source>
-        <translation>Connect to a node to retrieve peer addresses, and disconnect</translation>
-    </message>
-    <message>
-        <location line="+98"/>
-        <source>Specify your own public address</source>
-        <translation>Specify your own public address</translation>
-    </message>
-    <message>
-        <location line="-114"/>
-        <source>Accept command line and JSON-RPC commands</source>
-        <translation>Accept command line and JSON-RPC commands</translation>
-    </message>
-    <message>
-        <location line="-205"/>
+        <location filename="../bitcoinstrings.cpp" line="+28"/>
         <source>Distributed under the MIT software license, see the accompanying file %s or %s</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+44"/>
-        <source>If &lt;category&gt; is not supplied or if &lt;category&gt; = 1, output all debugging information.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+36"/>
+        <location line="+20"/>
         <source>Prune configured below the minimum of %d MiB.  Please use a higher number.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4035,107 +4280,47 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+18"/>
-        <source>Rescans are not possible in pruned mode. You will need to use -reindex which will download the whole blockchain again.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+148"/>
+        <location line="+68"/>
         <source>Error: A fatal internal error occurred, see debug.log for details</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+3"/>
-        <source>Fee (in %s/kB) to add to transactions you send (default: %s)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+41"/>
+        <location line="+26"/>
         <source>Pruning blockstore...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+11"/>
-        <source>Run in the background as a daemon and accept commands</source>
-        <translation>Run in the background as a daemon and accept commands</translation>
-    </message>
-    <message>
-        <location line="+37"/>
+        <location line="+30"/>
         <source>Unable to start HTTP server. See debug log for details.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-384"/>
-        <source>Bitcoin Core</source>
-        <translation type="unfinished">Bitcoin Core</translation>
-    </message>
-    <message>
-        <location line="+1"/>
+        <location line="-162"/>
         <source>The %s developers</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+7"/>
-        <source>A fee rate (in %s/kB) that will be used when fee estimation has insufficient data (default: %s)</source>
+        <location line="+4"/>
+        <source>Can&apos;t generate a change-address key. No keys in the internal keypool and can&apos;t generate any keys.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+3"/>
-        <source>Accept relayed transactions received from whitelisted peers even when not relaying transactions (default: %d)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+7"/>
-        <source>Bind to given address and always listen on it. Use [host]:port notation for IPv6</source>
-        <translation>Bind to given address and always listen on it. Use [host]:port notation for IPv6</translation>
-    </message>
-    <message>
-        <location line="+12"/>
         <source>Cannot obtain a lock on data directory %s. %s is probably already running.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+8"/>
-        <source>Delete all wallet transactions and only recover those parts of the blockchain through -rescan on startup</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+18"/>
-        <source>Error reading %s! All keys read correctly, but transaction data or address book entries might be missing or incorrect.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+5"/>
-        <source>Exclude debugging information for a category. Can be used in conjunction with -debug=1 to output debug logs for all categories except one or more specified categories.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+7"/>
-        <source>Execute command when a wallet transaction changes (%s in cmd is replaced by TxID)</source>
-        <translation>Execute command when a wallet transaction changes (%s in cmd is replaced by TxID)</translation>
-    </message>
-    <message>
-        <location line="+6"/>
-        <source>Extra transactions to keep in memory for compact block reconstructions (default: %u)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+20"/>
-        <source>If this block is in the chain assume that it and its ancestors are valid and potentially skip their script verification (0 to verify all, default: %s, testnet: %s)</source>
+        <location line="+2"/>
+        <source>Cannot provide specific connections and have addrman find outgoing connections at the same.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+10"/>
-        <source>Maximum allowed median peer time offset adjustment. Local perspective of time may be influenced by peers forward or backward by this amount. (default: %u seconds)</source>
+        <source>Error reading %s! All keys read correctly, but transaction data or address book entries might be missing or incorrect.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+7"/>
-        <source>Maximum total fees (in %s) to use in a single wallet transaction or raw transaction; setting this too low may abort large transactions (default: %s)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+7"/>
+        <location line="+11"/>
         <source>Please check that your computer&apos;s date and time are correct! If your clock is wrong, %s will not work properly.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4146,31 +4331,11 @@
     </message>
     <message>
         <location line="+8"/>
-        <source>Query for peer addresses via DNS lookup, if low on addresses (default: 1 unless -connect used)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+6"/>
-        <source>Reduce storage requirements by enabling pruning (deleting) of old blocks. This allows the pruneblockchain RPC to be called to delete specific blocks, and enables automatic pruning of old blocks if a target size in MiB is provided. This mode is incompatible with -txindex and -rescan. Warning: Reverting this setting requires re-downloading the entire blockchain. (default: 0 = disable pruning blocks, 1 = allow manual pruning via RPC, &gt;%u = automatically prune block files to stay under the specified target size in MiB)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+12"/>
-        <source>Set lowest fee rate (in %s/kB) for transactions to be included in block creation. (default: %s)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>Set the number of script verification threads (%u to %d, 0 = auto, &lt;0 = leave that many cores free, default: %d)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+8"/>
         <source>The block database contains a block which appears to be from the future. This may be due to your computer&apos;s date and time being set incorrectly. Only rebuild the block database if you are sure that your computer&apos;s date and time are correct</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+12"/>
+        <location line="+7"/>
         <source>This is a pre-release test build - use at your own risk - do not use for mining or merchant applications</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4180,7 +4345,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+15"/>
+        <location line="+8"/>
         <source>Unable to replay blocks. You will need to rebuild the database using -reindex-chainstate.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4190,37 +4355,17 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+9"/>
-        <source>Use UPnP to map the listening port (default: 1 when listening and no -proxy)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+8"/>
-        <source>Username and hashed password for JSON-RPC connections. The field &lt;userpw&gt; comes in the format: &lt;USERNAME&gt;:&lt;SALT&gt;$&lt;HASH&gt;. A canonical python script is included in share/rpcuser. The client then connects normally using the rpcuser=&lt;USERNAME&gt;/rpcpassword=&lt;PASSWORD&gt; pair of arguments. This option can be specified multiple times</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+6"/>
-        <source>Wallet will not create transactions that violate mempool chain limits (default: %u)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+3"/>
+        <location line="+5"/>
         <source>Warning: The network does not appear to fully agree! Some miners appear to be experiencing issues.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="+7"/>
         <source>Warning: We do not appear to fully agree with our peers! You may need to upgrade, or other nodes may need to upgrade.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+3"/>
-        <source>Whether to save the mempool on shutdown and load on restart (default: %u)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+11"/>
+        <location line="+6"/>
         <source>%d of last 100 blocks have unexpected version</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4230,39 +4375,9 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+4"/>
-        <source>(press q to shutdown and continue later)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>-maxmempool must be at least %d MB</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>&lt;category&gt; can be:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+2"/>
-        <source>Accept connections from outside (default: 1 if no -proxy or -connect)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+5"/>
-        <source>Append comment to the user agent string</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Attempt to recover private keys from a corrupt wallet on startup</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+2"/>
-        <source>Block creation options:</source>
-        <translation>Block creation options:</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -4271,17 +4386,12 @@
     </message>
     <message>
         <location line="+2"/>
-        <source>Chain selection options:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
         <source>Change index out of range</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+3"/>
-        <source>Connection options:</source>
+        <location line="+1"/>
+        <source>Config setting for %s only applied on %s network when in [%s] section.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4296,12 +4406,12 @@
     </message>
     <message>
         <location line="+1"/>
-        <source>Debugging/Testing options:</source>
+        <source>Could not find asmap file %s</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Do not load the wallet and disable wallet RPC calls</source>
+        <source>Could not parse asmap file %s</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4311,31 +4421,6 @@
     </message>
     <message>
         <location line="+2"/>
-        <source>Enable publish hash block in &lt;address&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Enable publish hash transaction in &lt;address&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Enable publish raw block in &lt;address&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Enable publish raw transaction in &lt;address&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Enable transaction replacement in the memory pool (default: %u)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
         <source>Error initializing block database</source>
         <translation>Error initializing block database</translation>
     </message>
@@ -4351,6 +4436,11 @@
     </message>
     <message>
         <location line="+1"/>
+        <source>Error loading %s: Private keys can only be disabled during creation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
         <source>Error loading %s: Wallet corrupted</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4360,42 +4450,47 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+1"/>
         <source>Error loading block database</source>
         <translation>Error loading block database</translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="+2"/>
         <source>Error opening block database</source>
         <translation>Error opening block database</translation>
     </message>
     <message>
-        <location line="+5"/>
-        <source>Error: Disk space is low!</source>
-        <translation>Error: Disk space is low!</translation>
-    </message>
-    <message>
-        <location line="+1"/>
+        <location line="+6"/>
         <source>Failed to listen on any port. Use -listen=0 if you want this.</source>
         <translation>Failed to listen on any port. Use -listen=0 if you want this.</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+1"/>
+        <source>Failed to rescan the wallet during initialization</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
         <source>Importing...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+1"/>
         <source>Incorrect or no genesis block found. Wrong datadir for network?</source>
         <translation>Incorrect or no genesis block found. Wrong datadir for network?</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+1"/>
         <source>Initialization sanity check failed. %s is shutting down.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+4"/>
+        <source>Invalid P2P permission: &apos;%s&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
         <source>Invalid amount for -%s=&lt;amount&gt;: &apos;%s&apos;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4410,44 +4505,44 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+4"/>
-        <source>Keep the transaction memory pool below &lt;n&gt; megabytes (default: %u)</source>
+        <location line="+22"/>
+        <source>Specified blocks directory &quot;%s&quot; does not exist.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+22"/>
+        <source>Unknown address type &apos;%s&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Unknown change type &apos;%s&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+4"/>
+        <source>Upgrading txindex database</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-46"/>
         <source>Loading P2P addresses...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-15"/>
+        <source>Error: Disk space is too low!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+16"/>
         <source>Loading banlist...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+3"/>
-        <source>Location of the auth cookie (default: data dir)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+7"/>
+        <location line="+4"/>
         <source>Not enough file descriptors available.</source>
         <translation>Not enough file descriptors available.</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Only connect to nodes in network &lt;net&gt; (ipv4, ipv6 or onion)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+4"/>
-        <source>Print this help message and exit</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Print version and exit</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4455,227 +4550,87 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>Prune mode is incompatible with -txindex.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+3"/>
-        <source>Rebuild chain state and block index from the blk*.dat files on disk</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Rebuild chain state from the currently indexed blocks</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+4"/>
         <source>Replaying blocks...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+2"/>
         <source>Rewinding blocks...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+4"/>
-        <source>Set database cache size in megabytes (%d to %d, default: %d)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>Set maximum block size in bytes (default: %d)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+9"/>
-        <source>Specify wallet file (within data directory)</source>
-        <translation>Specify wallet file (within data directory)</translation>
-    </message>
-    <message>
-        <location line="+4"/>
+        <location line="+8"/>
         <source>The source code is available from %s.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+11"/>
+        <location line="+9"/>
         <source>Transaction fee and change calculation failed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+5"/>
         <source>Unable to bind to %s on this computer. %s is probably already running.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+3"/>
-        <source>Unsupported argument -benchmark ignored, use -debug=bench.</source>
+        <source>Unable to generate keys</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1"/>
-        <source>Unsupported argument -debugnet ignored, use -debug=net.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Unsupported argument -tor found, use -onion.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
+        <location line="+6"/>
         <source>Unsupported logging category %s=%s.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+1"/>
         <source>Upgrading UTXO database</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1"/>
-        <source>Use UPnP to map the listening port (default: %u)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Use the test chain</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>User Agent comment (%s) contains unsafe characters.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+1"/>
         <source>Verifying blocks...</source>
         <translation>Verifying blocks...</translation>
     </message>
     <message>
         <location line="+2"/>
-        <source>Wallet %s resides outside data directory %s</source>
-        <translation>Wallet %s resides outside data directory %s</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Wallet debugging/testing options:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
         <source>Wallet needed to be rewritten: restart %s to complete</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1"/>
-        <source>Wallet options:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="-387"/>
-        <source>Allow JSON-RPC connections from specified source. Valid for &lt;ip&gt; are a single IP (e.g. 1.2.3.4), a network/netmask (e.g. 1.2.3.4/255.255.255.0) or a network/CIDR (e.g. 1.2.3.4/24). This option can be specified multiple times</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+7"/>
-        <source>Bind to given address and whitelist peers connecting to it. Use [host]:port notation for IPv6</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+14"/>
-        <source>Create new files with system default permissions, instead of umask 077 (only effective with disabled wallet functionality)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+6"/>
-        <source>Discover own IP addresses (default: 1 when listening and no -externalip or -proxy)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+18"/>
+        <location line="-151"/>
         <source>Error: Listening for incoming connections failed (listen returned error %s)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+6"/>
-        <source>Execute command when a relevant alert is received or we see a really long fork (%s in cmd is replaced by message)</source>
-        <translation>Execute command when a relevant alert is received or we see a really long fork (%s in cmd is replaced by message)</translation>
-    </message>
-    <message>
-        <location line="+12"/>
-        <source>Fees (in %s/kB) smaller than this are considered zero fee for relaying, mining and transaction creation (default: %s)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+14"/>
-        <source>If paytxfee is not set, include enough fee so transactions begin confirmation on average within n blocks (default: %u)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+7"/>
+        <location line="+5"/>
         <source>Invalid amount for -maxtxfee=&lt;amount&gt;: &apos;%s&apos; (must be at least the minrelay fee of %s to prevent stuck transactions)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+10"/>
-        <source>Maximum size of data in data carrier transactions we relay and mine (default: %u)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+24"/>
-        <source>Randomize credentials for every proxy connection. This enables Tor stream isolation (default: %u)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+36"/>
+        <location line="+19"/>
         <source>The transaction amount is too small to send after the fee has been deducted</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+34"/>
-        <source>Use hierarchical deterministic key generation (HD) after BIP32. Only has effect during wallet creation/first start</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+33"/>
-        <source>Whitelisted peers cannot be DoS banned and their transactions are always relayed, even if they are already in the mempool, useful e.g. for a gateway</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+3"/>
+        <location line="+31"/>
         <source>You need to rebuild the database using -reindex to go back to unpruned mode.  This will redownload the entire blockchain</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+7"/>
-        <source>(default: %u)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+6"/>
-        <source>Accept public REST requests (default: %u)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+6"/>
-        <source>Automatically create Tor hidden service (default: %d)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+7"/>
-        <source>Connect through SOCKS5 proxy</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+19"/>
-        <source>Error loading %s: You can&apos;t disable HD on an already existing HD wallet</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+6"/>
+        <location line="+27"/>
         <source>Error reading from database, shutting down.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4685,17 +4640,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+8"/>
-        <source>Imports blocks from external blk000??.dat file on startup</source>
+        <location line="+2"/>
+        <source>Error: Disk space is low for %s</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+3"/>
-        <source>Information</source>
-        <translation>Information</translation>
-    </message>
-    <message>
-        <location line="+3"/>
+        <location line="+8"/>
         <source>Invalid -onion address or hostname: &apos;%s&apos;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4705,7 +4655,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="+5"/>
         <source>Invalid amount for -paytxfee=&lt;amount&gt;: &apos;%s&apos; (must be at least %s)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4715,23 +4665,13 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1"/>
-        <source>Keep at most &lt;n&gt; unconnectable transactions in memory (default: %u)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+14"/>
+        <location line="+5"/>
         <source>Need to specify a port with -whitebind: &apos;%s&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1"/>
-        <source>Node relay options:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+11"/>
-        <source>RPC server options:</source>
+        <location line="+3"/>
+        <source>Prune mode is incompatible with -blockfilterindex.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4741,23 +4681,8 @@
     </message>
     <message>
         <location line="+4"/>
-        <source>Rescan the block chain for missing wallet transactions on startup</source>
+        <source>Section [%s] is not recognized.</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+4"/>
-        <source>Send trace/debug info to console instead of debug.log file</source>
-        <translation>Send trace/debug info to console instead of debug.log file</translation>
-    </message>
-    <message>
-        <location line="+7"/>
-        <source>Show all debugging options (usage: --help -help-debug)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Shrink debug.log file on client startup (default: 1 when no -debug)</source>
-        <translation>Shrink debug.log file on client startup (default: 1 when no -debug)</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4765,7 +4690,28 @@
         <translation>Signing transaction failed</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="+1"/>
+        <source>Specified -walletdir &quot;%s&quot; does not exist</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Specified -walletdir &quot;%s&quot; is a relative path</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Specified -walletdir &quot;%s&quot; is not a directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>The specified config file %s does not exist
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
         <source>The transaction amount is too small to pay the fee</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4775,27 +4721,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+4"/>
-        <source>Tor control port password (default: empty)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Tor control port to use if onion listening enabled (default: %s)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
+        <location line="+3"/>
         <source>Transaction amount too small</source>
         <translation>Transaction amount too small</translation>
     </message>
     <message>
         <location line="+5"/>
-        <source>Transaction too large for fee policy</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
         <source>Transaction too large</source>
         <translation>Transaction too large</translation>
     </message>
@@ -4805,38 +4736,28 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+8"/>
-        <source>Upgrade wallet to latest format on startup</source>
+        <location line="+2"/>
+        <source>Unable to create the PID file &apos;%s&apos;: %s</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+5"/>
-        <source>Username for JSON-RPC connections</source>
-        <translation>Username for JSON-RPC connections</translation>
+        <location line="+1"/>
+        <source>Unable to generate initial keys</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+3"/>
+        <source>Unknown -blockfilterindex value %s.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+9"/>
         <source>Verifying wallet(s)...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+5"/>
-        <source>Warning</source>
-        <translation>Warning</translation>
-    </message>
-    <message>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>Warning: unknown new rules activated (versionbit %i)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Whether to operate in a blocks only mode (default: %u)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>You need to rebuild the database using -reindex to change -txindex</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4845,297 +4766,42 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1"/>
-        <source>ZeroMQ notification options:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="-77"/>
-        <source>Password for JSON-RPC connections</source>
-        <translation>Password for JSON-RPC connections</translation>
-    </message>
-    <message>
-        <location line="-259"/>
-        <source>Execute command when the best block changes (%s in cmd is replaced by block hash)</source>
-        <translation>Execute command when the best block changes (%s in cmd is replaced by block hash)</translation>
-    </message>
-    <message>
-        <location line="+182"/>
-        <source>Allow DNS lookups for -addnode, -seednode and -connect</source>
-        <translation>Allow DNS lookups for -addnode, -seednode and -connect</translation>
-    </message>
-    <message>
-        <location line="-251"/>
-        <source>(1 = keep tx meta data e.g. account owner and payment request information, 2 = drop tx meta data)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+3"/>
+        <location line="-174"/>
         <source>-maxtxfee is set very high! Fees this large could be paid on a single transaction.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+19"/>
-        <source>Bind to given address to listen for JSON-RPC connections. This option is ignored unless -rpcallowip is also passed. Port is optional and overrides -rpcport. Use [host]:port notation for IPv6. This option can be specified multiple times (default: 127.0.0.1 and ::1 i.e., localhost, or if -rpcallowip has been specified, 0.0.0.0 and :: i.e., all addresses)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+8"/>
-        <source>Connect only to the specified node(s); -connect=0 disables automatic connections</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+15"/>
-        <source>Do not keep transactions in the mempool longer than &lt;n&gt; hours (default: %u)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+2"/>
-        <source>Equivalent bytes per sigop in transactions for relay and mining (default: %u)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+2"/>
-        <source>Error loading %s: You can&apos;t enable HD on an already existing non-HD wallet</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+2"/>
-        <source>Error loading wallet %s. -wallet parameter must only specify a filename (not a path).</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+27"/>
-        <source>Fees (in %s/kB) smaller than this are considered zero fee for transaction creation (default: %s)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>Force relay of transactions from whitelisted peers even if they violate local relay policy (default: %d)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>How thorough the block verification of -checkblocks is (0-4, default: %u)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+15"/>
-        <source>Maintain a full transaction index, used by the getrawtransaction rpc call (default: %u)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+13"/>
-        <source>Number of seconds to keep misbehaving peers from reconnecting (default: %u)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+2"/>
-        <source>Output debugging information (default: %u, supplying &lt;category&gt; is optional)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+37"/>
-        <source>Sets the serialization of raw transaction or block hex returned in non-verbose mode, non-segwit(0) or segwit(1) (default: %d)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>Support filtering of blocks and transaction with bloom filters (default: %u)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+7"/>
-        <source>The fee rate (in %s/kB) that indicates your tolerance for discarding change by adding it to the fee (default: %s). Note: An output is discarded if it is dust at this rate, but we will always discard up to the dust relay fee and a discard fee above that is limited by the fee estimate for the longest target</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+13"/>
+        <location line="+53"/>
         <source>This is the transaction fee you may pay when fee estimates are not available.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+2"/>
-        <source>This product includes software developed by the OpenSSL Project for use in the OpenSSL Toolkit %s and cryptographic software written by Eric Young and UPnP software written by Thomas Bernard.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+4"/>
         <source>Total length of network version string (%i) exceeds maximum length (%i). Reduce the number or size of uacomments.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+3"/>
-        <source>Tries to keep outbound traffic under the given target (in MiB per 24h), 0 = no limit (default: %d)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+9"/>
-        <source>Unsupported argument -socks found. Setting SOCKS version isn&apos;t possible anymore, only SOCKS5 proxies are supported.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>Unsupported argument -whitelistalwaysrelay ignored, use -whitelistrelay and/or -whitelistforcerelay.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+8"/>
-        <source>Use separate SOCKS5 proxy to reach peers via Tor hidden services (default: %s)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+15"/>
-        <source>Warning: Unknown block versions being mined! It&apos;s possible unknown rules are in effect</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+3"/>
+        <location line="+14"/>
         <source>Warning: Wallet file corrupt, data salvaged! Original %s saved as %s in %s; if your balance or transactions are incorrect you should restore from a backup.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+9"/>
-        <source>Whitelist peers connecting from the given IP address (e.g. 1.2.3.4) or CIDR notated network (e.g. 1.2.3.0/24). Can be specified multiple times.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+11"/>
+        <location line="+12"/>
         <source>%s is set very high!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1"/>
-        <source>(default: %s)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+10"/>
-        <source>Always query for peer addresses via DNS lookup (default: %u)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+31"/>
-        <source>Error loading wallet %s. -wallet filename must be a regular file.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
+        <location line="+20"/>
         <source>Error loading wallet %s. Duplicate -wallet filename specified.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1"/>
-        <source>Error loading wallet %s. Invalid characters in -wallet filename.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+9"/>
-        <source>How many blocks to check at startup (default: %u, 0 = all)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>Include IP addresses in debug output (default: %u)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+14"/>
-        <source>Keypool ran out, please call keypoolrefill first</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Listen for JSON-RPC connections on &lt;port&gt; (default: %u or testnet: %u)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Listen for connections on &lt;port&gt; (default: %u or testnet: %u)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+6"/>
-        <source>Maintain at most &lt;n&gt; connections to peers (default: %u)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Make the wallet broadcast transactions</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Maximum per-connection receive buffer, &lt;n&gt;*1000 bytes (default: %u)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Maximum per-connection send buffer, &lt;n&gt;*1000 bytes (default: %u)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+7"/>
-        <source>Prepend debug output with timestamp (default: %u)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+10"/>
-        <source>Relay and mine data carrier transactions (default: %u)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Relay non-P2SH multisig (default: %u)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+7"/>
-        <source>Send transactions with full-RBF opt-in enabled (default: %u)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+2"/>
-        <source>Set key pool size to &lt;n&gt; (default: %u)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Set maximum BIP141 block weight (default: %d)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+2"/>
-        <source>Set the number of threads to service RPC calls (default: %d)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+4"/>
-        <source>Specify configuration file (default: %s)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Specify connection timeout in milliseconds (minimum: 1, default: %d)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+2"/>
-        <source>Specify pid file (default: %s)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>Spend unconfirmed change when sending transactions (default: %u)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
+        <location line="+41"/>
         <source>Starting network threads...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+4"/>
         <source>The wallet will avoid paying less than the minimum relay fee.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5150,12 +4816,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1"/>
-        <source>Threshold for disconnecting misbehaving peers (default: %u)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+4"/>
+        <location line="+2"/>
         <source>Transaction amounts must not be negative</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5170,54 +4831,59 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+11"/>
         <source>Unknown network specified in -onlynet: &apos;%s&apos;</source>
         <translation>Unknown network specified in -onlynet: &apos;%s&apos;</translation>
     </message>
     <message>
-        <location line="-82"/>
+        <location line="-52"/>
         <source>Insufficient funds</source>
         <translation>Insufficient funds</translation>
     </message>
     <message>
-        <location line="+15"/>
+        <location line="-102"/>
+        <source>Cannot upgrade a non HD split wallet without upgrading to support pre split keypool. Please use -upgradewallet=169900 or -upgradewallet with no version specified.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+12"/>
+        <source>Fee estimation failed. Fallbackfee is disabled. Wait a few blocks or enable -fallbackfee.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+41"/>
+        <source>Warning: Private keys detected in wallet {%s} with disabled private keys</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+21"/>
+        <source>Cannot write to data directory &apos;%s&apos;; check permissions.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+39"/>
         <source>Loading block index...</source>
         <translation>Loading block index...</translation>
     </message>
     <message>
-        <location line="-66"/>
-        <source>Add a node to connect to and attempt to keep the connection open</source>
-        <translation>Add a node to connect to and attempt to keep the connection open</translation>
-    </message>
-    <message>
-        <location line="+67"/>
+        <location line="+1"/>
         <source>Loading wallet...</source>
         <translation>Loading wallet...</translation>
     </message>
     <message>
-        <location line="-60"/>
+        <location line="-42"/>
         <source>Cannot downgrade wallet</source>
         <translation>Cannot downgrade wallet</translation>
     </message>
     <message>
-        <location line="+2"/>
-        <source>Cannot write default address</source>
-        <translation>Cannot write default address</translation>
-    </message>
-    <message>
-        <location line="+84"/>
+        <location line="+51"/>
         <source>Rescanning...</source>
         <translation>Rescanning...</translation>
     </message>
     <message>
-        <location line="-73"/>
+        <location line="-41"/>
         <source>Done loading</source>
         <translation>Done loading</translation>
-    </message>
-    <message>
-        <location line="+19"/>
-        <source>Error</source>
-        <translation>Error</translation>
     </message>
 </context>
 </TS>

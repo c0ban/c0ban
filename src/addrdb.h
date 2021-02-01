@@ -1,13 +1,14 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2016 The Bitcoin Core developers
+// Copyright (c) 2009-2019 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #ifndef BITCOIN_ADDRDB_H
 #define BITCOIN_ADDRDB_H
 
-#include "fs.h"
-#include "serialize.h"
+#include <fs.h>
+#include <net_types.h> // For banmap_t
+#include <serialize.h>
 
 #include <string>
 #include <map>
@@ -37,21 +38,18 @@ public:
         SetNull();
     }
 
-    CBanEntry(int64_t nCreateTimeIn)
+    explicit CBanEntry(int64_t nCreateTimeIn)
     {
         SetNull();
         nCreateTime = nCreateTimeIn;
     }
 
-    ADD_SERIALIZE_METHODS;
-
-    template <typename Stream, typename Operation>
-    inline void SerializationOp(Stream& s, Operation ser_action) {
-        READWRITE(this->nVersion);
-        READWRITE(nCreateTime);
-        READWRITE(nBanUntil);
-        READWRITE(banReason);
+    explicit CBanEntry(int64_t n_create_time_in, BanReason ban_reason_in) : CBanEntry(n_create_time_in)
+    {
+        banReason = ban_reason_in;
     }
+
+    SERIALIZE_METHODS(CBanEntry, obj) { READWRITE(obj.nVersion, obj.nCreateTime, obj.nBanUntil, obj.banReason); }
 
     void SetNull()
     {
@@ -61,7 +59,7 @@ public:
         banReason = BanReasonUnknown;
     }
 
-    std::string banReasonToString()
+    std::string banReasonToString() const
     {
         switch (banReason) {
         case BanReasonNodeMisbehaving:
@@ -73,8 +71,6 @@ public:
         }
     }
 };
-
-typedef std::map<CSubNet, CBanEntry> banmap_t;
 
 /** Access to the (IP) address database (peers.dat) */
 class CAddrDB
@@ -92,9 +88,9 @@ public:
 class CBanDB
 {
 private:
-    fs::path pathBanlist;
+    const fs::path m_ban_list_path;
 public:
-    CBanDB();
+    explicit CBanDB(fs::path ban_list_path);
     bool Write(const banmap_t& banSet);
     bool Read(banmap_t& banSet);
 };

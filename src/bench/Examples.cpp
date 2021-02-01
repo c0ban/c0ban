@@ -1,21 +1,20 @@
-// Copyright (c) 2015-2016 The Bitcoin Core developers
+// Copyright (c) 2015-2019 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include "bench.h"
-#include "validation.h"
-#include "utiltime.h"
+#include <bench/bench.h>
+#include <util/time.h>
 
 // Sanity test: this should loop ten times, and
 // min/max/average should be close to 100ms.
 static void Sleep100ms(benchmark::State& state)
 {
     while (state.KeepRunning()) {
-        MilliSleep(100);
+        UninterruptibleSleep(std::chrono::milliseconds{100});
     }
 }
 
-BENCHMARK(Sleep100ms);
+BENCHMARK(Sleep100ms, 10);
 
 // Extremely fast-running benchmark:
 #include <math.h>
@@ -31,4 +30,4 @@ static void Trig(benchmark::State& state)
     }
 }
 
-BENCHMARK(Trig);
+BENCHMARK(Trig, 12 * 1000 * 1000);

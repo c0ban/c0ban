@@ -1,15 +1,9 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2016 The Bitcoin Core developers
-// Copyright (c) 2017-2018 The Bitcoin ABC developers
-// Copyright (c) 2017-2018 The Bitcoin Gold developers
-// Copyright (c) 2017-2018 The c0ban Core developers
+// Copyright (c) 2009-2018 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
-//
-// Implementing replay protection(such as when assigning ForkID at transaction signature) with reference to Bitcoin ABC and Bitcoin Gold.
 
-
-#include "script_error.h"
+#include <script/script_error.h>
 
 const char* ScriptErrorString(const ScriptError serror)
 {
@@ -64,7 +58,7 @@ const char* ScriptErrorString(const ScriptError serror)
         case SCRIPT_ERR_MINIMALDATA:
             return "Data push larger than necessary";
         case SCRIPT_ERR_SIG_PUSHONLY:
-            return "Only non-push operators allowed in signatures";
+            return "Only push operators allowed in signatures";
         case SCRIPT_ERR_SIG_HIGH_S:
             return "Non-canonical signature: S value is unnecessarily high";
         case SCRIPT_ERR_SIG_NULLDUMMY:
@@ -79,6 +73,8 @@ const char* ScriptErrorString(const ScriptError serror)
             return "Witness version reserved for soft-fork upgrades";
         case SCRIPT_ERR_PUBKEYTYPE:
             return "Public key is neither compressed or uncompressed";
+        case SCRIPT_ERR_CLEANSTACK:
+            return "Extra items left on stack after execution";
         case SCRIPT_ERR_WITNESS_PROGRAM_WRONG_LENGTH:
             return "Witness program has incorrect length";
         case SCRIPT_ERR_WITNESS_PROGRAM_WITNESS_EMPTY:
@@ -93,10 +89,10 @@ const char* ScriptErrorString(const ScriptError serror)
             return "Witness provided for non-witness script";
         case SCRIPT_ERR_WITNESS_PUBKEYTYPE:
             return "Using non-compressed keys in segwit";
-        case SCRIPT_ERR_ILLEGAL_FORKID:
-            return "Illegal use of SIGHASH_FORKID";
-        case SCRIPT_ERR_MUST_USE_FORKID:
-            return "Signature must use SIGHASH_FORKID";
+        case SCRIPT_ERR_OP_CODESEPARATOR:
+            return "Using OP_CODESEPARATOR in non-witness script";
+        case SCRIPT_ERR_SIG_FINDANDDELETE:
+            return "Signature is found in scriptCode";
         case SCRIPT_ERR_UNKNOWN_ERROR:
         case SCRIPT_ERR_ERROR_COUNT:
         default: break;

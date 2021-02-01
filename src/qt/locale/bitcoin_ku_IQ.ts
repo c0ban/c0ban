@@ -25,6 +25,14 @@
         <source>&amp;Delete</source>
         <translation>&amp;سڕینەوە</translation>
     </message>
+    <message>
+        <source>&amp;Copy Address</source>
+        <translation>&amp;ڕوونووسکردن ناوونیشان</translation>
+    </message>
+    <message>
+        <source>&amp;Edit</source>
+        <translation>&amp;دەسکاریکردن</translation>
+    </message>
     </context>
 <context>
     <name>AddressTableModel</name>
@@ -89,6 +97,10 @@
         <translation>رێکەت</translation>
     </message>
     <message>
+        <source>Copy address</source>
+        <translation>ڕوونووسکردن ناوونیشان</translation>
+    </message>
+    <message>
         <source>yes</source>
         <translation>بەڵێ</translation>
     </message>
@@ -96,6 +108,12 @@
         <source>no</source>
         <translation>نەخێر</translation>
     </message>
+    </context>
+<context>
+    <name>CreateWalletActivity</name>
+    </context>
+<context>
+    <name>CreateWalletDialog</name>
     </context>
 <context>
     <name>EditAddressDialog</name>
@@ -132,10 +150,17 @@
     <name>OpenURIDialog</name>
     </context>
 <context>
+    <name>OpenWalletActivity</name>
+    </context>
+<context>
     <name>OptionsDialog</name>
     <message>
         <source>Options</source>
         <translation>هەڵبژاردنەکان</translation>
+    </message>
+    <message>
+        <source>Error</source>
+        <translation>هەڵە</translation>
     </message>
     </context>
 <context>
@@ -150,6 +175,10 @@
     </context>
 <context>
     <name>PeerTableModel</name>
+    <message>
+        <source>Sent</source>
+        <translation>نێدرا</translation>
+    </message>
     </context>
 <context>
     <name>QObject</name>
@@ -157,9 +186,6 @@
         <source>Amount</source>
         <translation>سەرجەم</translation>
     </message>
-    </context>
-<context>
-    <name>QObject::QObject</name>
     </context>
 <context>
     <name>QRImageWidget</name>
@@ -197,10 +223,6 @@
     <message>
         <source>&amp;Open</source>
         <translation>&amp;کردنەوە</translation>
-    </message>
-    <message>
-        <source>&amp;Clear</source>
-        <translation>&amp;پاککردنەوە</translation>
     </message>
     <message>
         <source>Totals</source>
@@ -276,12 +298,20 @@
         <source>Amount</source>
         <translation>سەرجەم</translation>
     </message>
+    <message>
+        <source>Message</source>
+        <translation>پەیام</translation>
+    </message>
     </context>
 <context>
     <name>RecentRequestsTableModel</name>
     <message>
         <source>Date</source>
         <translation>رێکەت</translation>
+    </message>
+    <message>
+        <source>Message</source>
+        <translation>پەیام</translation>
     </message>
     </context>
 <context>
@@ -295,8 +325,8 @@
         <translation>تێچوون:</translation>
     </message>
     <message>
-        <source>fast</source>
-        <translation>خێرا</translation>
+        <source>or</source>
+        <translation>یان</translation>
     </message>
     </context>
 <context>
@@ -307,20 +337,10 @@
     </message>
     </context>
 <context>
-    <name>SendConfirmationDialog</name>
-    <message>
-        <source>Yes</source>
-        <translation>بەڵێ</translation>
-    </message>
-</context>
-<context>
     <name>ShutdownWindow</name>
     </context>
 <context>
     <name>SignVerifyMessageDialog</name>
-    </context>
-<context>
-    <name>SplashScreen</name>
     </context>
 <context>
     <name>TrafficGraphWidget</name>
@@ -328,14 +348,42 @@
 <context>
     <name>TransactionDesc</name>
     <message>
+        <source>Status</source>
+        <translation>بارودۆخ</translation>
+    </message>
+    <message>
         <source>Date</source>
         <translation>رێکەت</translation>
+    </message>
+    <message>
+        <source>Source</source>
+        <translation>سەرچاوە</translation>
+    </message>
+    <message>
+        <source>From</source>
+        <translation>لە</translation>
+    </message>
+    <message>
+        <source>To</source>
+        <translation>بۆ</translation>
+    </message>
+    <message>
+        <source>Message</source>
+        <translation>پەیام</translation>
     </message>
     <message>
         <source>Amount</source>
         <translation>سەرجەم</translation>
     </message>
-    </context>
+    <message>
+        <source>true</source>
+        <translation>دروستە</translation>
+    </message>
+    <message>
+        <source>false</source>
+        <translation>نادروستە</translation>
+    </message>
+</context>
 <context>
     <name>TransactionDescDialog</name>
     </context>
@@ -345,20 +393,47 @@
         <source>Date</source>
         <translation>رێکەت</translation>
     </message>
+    <message>
+        <source>Type</source>
+        <translation>جۆر</translation>
+    </message>
+    <message>
+        <source>Sent to</source>
+        <translation>ناردن بۆ</translation>
+    </message>
     </context>
 <context>
     <name>TransactionView</name>
+    <message>
+        <source>Sent to</source>
+        <translation>ناردن بۆ</translation>
+    </message>
+    <message>
+        <source>Copy address</source>
+        <translation>ڕوونووسکردن ناوونیشان</translation>
+    </message>
     <message>
         <source>Date</source>
         <translation>رێکەت</translation>
     </message>
     <message>
+        <source>Type</source>
+        <translation>جۆر</translation>
+    </message>
+    <message>
         <source>Address</source>
         <translation>ناوونیشان</translation>
     </message>
-    </context>
+    <message>
+        <source>to</source>
+        <translation>بۆ</translation>
+    </message>
+</context>
 <context>
     <name>UnitDisplayStatusBarControl</name>
+    </context>
+<context>
+    <name>WalletController</name>
     </context>
 <context>
     <name>WalletFrame</name>
@@ -375,21 +450,5 @@
     </context>
 <context>
     <name>bitcoin-core</name>
-    <message>
-        <source>Options:</source>
-        <translation>هەڵبژاردنەکان:</translation>
-    </message>
-    <message>
-        <source>Information</source>
-        <translation>زانیاری</translation>
-    </message>
-    <message>
-        <source>Warning</source>
-        <translation>ئاگاداری</translation>
-    </message>
-    <message>
-        <source>Error</source>
-        <translation>هەڵە</translation>
-    </message>
-</context>
+    </context>
 </TS>

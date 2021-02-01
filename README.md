@@ -1,27 +1,36 @@
-c0ban Core integration/staging tree
+Bitcoin Core integration/staging tree
 =====================================
 
-What is c0ban?
+https://bitcoincore.org
+
+What is Bitcoin?
 ----------------
 
-Revolution of decentralized consensus began from Bitcoin. We see the future of the world. Although we Japan lost in internet revolution, we do try to gain no.1 in the world in blockchain revolution from Japan. C0ban is named after Middle Ages Samurai coin called Koban. We think we have still lots of issues on blockchain, crypto currency, and decentralized algorithm. C0ban is the first challenge for us to spread the technology to the world. Though the project, we will be pleased if we could provide a trigger to people to feel the revolutionary world of decentralized consensus.
+Bitcoin is an experimental digital currency that enables instant payments to
+anyone, anywhere in the world. Bitcoin uses peer-to-peer technology to operate
+with no central authority: managing transactions and issuing money are carried
+out collectively by the network. Bitcoin Core is the name of open source
+software which enables the use of this currency.
 
-For more information, please visit [c0ban Project](https://www.c0ban.co/).
+For more information, as well as an immediately usable, binary version of
+the Bitcoin Core software, see https://bitcoincore.org/en/download/, or read the
+[original whitepaper](https://bitcoincore.org/bitcoin.pdf).
 
 License
 -------
 
-c0ban Core is released under the terms of the MIT license. See [COPYING](COPYING) for more
+Bitcoin Core is released under the terms of the MIT license. See [COPYING](COPYING) for more
 information or see https://opensource.org/licenses/MIT.
 
 Development Process
 -------------------
 
 The `master` branch is regularly built and tested, but is not guaranteed to be
-completely stable. [Tags](https://github.com/c0ban/c0ban/tags) are created
-regularly to indicate new official, stable release versions of c0ban Core.
+completely stable. [Tags](https://github.com/bitcoin/bitcoin/tags) are created
+regularly to indicate new official, stable release versions of Bitcoin Core.
 
-The contribution workflow is described in [CONTRIBUTING.md](CONTRIBUTING.md).
+The contribution workflow is described in [CONTRIBUTING.md](CONTRIBUTING.md)
+and useful hints for developers can be found in [doc/developer-notes.md](doc/developer-notes.md).
 
 Testing
 -------
@@ -42,7 +51,7 @@ There are also [regression and integration tests](/test), written
 in Python, that are run automatically on the build server.
 These tests can be run (if the [test dependencies](/test) are installed) with: `test/functional/test_runner.py`
 
-The Travis CI system makes sure that every pull request is built for Windows, Linux, and OS X, and that unit/sanity tests are run automatically.
+The Travis CI system makes sure that every pull request is built for Windows, Linux, and macOS, and that unit/sanity tests are run automatically.
 
 ### Manual Quality Assurance (QA) Testing
 
@@ -50,3 +59,17 @@ Changes should be tested by somebody other than the developer who wrote the
 code. This is especially important for large or high-risk changes. It is useful
 to add a test plan to the pull request description if testing the changes is
 not straightforward.
+
+Translations
+------------
+
+Changes to translations as well as new translations can be submitted to
+[Bitcoin Core's Transifex page](https://www.transifex.com/bitcoin/bitcoin/).
+
+Translations are periodically pulled from Transifex and merged into the git repository. See the
+[translation process](doc/translation_process.md) for details on how this works.
+
+**Important**: We do not accept translation changes as GitHub pull requests because the next
+pull from Transifex would automatically overwrite them again.
+
+Translators should also subscribe to the [mailing list](https://groups.google.com/forum/#!forum/bitcoin-translators).
