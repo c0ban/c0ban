@@ -11,7 +11,7 @@
   </array>
 
   <key>CFBundleIconFile</key>
-  <string>c0ban.icns</string>
+  <string>bitcoin.icns</string>
 
   <key>CFBundlePackageType</key>
   <string>APPL</string>
