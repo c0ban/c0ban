@@ -107,8 +107,8 @@ public:
         pchMessageStart[3] = 0x6e;
         nDefaultPort = 3881;
         nPruneAfterHeight = 100000;
-        m_assumed_blockchain_size = 320;
-        m_assumed_chain_state_size = 4;
+        m_assumed_blockchain_size = 4;
+        m_assumed_chain_state_size = 1;
 
         genesis = CreateGenesisBlock(1477958401, 2677009537, 0x1d00ffff, 4, 8 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
@@ -211,8 +211,8 @@ public:
         pchMessageStart[3] = 0x8e;
         nDefaultPort = 13881;
         nPruneAfterHeight = 1000;
-        m_assumed_blockchain_size = 40;
-        m_assumed_chain_state_size = 2;
+        m_assumed_blockchain_size = 2;
+        m_assumed_chain_state_size = 1;
 
         genesis = CreateGenesisBlock(1477958401, 2677009537, 0x1d00ffff, 4, 8 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
