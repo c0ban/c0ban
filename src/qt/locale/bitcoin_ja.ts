@@ -66,11 +66,11 @@
         <translation>受取用アドレス</translation>
     </message>
     <message>
-        <source>These are your c0ban addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <source>These are your Bitcoin addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
         <translation>これらは、あなたが知っている送信先の c0ban アドレスです。コインを送る前に必ず、金額と受取用アドレスを確認してください。</translation>
     </message>
     <message>
-        <source>These are your c0ban addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.</source>
+        <source>These are your Bitcoin addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.</source>
         <translation>これらは支払いを受け取るための、あなたの c0ban アドレスです。新しいアドレスを作成するには受取タブ内の「新しい受取用アドレスを作成」ボタンを使用します。</translation>
     </message>
     <message>
@@ -168,7 +168,7 @@
         <translation>ウォレットの暗号化の承諾</translation>
     </message>
     <message>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR C0BANS&lt;/b&gt;!</source>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BITCOINS&lt;/b&gt;!</source>
         <translation>警告: ウォレットの暗号化後にパスフレーズを忘れてしまった場合、&lt;b&gt;あなたの c0ban はすべて失われます&lt;/b&gt;！</translation>
     </message>
     <message>
@@ -189,7 +189,7 @@
         <translation>ウォレット用の旧パスフレーズと新パスフレーズを入力してください。</translation>
     </message>
     <message>
-        <source>Remember that encrypting your wallet cannot fully protect your c0bans from being stolen by malware infecting your computer.</source>
+        <source>Remember that encrypting your wallet cannot fully protect your bitcoins from being stolen by malware infecting your computer.</source>
         <translation>ウォレットを暗号化しても、コンピュータに感染したマルウェアなどによる c0ban の盗難を完全に防ぐことはできないことにご注意ください。</translation>
     </message>
     <message>
@@ -253,7 +253,7 @@
     </message>
 </context>
 <context>
-    <name>c0banGUI</name>
+    <name>BitcoinGUI</name>
     <message>
         <source>Sign &amp;message...</source>
         <translation>メッセージの署名...(&amp;m)</translation>
@@ -363,7 +363,7 @@
         <translation>プロキシは&lt;b&gt;有効&lt;/b&gt;: %1</translation>
     </message>
     <message>
-        <source>Send coins to a c0ban address</source>
+        <source>Send coins to a Bitcoin address</source>
         <translation>c0ban アドレスにコインを送る</translation>
     </message>
     <message>
@@ -399,11 +399,11 @@
         <translation>ウォレットの秘密鍵を暗号化する</translation>
     </message>
     <message>
-        <source>Sign messages with your c0ban addresses to prove you own them</source>
+        <source>Sign messages with your bitcoin addresses to prove you own them</source>
         <translation>c0ban アドレスでメッセージに署名することで、そのアドレスの所有権を証明する</translation>
     </message>
     <message>
-        <source>Verify messages to ensure they were signed with specified c0ban addresses</source>
+        <source>Verify messages to ensure they were signed with specified Bitcoin addresses</source>
         <translation>メッセージを検証して、指定された c0ban アドレスで署名されたことを確認する</translation>
     </message>
     <message>
@@ -423,7 +423,7 @@
         <translation>タブツールバー</translation>
     </message>
     <message>
-        <source>Request payments (generates QR codes and c0ban: URIs)</source>
+        <source>Request payments (generates QR codes and bitcoin: URIs)</source>
         <translation>支払いをリクエストする（QRコードと c0ban:で始まるURIを生成する）</translation>
     </message>
     <message>
@@ -439,7 +439,7 @@
         <translation>コマンドラインオプション(&amp;C)</translation>
     </message>
     <message numerus="yes">
-        <source>%n active connection(s) to c0ban network</source>
+        <source>%n active connection(s) to Bitcoin network</source>
         <translation><numerusform>c0ban ネットワークへのアクティブな接続は %n 個</numerusform></translation>
     </message>
     <message>
@@ -499,7 +499,7 @@
         <translation>受取用アドレス一覧(&amp;R)...</translation>
     </message>
     <message>
-        <source>Open a c0ban: URI</source>
+        <source>Open a bitcoin: URI</source>
         <translation>c0ban: URIを開く</translation>
     </message>
     <message>
@@ -519,7 +519,7 @@
         <translation>ウォレットを閉じる</translation>
     </message>
     <message>
-        <source>Show the %1 help message to get a list with possible c0ban command-line options</source>
+        <source>Show the %1 help message to get a list with possible Bitcoin command-line options</source>
         <translation>%1 のヘルプ メッセージを表示し、使用可能な c0ban のコマンドラインオプション一覧を見る。</translation>
     </message>
     <message>
@@ -631,7 +631,7 @@
         <translation>ウォレットは&lt;b&gt;暗号化済み&lt;/b&gt;・&lt;b&gt;ロック状態&lt;/b&gt;</translation>
     </message>
     <message>
-        <source>A fatal error occurred. c0ban can no longer continue safely and will quit.</source>
+        <source>A fatal error occurred. Bitcoin can no longer continue safely and will quit.</source>
         <translation>致命的なエラーが発生しました。c0ban を安全に動作し続けることができないため終了します。</translation>
     </message>
 </context>
@@ -875,7 +875,7 @@
         <translation>送金先アドレスを編集</translation>
     </message>
     <message>
-        <source>The entered address "%1" is not a valid c0ban address.</source>
+        <source>The entered address "%1" is not a valid Bitcoin address.</source>
         <translation>入力されたアドレス "%1" は無効な c0ban アドレスです。</translation>
     </message>
     <message>
@@ -972,7 +972,7 @@
         <translation>カスタムデータディレクトリを使用:</translation>
     </message>
     <message>
-        <source>c0ban</source>
+        <source>Bitcoin</source>
         <translation>c0ban</translation>
     </message>
     <message>
@@ -988,7 +988,7 @@
         <translation>約%1 GBのデータがこのディレクトリに保存されます。</translation>
     </message>
     <message>
-        <source>%1 will download and store a copy of the c0ban block chain.</source>
+        <source>%1 will download and store a copy of the Bitcoin block chain.</source>
         <translation>%1 は c0ban ブロックチェーンのコピーをダウンロードし保存します。</translation>
     </message>
     <message>
@@ -1023,11 +1023,11 @@
         <translation>フォーム</translation>
     </message>
     <message>
-        <source>Recent transactions may not yet be visible, and therefore your wallet's balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the c0ban network, as detailed below.</source>
+        <source>Recent transactions may not yet be visible, and therefore your wallet's balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the bitcoin network, as detailed below.</source>
         <translation>最近の取引がまだ表示されていない可能性があります。そのため、ウォレットの残高が正しく表示されていないかもしれません。この情報は、ウォレットが c0ban ネットワークへの同期が完了すると正確なものとなります。詳細は下記を参照してください。</translation>
     </message>
     <message>
-        <source>Attempting to spend c0bans that are affected by not-yet-displayed transactions will not be accepted by the network.</source>
+        <source>Attempting to spend bitcoins that are affected by not-yet-displayed transactions will not be accepted by the network.</source>
         <translation>まだ表示されていない取引が関係する c0ban の使用を試みた場合、ネットワークから認証を受けられません。</translation>
     </message>
     <message>
@@ -1078,7 +1078,7 @@
 <context>
     <name>OpenURIDialog</name>
     <message>
-        <source>Open c0ban URI</source>
+        <source>Open bitcoin URI</source>
         <translation>c0ban URIを開く</translation>
     </message>
     <message>
@@ -1224,7 +1224,7 @@
         <translation>未承認のお釣りを使用する(&amp;S)</translation>
     </message>
     <message>
-        <source>Automatically open the c0ban client port on the router. This only works when your router supports UPnP and it is enabled.</source>
+        <source>Automatically open the Bitcoin client port on the router. This only works when your router supports UPnP and it is enabled.</source>
         <translation>自動的にルーター上の c0ban クライアントのポートを開放します。あなたのルーターが UPnP に対応していて、それが有効になっている場合のみ動作します。</translation>
     </message>
     <message>
@@ -1240,7 +1240,7 @@
         <translation>外部からの接続を許可する(&amp;G)</translation>
     </message>
     <message>
-        <source>Connect to the c0ban network through a SOCKS5 proxy.</source>
+        <source>Connect to the Bitcoin network through a SOCKS5 proxy.</source>
         <translation>SOCKS5 プロキシ経由で c0ban ネットワークに接続する。</translation>
     </message>
     <message>
@@ -1276,7 +1276,7 @@
         <translation>Tor</translation>
     </message>
     <message>
-        <source>Connect to the c0ban network through a separate SOCKS5 proxy for Tor hidden services.</source>
+        <source>Connect to the Bitcoin network through a separate SOCKS5 proxy for Tor hidden services.</source>
         <translation>Tor秘匿サービスを利用するため、専用の SOCKS5 プロキシ経由で c0ban ネットワークに接続する。</translation>
     </message>
     <message>
@@ -1387,7 +1387,7 @@
         <translation>フォーム</translation>
     </message>
     <message>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the c0ban network after a connection is established, but this process has not completed yet.</source>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Bitcoin network after a connection is established, but this process has not completed yet.</source>
         <translation>表示されている情報は古い可能性があります。ウォレットは接続確立後に c0ban ネットワークと自動的に同期しますが、同期処理はまだ完了していません。</translation>
     </message>
     <message>
@@ -1462,7 +1462,7 @@
         <translation>支払いリクエスト エラー</translation>
     </message>
     <message>
-        <source>Cannot start c0ban: click-to-pay handler</source>
+        <source>Cannot start bitcoin: click-to-pay handler</source>
         <translation>c0ban を起動できません: click-to-pay handler</translation>
     </message>
     <message>
@@ -1470,7 +1470,7 @@
         <translation>URIの処理</translation>
     </message>
     <message>
-        <source>'c0ban://' is not a valid URI. Use 'c0ban:' instead.</source>
+        <source>'bitcoin://' is not a valid URI. Use 'bitcoin:' instead.</source>
         <translation>'c0ban://' は正しいURIではありません｡ 'c0ban:'を使用してください｡</translation>
     </message>
     <message>
@@ -1490,7 +1490,7 @@
         <translation>支払い先アドレス「 %1 」は無効です</translation>
     </message>
     <message>
-        <source>URI cannot be parsed! This can be caused by an invalid c0ban address or malformed URI parameters.</source>
+        <source>URI cannot be parsed! This can be caused by an invalid Bitcoin address or malformed URI parameters.</source>
         <translation>URIを解析できませんでした！ c0ban アドレスが無効であるか、URIパラメーターが不正な形式である可能性があります。</translation>
     </message>
     <message>
@@ -1532,7 +1532,7 @@
         <translation>金額</translation>
     </message>
     <message>
-        <source>Enter a c0ban address (e.g. %1)</source>
+        <source>Enter a Bitcoin address (e.g. %1)</source>
         <translation>c0ban アドレスを入力してください (例: %1)</translation>
     </message>
     <message>
@@ -2001,7 +2001,7 @@
         <translation>メッセージ (&amp;M):</translation>
     </message>
     <message>
-        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the c0ban network.</source>
+        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the Bitcoin network.</source>
         <translation>支払いリクエストに添付するメッセージ（任意）。支払リクエスト開始時に表示されます。注意: メッセージは c0ban ネットワーク上へ送信されません。</translation>
     </message>
     <message>
@@ -2282,7 +2282,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee of "100 satoshis p
         <translation>トランザクション手数料の設定を隠す</translation>
     </message>
     <message>
-        <source>When there is less transaction volume than space in the blocks, miners as well as relaying nodes may enforce a minimum fee. Paying only this minimum fee is just fine, but be aware that this can result in a never confirming transaction once there is more demand for c0ban transactions than the network can process.</source>
+        <source>When there is less transaction volume than space in the blocks, miners as well as relaying nodes may enforce a minimum fee. Paying only this minimum fee is just fine, but be aware that this can result in a never confirming transaction once there is more demand for bitcoin transactions than the network can process.</source>
         <translation>ブロック内の空きよりトランザクション流量が少ない場合、マイナーや中継ノードは最低限の手数料でも処理することがあります。この最低限の手数料だけを支払っても問題ありませんが、一度トランザクションの需要がネットワークの処理能力を超えてしまった場合には、トランザクションが永久に承認されなくなってしまう可能性があることにご注意ください。</translation>
     </message>
     <message>
@@ -2354,7 +2354,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee of "100 satoshis p
         <translation>未署名で作成</translation>
     </message>
     <message>
-        <source>Creates a Partially Signed c0ban Transaction (PSBT) for use with e.g. an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
+        <source>Creates a Partially Signed Bitcoin Transaction (PSBT) for use with e.g. an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
         <translation>オフライン%1ウォレットまたはPSBTに対応したハードウェアウォレットと合わせて使用するためのPSBT(部分的に署名されたトランザクション)を作成します。</translation>
     </message>
     <message>
@@ -2378,7 +2378,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee of "100 satoshis p
         <translation>送金してもよろしいですか？</translation>
     </message>
     <message>
-        <source>Please, review your transaction proposal. This will produce a Partially Signed c0ban Transaction (PSBT) which you can copy and then sign with e.g. an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
+        <source>Please, review your transaction proposal. This will produce a Partially Signed Bitcoin Transaction (PSBT) which you can copy and then sign with e.g. an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
         <translation>トランザクション提案を確認してください。これにより、部分的に署名されたc0ban・トランザクション（PSBT）が作成されます。これをコピーして例えばオフラインの %1 ウォレットやPSBTを扱えるハードウェアウォレットで残りの署名が出来ます。</translation>
     </message>
     <message>
@@ -2470,7 +2470,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee of "100 satoshis p
         <translation><numerusform>予想される承認開始ブロック: %n ブロック以内</numerusform></translation>
     </message>
     <message>
-        <source>Warning: Invalid c0ban address</source>
+        <source>Warning: Invalid Bitcoin address</source>
         <translation>警告: 無効な c0ban アドレス</translation>
     </message>
     <message>
@@ -2509,7 +2509,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee of "100 satoshis p
         <translation>これまでに送金したことがあるアドレスから選択</translation>
     </message>
     <message>
-        <source>The c0ban address to send the payment to</source>
+        <source>The Bitcoin address to send the payment to</source>
         <translation>支払い先 c0ban アドレス</translation>
     </message>
     <message>
@@ -2533,7 +2533,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee of "100 satoshis p
         <translation>送金する金額の単位を選択</translation>
     </message>
     <message>
-        <source>The fee will be deducted from the amount being sent. The recipient will receive less c0bans than you enter in the amount field. If multiple recipients are selected, the fee is split equally.</source>
+        <source>The fee will be deducted from the amount being sent. The recipient will receive less bitcoins than you enter in the amount field. If multiple recipients are selected, the fee is split equally.</source>
         <translation>手数料は送金する金額から差し引かれます。送金先には金額欄で指定した額よりも少ない c0ban が送られます。送金先が複数ある場合は、手数料は均等に分けられます。</translation>
     </message>
     <message>
@@ -2561,7 +2561,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee of "100 satoshis p
         <translation>このアドレスに対するラベルを入力することで、送金したことがあるアドレスの一覧に追加することができます</translation>
     </message>
     <message>
-        <source>A message that was attached to the c0ban: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the c0ban network.</source>
+        <source>A message that was attached to the bitcoin: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the Bitcoin network.</source>
         <translation>c0ban: URIに添付されていたメッセージです。これは参照用として取引とともに保存されます。注意: メッセージは c0ban ネットワーク上へ送信されません。</translation>
     </message>
     <message>
@@ -2595,11 +2595,11 @@ Note:  Since the fee is calculated on a per-byte basis, a fee of "100 satoshis p
         <translation>メッセージの署名(&amp;S)</translation>
     </message>
     <message>
-        <source>You can sign messages/agreements with your addresses to prove you can receive c0bans sent to them. Be careful not to sign anything vague or random, as phishing attacks may try to trick you into signing your identity over to them. Only sign fully-detailed statements you agree to.</source>
+        <source>You can sign messages/agreements with your addresses to prove you can receive bitcoins sent to them. Be careful not to sign anything vague or random, as phishing attacks may try to trick you into signing your identity over to them. Only sign fully-detailed statements you agree to.</source>
         <translation>あなたが所有しているアドレスでメッセージや契約書に署名をすることで、それらのアドレスへ送られた c0ban を受け取ることができることを証明できます。フィッシング攻撃者があなたを騙して、あなたの身分情報に署名させようとしている可能性があるため、よくわからないものやランダムな文字列に対して署名しないでください。あなたが同意した、よく詳細の記された文言にのみ署名するようにしてください。</translation>
     </message>
     <message>
-        <source>The c0ban address to sign the message with</source>
+        <source>The Bitcoin address to sign the message with</source>
         <translation>メッセージの署名に使用する c0ban アドレス</translation>
     </message>
     <message>
@@ -2631,7 +2631,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee of "100 satoshis p
         <translation>この署名をシステムのクリップボードにコピー</translation>
     </message>
     <message>
-        <source>Sign the message to prove you own this c0ban address</source>
+        <source>Sign the message to prove you own this Bitcoin address</source>
         <translation>メッセージに署名してこの c0ban アドレスを所有していることを証明</translation>
     </message>
     <message>
@@ -2655,7 +2655,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee of "100 satoshis p
         <translation>送金先のアドレスと、メッセージ（改行やスペース、タブなども完全に一致させること）および署名を以下に入力し、メッセージを検証します。中間者攻撃により騙されるのを防ぐため、署名対象のメッセージから書かれていること以上の意味を読み取ろうとしないでください。また、これは署名作成者がこのアドレスで受け取れることを証明するだけであり、取引の送信権限を証明するものではありません！</translation>
     </message>
     <message>
-        <source>The c0ban address the message was signed with</source>
+        <source>The Bitcoin address the message was signed with</source>
         <translation>メッセージの署名に使われた c0ban アドレス</translation>
     </message>
     <message>
@@ -2667,7 +2667,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee of "100 satoshis p
         <translation>メッセージの署名時に生成された署名</translation>
     </message>
     <message>
-        <source>Verify the message to ensure it was signed with the specified c0ban address</source>
+        <source>Verify the message to ensure it was signed with the specified Bitcoin address</source>
         <translation>メッセージを検証して指定された c0ban アドレスで署名されたことを確認</translation>
     </message>
     <message>
