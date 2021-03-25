@@ -26,12 +26,13 @@ bool ParseOutputType(const std::string& type, OutputType& output_type)
     if (type == OUTPUT_TYPE_STRING_LEGACY) {
         output_type = OutputType::LEGACY;
         return true;
-    } else if (type == OUTPUT_TYPE_STRING_P2SH_SEGWIT) {
-        output_type = OutputType::P2SH_SEGWIT;
-        return true;
-    } else if (type == OUTPUT_TYPE_STRING_BECH32) {
-        output_type = OutputType::BECH32;
-        return true;
+    // Do not deal with segwit
+    // } else if (type == OUTPUT_TYPE_STRING_P2SH_SEGWIT) {
+    //     output_type = OutputType::P2SH_SEGWIT;
+    //     return true;
+    // } else if (type == OUTPUT_TYPE_STRING_BECH32) {
+    //     output_type = OutputType::BECH32;
+    //     return true;
     }
     return false;
 }
@@ -40,8 +41,9 @@ const std::string& FormatOutputType(OutputType type)
 {
     switch (type) {
     case OutputType::LEGACY: return OUTPUT_TYPE_STRING_LEGACY;
-    case OutputType::P2SH_SEGWIT: return OUTPUT_TYPE_STRING_P2SH_SEGWIT;
-    case OutputType::BECH32: return OUTPUT_TYPE_STRING_BECH32;
+    // Do not deal with segwit
+    // case OutputType::P2SH_SEGWIT: return OUTPUT_TYPE_STRING_P2SH_SEGWIT;
+    // case OutputType::BECH32: return OUTPUT_TYPE_STRING_BECH32;
     default: assert(false);
     }
 }
@@ -50,17 +52,18 @@ CTxDestination GetDestinationForKey(const CPubKey& key, OutputType type)
 {
     switch (type) {
     case OutputType::LEGACY: return PKHash(key);
-    case OutputType::P2SH_SEGWIT:
-    case OutputType::BECH32: {
-        if (!key.IsCompressed()) return PKHash(key);
-        CTxDestination witdest = WitnessV0KeyHash(PKHash(key));
-        CScript witprog = GetScriptForDestination(witdest);
-        if (type == OutputType::P2SH_SEGWIT) {
-            return ScriptHash(witprog);
-        } else {
-            return witdest;
-        }
-    }
+    // Do not deal with segwit
+    // case OutputType::P2SH_SEGWIT:
+    // case OutputType::BECH32: {
+    //     if (!key.IsCompressed()) return PKHash(key);
+    //     CTxDestination witdest = WitnessV0KeyHash(PKHash(key));
+    //     CScript witprog = GetScriptForDestination(witdest);
+    //     if (type == OutputType::P2SH_SEGWIT) {
+    //         return ScriptHash(witprog);
+    //     } else {
+    //         return witdest;
+    //     }
+    // }
     default: assert(false);
     }
 }
@@ -86,20 +89,21 @@ CTxDestination AddAndGetDestinationForScript(FillableSigningProvider& keystore, 
     switch (type) {
     case OutputType::LEGACY:
         return ScriptHash(script);
-    case OutputType::P2SH_SEGWIT:
-    case OutputType::BECH32: {
-        CTxDestination witdest = WitnessV0ScriptHash(script);
-        CScript witprog = GetScriptForDestination(witdest);
-        // Check if the resulting program is solvable (i.e. doesn't use an uncompressed key)
-        if (!IsSolvable(keystore, witprog)) return ScriptHash(script);
-        // Add the redeemscript, so that P2WSH and P2SH-P2WSH outputs are recognized as ours.
-        keystore.AddCScript(witprog);
-        if (type == OutputType::BECH32) {
-            return witdest;
-        } else {
-            return ScriptHash(witprog);
-        }
-    }
+    // Do not deal with segwit
+    // case OutputType::P2SH_SEGWIT:
+    // case OutputType::BECH32: {
+    //     CTxDestination witdest = WitnessV0ScriptHash(script);
+    //     CScript witprog = GetScriptForDestination(witdest);
+    //     // Check if the resulting program is solvable (i.e. doesn't use an uncompressed key)
+    //     if (!IsSolvable(keystore, witprog)) return ScriptHash(script);
+    //     // Add the redeemscript, so that P2WSH and P2SH-P2WSH outputs are recognized as ours.
+    //     keystore.AddCScript(witprog);
+    //     if (type == OutputType::BECH32) {
+    //         return witdest;
+    //     } else {
+    //         return ScriptHash(witprog);
+    //     }
+    // }
     default: assert(false);
     }
 }

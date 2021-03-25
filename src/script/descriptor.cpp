@@ -696,7 +696,8 @@ public:
     Optional<OutputType> GetOutputType() const override
     {
         assert(m_subdescriptor_arg);
-        if (m_subdescriptor_arg->GetOutputType() == OutputType::BECH32) return OutputType::P2SH_SEGWIT;
+        // Do not deal with segwit
+        // if (m_subdescriptor_arg->GetOutputType() == OutputType::BECH32) return OutputType::P2SH_SEGWIT;
         return OutputType::LEGACY;
     }
 };
