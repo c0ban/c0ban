@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+FROM ubuntu:18.04
 
 # init
 RUN apt-get update && apt-get install -y \
@@ -7,7 +7,18 @@ RUN apt-get update && apt-get install -y \
 # c0ban
 RUN add-apt-repository ppa:bitcoin/bitcoin
 RUN apt-get update && apt-get install -y \
-  libboost-all-dev \
+  build-essential \
+  libtool \
+  autotools-dev \
+  automake \
+  pkg-config \
+  bsdmainutils \
+  python3 \
+  libevent-dev \
+  libboost-system-dev \
+  libboost-filesystem-dev \
+  libboost-test-dev \
+  libboost-thread-dev \
   libdb4.8-dev \
   libdb4.8++-dev \
   libprotobuf-dev \
@@ -15,17 +26,7 @@ RUN apt-get update && apt-get install -y \
   libzmq3-dev \
   libminiupnpc-dev \
   libqrencode-dev \
-  git \
-  build-essential \
-  libtool \
-  autotools-dev \
-  automake \
-  autoconf \
-  pkg-config \
-  libssl-dev \
-  libevent-dev \
-  bsdmainutils \
-  python3-pip
+  git
 
 # for qt
 RUN apt-get install -y \
@@ -33,23 +34,14 @@ RUN apt-get install -y \
   libqt5core5a \
   libqt5dbus5 \
   qttools5-dev \
-  qttools5-dev-tools \
-  libprotobuf-dev \
-  protobuf-compiler
+  qttools5-dev-tools
 
 COPY . /c0ban
 WORKDIR /c0ban
 
 RUN ./autogen.sh
-# do not create qt for default
-RUN ./configure --without-gui
-RUN make -j4
-RUN make install
+RUN ./configure CXXFLAGS="--param ggc-min-expand=1 --param ggc-min-heapsize=32768"
+RUN make -j4 install
 
-RUN pip3 install lyra2re2_hash
-
-CMD ["/sbin/init"]
-
-# RUN mkdir /c0ban
-#
-# CMD ["/c0ban/bin/c0band", "-conf=/c0ban/c0ban.conf", "-datadir=/c0ban-block/"]
+# For test
+# RUN pip3 install lyra2re2_hash
