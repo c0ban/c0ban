@@ -89,6 +89,7 @@ public:
     const ChainTxData& TxData() const { return chainTxData; }
     int SwitchLyra2REv2_LWMA() const { return nSwitchLyra2REv2_LWMA; }
     int SwitchLyra2REvc0ban_LWMA() const { return nSwitchLyra2REvc0ban_LWMA; }
+    int SwitchLyra2REvc0ban_LWMA_1() const { return nSwitchLyra2REvc0ban_LWMA_1; }
     int AveragingWindow() const { return nZawyLwmaAveragingWindow; }
 protected:
     CChainParams() {}
@@ -114,6 +115,7 @@ protected:
     int nSwitchLyra2REv2_LWMA;
     int nSwitchLyra2REvc0ban_LWMA;
     int nZawyLwmaAveragingWindow;
+    int nSwitchLyra2REvc0ban_LWMA_1;
 };
 
 /**
