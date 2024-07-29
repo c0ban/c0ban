@@ -397,6 +397,8 @@ crypto_libbitcoin_crypto_base_a_SOURCES = \
   crypto/Lyra2RE/Lyra2RE.h \
   crypto/Lyra2RE/Lyra2.c \
   crypto/Lyra2RE/Lyra2.h \
+  crypto/Lyra2RE/SHA3api_ref.h \
+  crypto/Lyra2RE/BlueMidnightWish_opt.c \
   crypto/Lyra2RE/Sponge.c \
   crypto/Lyra2RE/Sponge.h \
   crypto/Lyra2RE/blake.c \

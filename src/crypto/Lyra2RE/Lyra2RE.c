@@ -39,6 +39,7 @@
 #include "sph_keccak.h"
 #include "sph_skein.h"
 #include "Lyra2.h"
+#include "SHA3api_ref.h"
 
 void lyra2re_hash(const char* input, char* output)
 {
@@ -71,6 +72,74 @@ void lyra2re_hash(const char* input, char* output)
 }
 
 void lyra2re2_hash(const char* input, char* output)
+{
+    sph_blake256_context ctx_blake;
+    sph_cubehash256_context ctx_cubehash;
+    sph_keccak256_context ctx_keccak;
+    sph_skein256_context ctx_skein;
+    sph_bmw256_context ctx_bmw;
+
+    uint32_t hashA[8], hashB[8];
+
+    sph_blake256_init(&ctx_blake);
+    sph_blake256(&ctx_blake, input, 80);
+    sph_blake256_close(&ctx_blake, hashA);
+    printf("After blake256: ");
+    for (int i = 0; i < 8; i++) printf("%08x", hashA[i]);
+    printf("\n");
+
+    sph_keccak256_init(&ctx_keccak);
+    sph_keccak256(&ctx_keccak, hashA, 32);
+    sph_keccak256_close(&ctx_keccak, hashB);
+    printf("After keccak256: ");
+    for (int i = 0; i < 8; i++) printf("%08x", hashB[i]);
+    printf("\n");
+
+    sph_cubehash256_init(&ctx_cubehash);
+    sph_cubehash256(&ctx_cubehash, hashB, 32);
+    sph_cubehash256_close(&ctx_cubehash, hashA);
+    printf("After cubehash256: ");
+    for (int i = 0; i < 8; i++) printf("%08x", hashA[i]);
+    printf("\n");
+
+    LYRA2(hashB, 32, hashA, 32, hashA, 32, 1, 4, 4);
+    printf("After LYRA2: ");
+    for (int i = 0; i < 8; i++) printf("%08x", hashB[i]);
+    printf("\n");
+
+    sph_skein256_init(&ctx_skein);
+    sph_skein256(&ctx_skein, hashB, 32);
+    sph_skein256_close(&ctx_skein, hashA);
+    printf("After skein256: ");
+    for (int i = 0; i < 8; i++) printf("%08x", hashA[i]);
+    printf("\n");
+
+    sph_cubehash256_init(&ctx_cubehash);
+    sph_cubehash256(&ctx_cubehash, hashA, 32);
+    sph_cubehash256_close(&ctx_cubehash, hashB);
+    printf("After second cubehash256: hashA ");
+     for (int i = 0; i < 8; i++) printf("%08x", hashA[i]);
+    printf("\n");
+    printf("After second cubehash256: hashB ");
+       for (int i = 0; i < 8; i++) printf("%08x", hashB[i]);
+    printf("\n");
+
+    // sph_bmw256_init(&ctx_bmw);
+    // sph_bmw256(&ctx_bmw, hashB, 32);
+    // sph_bmw256_close(&ctx_bmw, hashA);
+	BMWHash(256, (const BitSequence*)hashB, 256, (BitSequence*)hashA);
+
+    printf("After bmw256: hashA ");
+    for (int i = 0; i < 8; i++) printf("%08x", hashA[i]);
+    printf("\n");
+
+    printf("After bmw256: hashB ");
+    for (int i = 0; i < 8; i++) printf("%08x", hashB[i]);
+    printf("\n");
+    memcpy(output, hashA, 32);
+}
+
+void lyra2re2_hash2(const char* input, char* output)
 {
 	sph_blake256_context ctx_blake;
 	sph_cubehash256_context ctx_cubehash;
@@ -141,9 +210,10 @@ void lyra2rec0ban_hash(const char* input, char* output)
     sph_keccak256(&ctx_keccak, hashA, 32);
     sph_keccak256_close(&ctx_keccak, hashB);
 
-    sph_bmw256_init(&ctx_bmw);
-    sph_bmw256(&ctx_bmw, hashB, 32);
-    sph_bmw256_close(&ctx_bmw, hashA);
+    // sph_bmw256_init(&ctx_bmw);
+    // sph_bmw256(&ctx_bmw, hashB, 32);
+    // sph_bmw256_close(&ctx_bmw, hashA);
+	BMWHash(256, (const BitSequence*)hashB, 256, (BitSequence*)hashA);
 
    	memcpy(output, hashA, 32);
 }
